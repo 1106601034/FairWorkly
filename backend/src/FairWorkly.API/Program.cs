@@ -1,30 +1,46 @@
 using FairWorkly.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add API explorer
-builder.Services.AddEndpointsApiExplorer();
-
-// Add Swagger services
-builder.Services.AddSwaggerGen();
-
-// Configure DbContext
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-// DbContext registration
-builder.Services.AddDbContext<FairWorklyDbContext>(options => options.UseNpgsql(connectionString));
-
-/* -------------------------------------- */
-/* app */
-var app = builder.Build();
-
-// Enable Swagger UI in Development
-if (app.Environment.IsDevelopment())
+namespace FairWorkly.API
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add API explorer (Required for Swagger)
+            builder.Services.AddEndpointsApiExplorer();
+
+            // Add Swagger generator
+            builder.Services.AddSwaggerGen();
+
+            // Register DbContext
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<FairWorklyDbContext>(options => options.UseNpgsql(connectionString));
+
+            // Add controllers
+            builder.Services.AddControllers();
+
+            /* -------------------------------------- */
+            /* app */
+            var app = builder.Build();
+
+            // Enable Swagger UI in Development
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
 }
 
-app.UseHttpsRedirection();
-
-app.Run();
