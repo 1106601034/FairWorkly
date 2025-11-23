@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from schema import ChatRequest, ChatResponse
 from agent import generate_reply
 from fastapi.responses import RedirectResponse
 
@@ -13,12 +13,6 @@ app = FastAPI(
 async def root():
     return RedirectResponse(url="/docs")
 
-class ChatRequest(BaseModel):
-    message: str
-
-
-class ChatResponse(BaseModel):
-    reply: str
 
 @app.get("/health")
 async def health():
