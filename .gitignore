@@ -44,3 +44,12 @@ pnpm-debug.log*
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+
+# Environment variables
+.env
