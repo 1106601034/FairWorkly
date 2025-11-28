@@ -5,24 +5,28 @@
 ```
 agent-service/
 ├── main.py                         # FastAPI entrypoint, health/docs, router registration
-├── llm.py                          # Shared LLM helper (OpenAI client + prompt loader)
+├── llm.py                          # Shared LLM helper (OpenAI client)
 ├── agents/                         # Each persona-specific agent
+│   ├── prompt_builder_base.py      # Shared PromptBuilder base helper
 │   ├── compliance/                 # Active agent: Award Q&A, roster checks
-│   │   ├── system_prompt.txt       # Compliance persona instructions
 │   │   ├── router.py               # Mounts Compliance feature routes
-│   │   └── features/              
+│   │   ├── prompt_builder.py       # Compliance-specific prompt rules
+│   │   └── features/
 │   │       └── ask_ai_question/    # Q&A Copilot
 │   │           ├── handler.py      # Orchestrates the feature logic
 │   │           └── schemas.py      # Request/response DTOs
 │   ├── documents/                  # (To add) Document & Contract
-│   │   ├── system_prompt.txt       
-│   │   └── features/               
+│   │   ├── router.py
+│   │   ├── prompt_builder.py
+│   │   └── features/
 │   ├── payroll/                    # (To add) Payroll & STP Check
-│   │   ├── system_prompt.txt
-│   │   └── features/              
+│   │   ├── router.py
+│   │   ├── prompt_builder.py
+│   │   └── features/
 │   └── employee_help/              # (To add) Employee self-service agent
-│       ├── system_prompt.txt
-│       └── features/               
+│       ├── router.py
+│       ├── prompt_builder.py
+│       └── features/
 └── tests/
     ├── test_health.py              # Global health endpoint smoke test
     └── compliance/
