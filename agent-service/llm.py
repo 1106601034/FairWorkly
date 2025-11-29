@@ -22,13 +22,23 @@ def load_prompt(prompt_path: Path, fallback: str) -> str:
         return fallback
 
 
-def generate_reply(system_prompt: str, message: str) -> str:
+def generate_reply(
+    system_prompt: str,
+    message: str,
+    response_schema: dict | None = None,
+) -> str:
     messages = [
         SystemMessage(content=system_prompt),
         HumanMessage(content=message),
     ]
+    kwargs = {}
+    if response_schema:
+        kwargs["response_format"] = {
+            "type": "json_schema",
+            "json_schema": response_schema,
+        }
     try:
-        response = llm.invoke(messages)
+        response = llm.invoke(messages, **kwargs)
         return response.content
     except Exception:
         return "Sorry, I'm unable to respond right now. Please try again later."
