@@ -63,16 +63,16 @@ http://localhost:8000/docs
 
 ```
 agent-service/
-├── main.py                         # FastAPI entrypoint, health/docs, router registration
-├── llm.py                          # Shared LLM helper (OpenAI client)
-├── agents/                         # Each persona-specific agent
-│   ├── prompt_builder_base.py      # Shared PromptBuilder base helper
-│   ├── compliance/                 # Active agent: Award Q&A, roster checks
-│   │   ├── router.py               # Mounts Compliance feature routes
-│   │   ├── prompt_builder.py       # Compliance-specific prompt rules
-│   │   └── features/
+├── .env.example                    # Template for environment variables
+├── main.py                         # FastAPI entrypoint
+├── llm.py                          # Shared LLM helper
+├── agents/                         # Specific agent
+│   ├── compliance/                 # Award Q&A, roster checks
+│   │   ├── router.py               # Routes
+│   │   ├── prompt_builder.py       # Prompt rules
+│   │   └── features/               # Agent skills
 │   │       └── ask_ai_question/    # Q&A Copilot
-│   │           ├── handler.py      # Orchestrates the feature logic
+│   │           ├── handler.py      # Feature logic
 │   │           └── schemas.py      # Request/response DTOs
 │   ├── documents/                  # (To add) Document & Contract
 │   │   ├── router.py
@@ -87,7 +87,7 @@ agent-service/
 │       ├── prompt_builder.py
 │       └── features/
 └── tests/
-    ├── test_health.py              # Global health endpoint smoke test
+    ├── test_health.py              # Health endpoint smoke test
     └── agents/
         └── compliance/
             └── test_qa.py          # Compliance Q&A endpoint tests
