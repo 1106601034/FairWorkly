@@ -88,8 +88,9 @@ agent-service/
 │       └── features/
 └── tests/
     ├── test_health.py              # Global health endpoint smoke test
-    └── compliance/
-        └── test_qa.py              # Compliance Q&A endpoint tests
+    └── agents/
+        └── compliance/
+            └── test_qa.py          # Compliance Q&A endpoint tests
 ```
 
 ## Data flow overview (Compliance Agent)

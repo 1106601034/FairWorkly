@@ -1,9 +1,9 @@
 import json
-import sys, os
+import sys
 from pathlib import Path
 from unittest.mock import patch
 
-sys.path.append(str(Path(__file__).resolve().parents[2]))
+sys.path.append(str(Path(__file__).resolve().parents[3]))
 from fastapi.testclient import TestClient
 from main import app
 
