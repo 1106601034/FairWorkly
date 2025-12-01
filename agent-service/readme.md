@@ -5,11 +5,12 @@
 Prerequisites (one-time):
 
 1. Install Python 3.10+
-2. Install the `uv` CLI (`pip install uv`).
+2. Install the `uv` CLI
 
-Run the following commands inside the `agent-service/` directory:
+Run the following commands
 
 ```bash
+cd agent-service/
 uv sync
 ```
 
@@ -23,7 +24,8 @@ MODEL_TEMPERATURE=0
 ## Run
 
 ```bash
-uv run uvicorn main:app --reload --port 8000 --app-dir agent-service
+uv run uvicorn main:app --reload --port 8000
+
 ```
 
 ## Run Tests

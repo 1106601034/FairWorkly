@@ -1,8 +1,9 @@
-from dotenv import load_dotenv
+import logging
 import os
-from pathlib import Path
 from functools import lru_cache
+from pathlib import Path
 
+from dotenv import load_dotenv
 load_dotenv()
 
 from langchain_openai import ChatOpenAI
@@ -20,6 +21,13 @@ def load_prompt(prompt_path: Path, fallback: str) -> str:
         return Path(prompt_path).read_text().strip()
     except FileNotFoundError:
         return fallback
+
+
+class LLMInvocationError(Exception):
+    """Raised when the LLM backend fails."""
+
+
+logger = logging.getLogger(__name__)
 
 
 def generate_reply(
@@ -40,5 +48,6 @@ def generate_reply(
     try:
         response = llm.invoke(messages, **kwargs)
         return response.content
-    except Exception:
-        return "Sorry, I'm unable to respond right now. Please try again later."
+    except Exception as exc:
+        logger.exception("LLM invocation failed")
+        raise LLMInvocationError("LLM invocation failed") from exc

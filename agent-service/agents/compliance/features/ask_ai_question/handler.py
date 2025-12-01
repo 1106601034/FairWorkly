@@ -3,7 +3,7 @@ import json
 from fastapi import HTTPException, status
 from pydantic import ValidationError
 
-from llm import generate_reply
+from llm import LLMInvocationError, generate_reply
 from agents.compliance.prompt_builder import COMPLIANCE_PROMPT
 from agents.compliance.features.ask_ai_question.schemas import (
     AskAiQuestionRequest,
@@ -23,11 +23,17 @@ def _llm_snippet(text: str, limit: int = 400) -> str:
 
 
 def run(req: AskAiQuestionRequest) -> AskAiQuestionResponse:
-    reply = generate_reply(
-        COMPLIANCE_PROMPT,
-        req.question,
-        response_schema=ASK_AI_RESPONSE_FORMAT,
-    )
+    try:
+        reply = generate_reply(
+            COMPLIANCE_PROMPT,
+            req.question,
+            response_schema=ASK_AI_RESPONSE_FORMAT,
+        )
+    except LLMInvocationError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="LLM request failed.",
+        ) from exc
     if not reply:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,

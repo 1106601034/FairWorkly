@@ -1,3 +1,4 @@
+import asyncio
 from pathlib import Path
 
 from fastapi import APIRouter
@@ -13,4 +14,4 @@ router = APIRouter(prefix="/agents/compliance", tags=["Compliance Agent"])
 
 @router.post("/qa", response_model=AskAiQuestionResponse)
 async def ask_compliance(req: AskAiQuestionRequest) -> AskAiQuestionResponse:
-    return handle_ask_ai_question(req)
+    return await asyncio.to_thread(handle_ask_ai_question, req)
