@@ -1,8 +1,22 @@
 import React from 'react'
+import Sidebar from './Sidebar.tsx'
+import Topbar from './Topbar.tsx'
 
-const MainLayout = () => {
+type MainLayoutProps = {
+    children: React.ReactNode
+}
+
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     return (
-        <div>MainLayout</div>
+        <div>
+            <Sidebar />
+            <div>
+                <Topbar />
+                <main>
+                    {children}
+                </main>
+            </div>
+        </div>
     )
 }
 

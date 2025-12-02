@@ -3,13 +3,16 @@ import { NavLink } from 'react-router-dom'
 
 const Sidebar = () => {
     return (
-        <nav aria-label="Sidebar">
-            <ul>
-                <li>
-                    <NavLink to="/compliance/qa">Compliance Q&A</NavLink>
-                </li>
-            </ul>
-        </nav>
+        <aside aria-label="Sidebar">
+            <div>
+                <div>Compliance</div>
+                <nav>
+                    <NavLink to="/compliance/qa" >
+                        Compliance Q&A
+                    </NavLink>
+                </nav>
+            </div>
+        </aside>
     )
 }
 
