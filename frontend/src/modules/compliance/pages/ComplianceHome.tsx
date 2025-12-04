@@ -1,16 +1,11 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import React from 'react'
 
-export const ComplianceHome: React.FC = () => {
-  return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Compliance Agent (Home)
-      </Typography>
-      <Typography variant="body1">
-        Overview of Compliance features (Q&A, roster checks, risk reports).
-      </Typography>
-    </Box>
-  );
-};
+const ComplianceHome = () => {
+    return (
+        <div>
+            <p>ComplianceHome</p>
+        </div>
+    )
+}
+
+export default ComplianceHome

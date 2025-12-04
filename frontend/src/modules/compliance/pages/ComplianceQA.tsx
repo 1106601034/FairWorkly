@@ -1,16 +1,11 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import React from 'react'
 
-export const ComplianceQA: React.FC = () => {
-  return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        Compliance Q&A (AI Copilot)
-      </Typography>
-      <Typography variant="body1">
-        This page will host the AI Q&A interface for compliance questions.
-      </Typography>
-    </Box>
-  );
-};
+const ComplianceQA = () => {
+    return (
+        <div>
+            <p>ComplianceQA</p>
+        </div>
+    )
+}
+
+export default ComplianceQA
