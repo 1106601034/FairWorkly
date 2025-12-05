@@ -11,7 +11,7 @@ from agents.compliance.features.ask_ai_question.schemas import (
     AskAiQuestionResponse,
 )
 
-ASK_AI_RESPONSE_FORMAT = {
+RESP_FORMAT = {
     "type": "json_schema",
     "json_schema": {
         "name": "AskAiQuestionResponse",
@@ -20,19 +20,12 @@ ASK_AI_RESPONSE_FORMAT = {
 }
 
 
-def _llm_snippet(text: str, limit: int = 400) -> str:
-    text = text.strip()
-    if len(text) <= limit:
-        return text
-    return f"{text[:limit]}... (truncated)"
-
-
 def _handle_request(req: AskAiQuestionRequest) -> AskAiQuestionResponse:
     try:
         reply = generate_reply(
             COMPLIANCE_PROMPT,
             req.question,
-            response_format=ASK_AI_RESPONSE_FORMAT,
+            response_format=RESP_FORMAT,
         )
     except LLMResponseError as exc:
         raise HTTPException(
@@ -53,7 +46,7 @@ def _handle_request(req: AskAiQuestionRequest) -> AskAiQuestionResponse:
             detail={
                 "message": "LLM returned invalid JSON or an unexpected schema.",
                 "errors": exc.errors(),
-                "llm_output": _llm_snippet(reply),
+                "llm_output": reply,
             },
         ) from exc
 
