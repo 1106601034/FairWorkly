@@ -1,4 +1,3 @@
-import logging
 import os
 from functools import lru_cache
 from pathlib import Path
@@ -9,8 +8,6 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 
 load_dotenv()
-
-logger = logging.getLogger(__name__)
 
 DEFAULT_MODEL = "gpt-4o-mini"
 DEFAULT_TEMPERATURE = 0.0
@@ -41,7 +38,6 @@ def load_prompt(prompt_path: Path | str, fallback: str) -> str:
     try:
         return path.read_text(encoding="utf-8").strip()
     except FileNotFoundError:
-        logger.warning("Prompt file %s not found; using fallback content", path)
         return fallback
 
 
@@ -65,5 +61,4 @@ def generate_reply(
         response = _get_llm().invoke(messages, **kwargs)
         return response.content
     except Exception as exc:
-        logger.exception("LLM invocation failed")
         raise LLMInvocationError("LLM invocation failed") from exc
