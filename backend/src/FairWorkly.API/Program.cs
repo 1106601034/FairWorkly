@@ -1,13 +1,14 @@
 using FairWorkly.API.ExceptionHandlers;
 using FairWorkly.Application;
 using FairWorkly.Infrastructure;
+using FairWorkly.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace FairWorkly.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,12 @@ namespace FairWorkly.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            // Seed the database with initial data
+            if (app.Environment.IsDevelopment())
+            {
+                await DbSeeder.SeedAsync(app);
+            }
 
             app.Run();
         }
