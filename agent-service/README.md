@@ -1,7 +1,3 @@
-# FairWorkly Agent v0
-
-FastAPI service that exposes a lightweight "master agent" endpoint. Incoming requests are routed to feature slices (currently a placeholder Compliance feature). The shared package already contains scaffolding for LLM providers, prompts, file handlers, and future RAG integrations.
-
 ## Setup
 
 ### Prerequisites
@@ -16,14 +12,12 @@ cd agent-service
 poetry install
 ```
 
-Copy the example environment configuration and populate the secrets you want to use (e.g., OpenAI credentials once the provider is wired up):
 
 ```bash
 cp .env.example .env
 # edit .env so OPENAI_API_KEY has a real value
 ```
 
-Configuration such as LLM mode, FAISS paths, and prompt defaults lives in `config.yaml`. Adjust the YAML (e.g., `model_params.deployment_mode_llm`) to switch between OpenAI, HuggingFace, or local models.
 
 ## Run
 
@@ -84,13 +78,13 @@ agent-service/
 ## Data flow overview
 
 ```mermaid
-flowchart LR
-    Client["Client (Swagger / UI)"]
+flowchart TB
+    Client["Backend Adapter"]
     API["FastAPI master agent\n(master_agent.main)"]
     Router["IntentRouter"]
     Registry["FeatureRegistry"]
     Compliance["ComplianceFeature"]
-    LLM["LLM Provider (stub)"]
+    LLM["LLM Provider"]
 
     Client -->|"POST /api/agent/chat"| API --> Router --> Registry
     Registry -->|"get feature"| Compliance -->|"message"| LLM

@@ -1,7 +1,5 @@
 from typing import Dict, Any
 import logging
-import sys
-sys.path.append('../..')
 from master_agent.feature_registry import FeatureBase
 from master_agent.config import load_config
 from agents.shared.llm.factory import LLMProvider
