@@ -1,17 +1,19 @@
 import Box, { type BoxProps } from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Typography, { type TypographyProps } from "@mui/material/Typography";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import {
-    AttachMoney,
-    Description,
+    PaymentsOutlined,
+    DescriptionOutlined,
     SentimentDissatisfied,
     Gavel,
 } from "@mui/icons-material";
 import { ContentWrapper, SectionContainer, SectionHeader, SectionLabel } from "./SectionComponents";
+import type { SvgIconProps } from "@mui/material/SvgIcon";
 
 interface ProblemCardData {
-    id: number;
-    icon: React.ComponentType<{ className?: string }>;
+    id: string;
+    icon: React.ComponentType<SvgIconProps>;
     value: string;
     label: string;
     description: string;
@@ -21,25 +23,25 @@ interface ProblemCardData {
 
 const PROBLEM_CARDS: ProblemCardData[] = [
     {
-        id: 1,
-        icon: AttachMoney,
+        id: "wage-underpayments",
+        icon: PaymentsOutlined,
         value: "$1.35B",
         label: "Wage Underpayments",
         description: "Recovered by Fair Work in 2023-24",
-        iconBgColor: "#FEE2E2",
+        iconBgColor: "#EF44441A",
         valueColor: "#DC2626",
     },
     {
-        id: 2,
-        icon: Description,
+        id: "modern-awards",
+        icon: DescriptionOutlined,
         value: "122",
         label: "Modern Awards",
         description: "Complex rules and variations",
-        iconBgColor: "#FEF3C7",
+        iconBgColor: "#F973161A",
         valueColor: "#D97706",
     },
     {
-        id: 3,
+        id: "smes-not-confident",
         icon: SentimentDissatisfied,
         value: "73%",
         label: "SMEs Not Confident",
@@ -48,12 +50,12 @@ const PROBLEM_CARDS: ProblemCardData[] = [
         valueColor: "#6366F1",
     },
     {
-        id: 4,
+        id: "fwo-recovery",
         icon: Gavel,
         value: "$532M",
         label: "FWO Recovery",
         description: "Enforcement intensifying",
-        iconBgColor: "#CFFAFE",
+        iconBgColor: "#06B6D41A",
         valueColor: "#0891B2",
     },
 ];
@@ -172,7 +174,7 @@ export const ProblemSection: React.FC = () => {
     return (
         <SectionContainer>
             <ContentWrapper>
-                <SectionLabel>THE PROBLEM</SectionLabel>
+                <SectionLabel icon={<WarningAmberIcon />}>THE PROBLEM</SectionLabel>
                 <SectionHeader
                     title="Australian SMEs Face Real Compliance Risks"
                     subtitle="Complex award systems and changing regulations make compliance a nightmare"

@@ -3,8 +3,8 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography, { type TypographyProps } from "@mui/material/Typography";
 
-export const SectionContainer = styled("section")(({ theme }) => ({
-    backgroundColor: tokens.colors.gray50,
+export const SectionContainer = styled("section")<{bgColor?: "white" | "gray"}>(({ theme, bgColor="gray" }) => ({
+    backgroundColor: bgColor === "white" ? tokens.colors.white : tokens.colors.gray50,
     padding: tokens.spacing.sectionPaddingMobile,
 
     [theme.breakpoints.up("md")]: {
@@ -37,14 +37,24 @@ const LabelWrapper = styled(Box)({
     marginBottom: "24px",
 });
 
+const LabelIcon =styled(Box)({
+    display: "flex",
+    alignItems: "center",
+    fontSize: "16px",
+});
+
 interface SectionLabelProps {
     children: string;
+    icon?: React.ReactNode;
 }
 
-export const SectionLabel: React.FC<SectionLabelProps> = ({ children }) => {
+export const SectionLabel: React.FC<SectionLabelProps> = ({ children, icon }) => {
     return (
         <LabelWrapper>
-            <StyledLabel>{children}</StyledLabel>
+            <StyledLabel>
+                {icon && <LabelIcon>{icon}</LabelIcon>}
+                {children}
+            </StyledLabel>
         </LabelWrapper>
     );
 };

@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react'
 import type { SvgIconProps } from "@mui/material/SvgIcon";
 import { SectionContainer, ContentWrapper, SectionLabel, SectionHeader } from "./SectionComponents";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 
 type ThemeColor = 'primary' | 'warning' | 'info' | 'success';
@@ -234,9 +235,9 @@ const Card: React.FC<CardProps> = ({ data }) => {
 
 export const FeaturesSection = () => {
   return (
-    <SectionContainer>
+    <SectionContainer bgColor="white">
       <ContentWrapper>
-        <SectionLabel>FEATURES</SectionLabel>
+        <SectionLabel icon={<AutoAwesomeIcon />}>FEATURES</SectionLabel>
         <SectionHeader
           title="Four AI Agents Working For You"
           subtitle="Specialised AI that understands Australian workplace law"
