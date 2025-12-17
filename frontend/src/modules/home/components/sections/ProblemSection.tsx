@@ -10,6 +10,7 @@ import {
 } from "@mui/icons-material";
 import { ContentWrapper, SectionContainer, SectionHeader, SectionLabel } from "./SectionComponents";
 import type { SvgIconProps } from "@mui/material/SvgIcon";
+import { tokens } from "@/app/providers/ThemeProvider";
 
 interface ProblemCardData {
     id: string;
@@ -61,56 +62,55 @@ const PROBLEM_CARDS: ProblemCardData[] = [
 ];
 
 
-const CardsGrid = styled(Box)(({ theme }) => ({
+const CardsGrid = styled(Box)<BoxProps>(({ theme }) => ({
     display: "grid",
     alignItems: "stretch",
     gridTemplateColumns: "1fr",
-    gap: "24px",
+    gap: theme.spacing(3),
     [theme.breakpoints.up("sm")]: {
         gridTemplateColumns: "repeat(2, minmax(180px,1fr))",
     },
     [theme.breakpoints.up("md")]: {
         gridTemplateColumns: "repeat(4, minmax(180px,1fr))",
-        gap: "20px",
+        gap: theme.spacing(2.5),
     },
 }));
 
 const ProblemCard = styled(Box)<BoxProps>(({ theme }) => ({
-    backgroundColor: "#FFFFFF",
+    backgroundColor: tokens.colors.white,
     borderRadius: "16px",
-    border: "1px solid #F3F4F6",
-    padding: "32px 24px",
+    border: `1px solid ${tokens.colors.gray100}`,
+    padding: theme.spacing(4, 3),
     textAlign: "center",
-    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
-    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+    boxShadow: tokens.cardShadow,
+    transition: tokens.transition,
     height: "100%",
     display: "flex",
     flexDirection: "column",
 
-
     "&:hover": {
         transform: "translateY(-4px)",
-        boxShadow: "0 12px 24px rgba(0, 0, 0, 0.1)",
-        borderColor: "#E5E7EB"
+        boxShadow: tokens.cardHoverShadow,
+        borderColor: tokens.colors.gray200,
     },
 
     [theme.breakpoints.down("sm")]: {
-        padding: "24px 20px",
+        padding: theme.spacing(3, 2.5),
     },
 }));
 
 
 const IconContainer = styled(Box, {
     shouldForwardProp: (prop) => prop !== "bgColor",
-})<BoxProps & { bgColor: string }>(({ bgColor }) => ({
-    width: "64px",
-    height: "64px",
+})<BoxProps & { bgColor: string }>(({ bgColor, theme }) => ({
+    width: theme.spacing(8),
+    height: theme.spacing(8),
     borderRadius: "50%",
     backgroundColor: bgColor,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    margin: "0 auto 20px",
+    margin: `0 auto ${theme.spacing(2.5)}`,
 }));
 
 const StyledIcon = styled(Box, {
@@ -126,26 +126,26 @@ const StyledIcon = styled(Box, {
 
 const ValueText = styled(Typography, {
     shouldForwardProp: (prop) => prop !== "valueColor",
-})<TypographyProps & { valueColor: string }>(({ valueColor }) => ({
+})<TypographyProps & { valueColor: string }>(({ valueColor, theme }) => ({
     fontSize: "40px",
     fontWeight: 700,
     color: valueColor,
     lineHeight: 1,
-    marginBottom: "12px",
+    marginBottom: theme.spacing(1.5),
 }));
 
-const LabelText = styled(Typography)<TypographyProps>({
+const LabelText = styled(Typography)<TypographyProps>(({theme})=>({
     fontSize: "16px",
     fontWeight: 600,
-    color: "#111827",
-    marginBottom: "8px",
+    color: tokens.colors.gray900,
+    marginBottom: theme.spacing(1),
     lineHeight: 1.3,
 
-});
+}));
 
 const DescriptionText = styled(Typography)<TypographyProps>({
     fontSize: "14px",
-    color: "#6B7280",
+    color: tokens.colors.gray500,
     lineHeight: 1.5,
 
 });
@@ -158,13 +158,13 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ data }) => {
     const Icon = data.icon;
     return (
-        <ProblemCard>
+        <ProblemCard component="article">
             <IconContainer bgColor={data.iconBgColor}>
-                <StyledIcon iconColor={data.valueColor} component={Icon} />
+                <StyledIcon iconColor={data.valueColor} component={Icon} aria-hidden="true"/>
             </IconContainer>
 
             <ValueText valueColor={data.valueColor}>{data.value}</ValueText>
-            <LabelText>{data.label}</LabelText>
+            <LabelText component="h3">{data.label}</LabelText>
             <DescriptionText>{data.description}</DescriptionText>
         </ProblemCard>
     )

@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { CheckCircleOutline } from '@mui/icons-material';
-import Box from '@mui/material/Box';
+import Box, { type BoxProps } from '@mui/material/Box';
 import { SectionContainer, ContentWrapper } from './SectionComponents';
-import { tokens, customTheme } from "@/app/providers/ThemeProvider";
+import { tokens } from "@/app/providers/ThemeProvider";
 
 
 interface AwardItem {
@@ -30,23 +30,23 @@ const AWARDS: AwardItem[] = [
 ];
 
 
-const ContentGrid = styled(Box)(({ theme }) => ({
+const ContentGrid = styled(Box)<BoxProps>(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr",
-  gap: "48px",
+  gap: theme.spacing(6),
   alignItems: "center",
   [theme.breakpoints.up("md")]: {
     gridTemplateColumns: "1fr 1fr",
-    gap: "64px",
+    gap: theme.spacing(8),
   },
 }));
 
-const ImageColumn = styled(Box)({
+const ImageColumn = styled(Box)<BoxProps>(({ theme }) => ({
   position: "relative",
-  borderRadius: "16px",
+  borderRadius: theme.spacing(2),
   overflow: "hidden",
-  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
-});
+  boxShadow: tokens.imageShadow,
+}));
 
 const StyledImage = styled("img")({
   width: "100%",
@@ -55,52 +55,52 @@ const StyledImage = styled("img")({
   objectFit: "cover",
 });
 
-const TextColumn = styled(Box)({
+const TextColumn = styled(Box)<BoxProps>(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: "24px",
-});
+  gap: theme.spacing(3),
+}));
 
-const Heading = styled("h2")({
+const Heading = styled("h2")(({ theme }) => ({
   fontSize: "24px",
   fontWeight: 700,
   color: tokens.colors.gray900,
   lineHeight: 1.2,
   margin: 0,
-  [customTheme.breakpoints.up("md")]: {
+  [theme.breakpoints.up("md")]: {
     fontSize: "32px",
   },
-});
+}));
 
-const Paragraph = styled("p")({
+const Paragraph = styled("p")(({ theme }) => ({
   fontSize: "14px",
   lineHeight: 1.6,
   color: tokens.colors.gray500,
   margin: 0,
 
-  [customTheme.breakpoints.up("md")]: {
+  [theme.breakpoints.up("md")]: {
     fontSize: "18px",
   }
-});
+}));
 
-const AwardList = styled("ul")({
+const AwardList = styled("ul")(({ theme }) => ({
   listStyle: "none",
   padding: 0,
   margin: 0,
   display: "flex",
   flexDirection: "column",
-  gap: "16px",
-});
+  gap: theme.spacing(2),
+}));
 
-const AwardItem = styled("li")({
+const AwardItem = styled("li")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
-  gap: "12px"
-});
+  gap: theme.spacing(1.5),
+}));
 
-const AwardContent = styled("div")({
+const AwardContent = styled(Box)<BoxProps>({
   display: "flex",
-  flexWrap: "wrap"
+  flexWrap: "wrap",
 });
 
 const AwardTitle = styled("span")({
@@ -109,18 +109,18 @@ const AwardTitle = styled("span")({
   color: tokens.colors.gray900,
 });
 
-const AwardDescription = styled("span")({
+const AwardDescription = styled("span")(({ theme }) => ({
   fontSize: "16px",
   fontWeight: 400,
-  marginLeft: "5px",
+  marginLeft: theme.spacing(0.625),
   color: tokens.colors.gray500,
-});
+}));
 
-const CheckIcon = styled(CheckCircleOutline)({
-  fontSize: '1.25rem',
-  color: customTheme.palette.success.main,
+const CheckIcon = styled(CheckCircleOutline)(({ theme }) => ({
+  fontSize: "1.25rem",
+  color: theme.palette.success.main,
   flexShrink: 0,
-});
+}));
 
 
 export const ShowcaseSection = () => {
@@ -140,7 +140,7 @@ export const ShowcaseSection = () => {
             <AwardList>
               {AWARDS.map((award) => (
                 <AwardItem key={award.id}>
-                  <CheckIcon />
+                  <CheckIcon aria-hidden="true" />
                   <AwardContent>
                     <AwardTitle>{award.title}</AwardTitle>
                     <AwardDescription>{award.description}</AwardDescription>

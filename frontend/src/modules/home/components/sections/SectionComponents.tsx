@@ -1,6 +1,6 @@
 import { tokens } from "@/app/providers/ThemeProvider";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import Box, { type BoxProps } from "@mui/material/Box";
 import Typography, { type TypographyProps } from "@mui/material/Typography";
 
 export const SectionContainer = styled("section")<{bgColor?: "white" | "gray"}>(({ theme, bgColor="gray" }) => ({
@@ -12,32 +12,32 @@ export const SectionContainer = styled("section")<{bgColor?: "white" | "gray"}>(
     },
 }));
 
-export const ContentWrapper = styled(Box)({
+export const ContentWrapper = styled(Box)<BoxProps>({
     maxWidth: "1280px",
     margin: "0 auto",
 });
 
-const StyledLabel = styled(Box)({
+const StyledLabel = styled(Box)<BoxProps>(({theme})=>({
     display: "inline-flex",
     alignItems: "center",
-    gap: "6px",
+    gap: theme.spacing(0.75),
     backgroundColor: tokens.colors.primaryLight,
     color: tokens.colors.primary,
-    padding: "6px 16px",
+    padding: theme.spacing(0.75, 2),
     borderRadius: "20px",
     fontSize: "13px",
     fontWeight: 600,
     textTransform: "uppercase",
     letterSpacing: "0.5px",
-});
+}));
 
-const LabelWrapper = styled(Box)({
+const LabelWrapper = styled(Box)<BoxProps>(({theme})=>({
     display: "flex",
     justifyContent: "center",
-    marginBottom: "24px",
-});
+    marginBottom: theme.spacing(3),
+}));
 
-const LabelIcon =styled(Box)({
+const LabelIcon =styled(Box)<BoxProps>({
     display: "flex",
     alignItems: "center",
     fontSize: "16px",
@@ -59,30 +59,30 @@ export const SectionLabel: React.FC<SectionLabelProps> = ({ children, icon }) =>
     );
 };
 
-const MainHeading = styled("h2")({
+const MainHeading = styled("h2")(({theme})=>({
     fontSize: "36px",
     fontWeight: 700,
     color: tokens.colors.gray900,
     textAlign: "center",
-    marginBottom: "12px",
+    marginBottom: theme.spacing(1.5),
     lineHeight: 1.2,
 
-    "@media(min-width:768px)": {
+    [theme.breakpoints.up("md")]: {
         fontSize: "42px",
     },
-});
+}));
 
-const SubHeading = styled(Typography)<TypographyProps>({
+const SubHeading = styled(Typography)<TypographyProps>(({theme})=>({
     fontSize: "16px",
     color: tokens.colors.gray500,
     textAlign: "center",
-    marginBottom: "48px",
+    marginBottom: theme.spacing(6),
     lineHeight: 1.6,
 
-    "@media(min-width:768px)": {
+    [theme.breakpoints.up("md")]:{
         fontSize: "18px",
     },
-});
+}));
 
 interface SectionHeaderProps {
     title: string;
