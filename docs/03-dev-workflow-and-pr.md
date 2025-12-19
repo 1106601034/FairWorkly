@@ -157,7 +157,43 @@ Rejection is not personal. It is a system-protection mechanism.
 
 ---
 
-## 9. What This Document Is NOT
+## 9. API Contract (MVP) – How We Keep Frontend/Backend Aligned
+
+We do not maintain `openapi.yaml` in MVP to avoid misleading or outdated specs.
+
+### Source of Truth (MVP)
+
+The API contract is defined by:
+
+1. Backend Controller routes (code)
+2. Swagger UI (when the backend is running)
+3. Real request/response examples captured in PR descriptions
+
+### Rules
+
+- Do not guess endpoints.
+- Do not hardcode `/api/...` paths in UI code.
+- Frontend calls must go through the API client layer (`services/`).
+
+### Required PR Evidence (If Your PR Touches APIs)
+
+If your PR adds or changes any endpoint, include in the PR description:
+
+- Endpoint path + method (e.g. `POST /documents/generate`)
+- Request JSON example
+- Response JSON example
+- Any auth/role requirement (Owner/Manager/Employee)
+- Screenshot of Swagger UI (optional but recommended)
+
+### Local Verification Checklist
+
+Before marking a PR as ready:
+
+- Backend endpoint works in Swagger UI
+- Frontend integration works end-to-end
+- Errors return a consistent JSON shape (message + optional code)
+
+## 10. What This Document Is NOT
 
 - This is not a tutorial
 - This is not a complete architecture guide
@@ -167,7 +203,7 @@ It defines **how we collaborate**, not how to write every line of code.
 
 ---
 
-## 10. Final Principle
+## 11. Final Principle
 
 > **Speed comes from clarity, not from skipping rules.**
 

@@ -34,6 +34,77 @@ For Compliance and Payroll agents, we also use:
 
 These are not abstractions for their own sake—they exist to protect rules and auditability.
 
+## RBAC & Identity (MVP)
+
+FairWorkly uses role-based access control (RBAC) with strict server-side ownership checks.
+
+### Identity vs Permissions (Important)
+
+In FairWorkly, **Employee is a person record**, while **Role is a permission level**.
+
+- `Employee` represents the workforce identity and employment data.
+- `User` represents the authenticated account.
+- Every `User` is linked to an `Employee` record (including Owners and Managers).
+
+This reflects real-world organisations: a Manager is also an employee.
+
+### Roles (MVP)
+
+- **Admin**
+
+  - Organisation-level administrative permissions
+  - Can manage employees (create/edit), generate staff invites, and generate documents
+  - Access to all agents/modules
+
+- **Manager (Roster-focused)**
+
+  - Access to Compliance Agent for roster checks and results
+  - Optional: read-only access to minimal employee fields required for rostering
+  - No access to employee management, staff invites, document generation, or pay compliance by default
+
+- **Employee (Staff)**
+  - Read-only access to their own profile and their own documents/files only
+  - Can use FairBot for employee-help Q&A using their employee context
+
+### Ownership Enforcement (Server-Side Only)
+
+The backend must enforce ownership. Frontend UI hiding is not security.
+
+MVP rules:
+
+- If `role == Employee`, only allow access to:
+  - `/me/*` endpoints
+  - documents where `Document.OwnerEmployeeId == User.EmployeeId`
+- Managers can only access data needed for roster/compliance workflows, and must not access unrelated sensitive employee data.
+- Admins can access employees and documents within their organisation scope.
+
+### Staff Onboarding (Invite Flow)
+
+Staff accounts are created by Admins.
+
+MVP flow:
+
+1. Admin creates an Employee record
+2. System generates an invite (magic link or temporary credential)
+3. Staff accepts invite and signs in
+4. Staff is mapped 1:1 to the Employee record
+
+Invite tokens must be:
+
+- time-limited (e.g., 24 hours)
+- single-use
+- stored server-side for auditability
+
+### Non-Goals (MVP)
+
+Out of scope for MVP:
+
+- Leave balances and leave workflows
+- Staff editing their own employment terms
+- Complex permission matrices
+
+We keep permissions simple to protect correctness and speed.
+
 ## 3. Layer Responsibilities (Non-Negotiable)
 
 3.1 API Layer (FairWorkly.API)
