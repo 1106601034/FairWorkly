@@ -1,4 +1,4 @@
-import React from "react";
+import { Sidebar } from '@/shared/components/layout/Sidebar';
 
 import {
     styled,
@@ -9,7 +9,6 @@ import {
 
 // import { useFairBot } from "../hooks/useFairBot";
 // import { useResultsPanel } from "../hooks/useResultsPanel";
-
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -30,15 +29,7 @@ export const FairBotChat = () => {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={0}>
                 <Grid size={2}>
-                    <Grid>
-                        <Item>Top</Item>
-                    </Grid>
-                    <Grid>
-                        <Item>center</Item>
-                    </Grid>
-                    <Grid>
-                        <Item>Bottom</Item>
-                    </Grid>
+                    <Sidebar width={10} />
                 </Grid>
                 <Grid size={7}>
                     <Grid>
