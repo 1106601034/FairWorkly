@@ -51,6 +51,8 @@ export const FAIRBOT_LABELS = {
   ATTACH_BUTTON_LABEL: 'Attach file',
   MESSAGE_INPUT_LABEL: 'Message',
   MESSAGE_LIST_HEADING: 'Conversation',
+  FILE_UPLOAD_PROMPT: 'Drop a file here or click to upload',
+  SUBMIT_DISABLED_HINT: 'Please enter a message or attach a file.',
 } as const
 
 export const FAIRBOT_ARIA = {
@@ -65,6 +67,7 @@ export const FAIRBOT_ARIA = {
 export const FAIRBOT_TEXT = {
   EMPTY: '',
   FULL_SPAN: '1 / -1',
+  SINGLE_COLUMN: 'minmax(0, 1fr)',
 } as const
 
 export const FAIRBOT_ENV = {
