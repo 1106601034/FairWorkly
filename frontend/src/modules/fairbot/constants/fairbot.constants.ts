@@ -33,6 +33,10 @@ export const FAIRBOT_ARIA = {
   QUICK_ACTIONS: 'FairBot quick actions',
 } as const
 
+export const FAIRBOT_TEXT = {
+  EMPTY: '',
+} as const
+
 export const FAIRBOT_ENV = {
   TYPEOF_UNDEFINED: 'undefined',
 } as const
@@ -52,6 +56,11 @@ export const FAIRBOT_MESSAGES = {
   ASSISTANT_FILE_RECEIVED: 'Thanks for the file. I will review it now.',
 } as const
 
+export const FAIRBOT_NUMBERS = {
+  ZERO: 0,
+  ONE: 1,
+} as const
+
 export const FAIRBOT_KEYWORDS = {
   PAYROLL: 'payroll',
   ROSTER: 'roster',
@@ -69,6 +78,18 @@ export const FAIRBOT_LAYOUT = {
   MOBILE_BREAKPOINT: 900,
 } as const
 
+export const FAIRBOT_UPLOAD = {
+  BORDER_RADIUS: 16,
+  BORDER_WIDTH: 1,
+  PADDING: 12,
+  GAP: 8,
+  TRANSITION_MS: 150,
+  MIN_HEIGHT: 48,
+  BORDER_STYLE: 'dashed',
+  TRANSITION_EASING: 'ease',
+  TRANSITION_PROPERTIES: 'border-color, background-color',
+} as const
+
 export const FAIRBOT_TIMING = {
   TYPING_INDICATOR_DELAY_MS: 200,
   TYPING_INDICATOR_MIN_MS: 800,
@@ -82,6 +103,15 @@ export const FAIRBOT_FILE = {
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   ],
   MAX_SIZE_BYTES: 5 * 1024 * 1024,
+  MAX_SIZE_LABEL: '5MB',
+  ACCEPT_ATTRIBUTE: '.csv,.xlsx',
+  NAME_SEPARATOR: '.',
+} as const
+
+export const FAIRBOT_ERRORS = {
+  INVALID_FILE_TYPE: 'Unsupported file type. Please upload a CSV or XLSX file.',
+  FILE_TOO_LARGE: `File is too large. Max size is ${FAIRBOT_FILE.MAX_SIZE_LABEL}.`,
+  FILE_REQUIRED: 'Please select a file to continue.',
 } as const
 
 export const FAIRBOT_RESULTS = {
@@ -98,6 +128,14 @@ export const FAIRBOT_ROUTES = {
   ROSTER: '/compliance/upload',
   EMPLOYEE: '/my-profile',
   DOCUMENT: '/documents',
+} as const
+
+export const FAIRBOT_IDS = {
+  FILE_INPUT: 'fairbot-file-input',
+} as const
+
+export const FAIRBOT_INPUT_TYPES = {
+  FILE: 'file',
 } as const
 
 export const FAIRBOT_MOCK_DATA = {
