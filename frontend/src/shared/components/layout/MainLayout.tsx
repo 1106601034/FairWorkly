@@ -1,11 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { Outlet } from 'react-router-dom'
 import { Topbar } from './Topbar'
 import { Sidebar } from './Sidebar'
-
-interface MainLayoutProps {
-  children: React.ReactNode
-}
 
 /**
  * 登陆后的壳，无特效背景
@@ -36,7 +33,7 @@ const MainContent = styled.main<{ sidebarWidth: number }>`
   }
 `
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC = () => {
   // 和 Topbar / Sidebar 约定好的侧边栏宽度
   const sidebarWidth = 220
 
@@ -52,7 +49,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
       {/* 主内容区域，用 main，语义：当前页面的主要内容 */}
       <MainContent sidebarWidth={sidebarWidth} aria-label="Main content area">
-        {children}
+        <Outlet />
       </MainContent>
     </AppShell>
   )
