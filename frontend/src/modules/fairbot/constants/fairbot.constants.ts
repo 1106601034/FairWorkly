@@ -69,6 +69,11 @@ export const FAIRBOT_LAYOUT = {
   MOBILE_BREAKPOINT: 900,
 } as const
 
+export const FAIRBOT_TIMING = {
+  TYPING_INDICATOR_DELAY_MS: 200,
+  TYPING_INDICATOR_MIN_MS: 800,
+} as const
+
 export const FAIRBOT_FILE = {
   ACCEPTED_TYPES: ['csv', 'xlsx'],
   ACCEPTED_MIME: [
