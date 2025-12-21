@@ -44,6 +44,13 @@ export const FAIRBOT_LABELS = {
   DOCUMENTS_SUMMARY: 'Document generation summary',
   VIEW_RESULTS_TITLE: 'View results',
   RESULTS_PANEL_HINT: 'Open detailed reports to review findings.',
+  ASSISTANT_LABEL: 'FairBot',
+  USER_LABEL: 'You',
+  MESSAGE_TIME_PREFIX: 'Sent',
+  SEND_BUTTON_LABEL: 'Send message',
+  ATTACH_BUTTON_LABEL: 'Attach file',
+  MESSAGE_INPUT_LABEL: 'Message',
+  MESSAGE_LIST_HEADING: 'Conversation',
 } as const
 
 export const FAIRBOT_ARIA = {
@@ -107,6 +114,10 @@ export const FAIRBOT_LAYOUT = {
   QUICK_ACTIONS_COLUMNS: 2,
   RESULTS_PANEL_PADDING: 24,
   RESULTS_PANEL_GAP: 16,
+  MESSAGE_LIST_GAP: 16,
+  MESSAGE_STACK_GAP: 8,
+  MESSAGE_SECTION_GAP: 12,
+  MESSAGE_LIST_PADDING: 8,
 } as const
 
 export const FAIRBOT_UPLOAD = {
@@ -153,6 +164,44 @@ export const FAIRBOT_RESULTS_UI = {
   MIN_HEIGHT: 320,
   CARD_BORDER_WIDTH: 1,
   HEADER_GAP: 4,
+} as const
+
+export const FAIRBOT_MESSAGE_UI = {
+  BUBBLE_RADIUS: 16,
+  BUBBLE_PADDING: 12,
+  BUBBLE_MAX_WIDTH: 520,
+  FILE_BADGE_RADIUS: 12,
+  FILE_BADGE_PADDING_X: 8,
+  FILE_BADGE_PADDING_Y: 4,
+} as const
+
+export const FAIRBOT_INPUT_UI = {
+  BORDER_RADIUS: 16,
+  GAP: 12,
+  BUTTON_SIZE: 44,
+  FIELD_RADIUS: 12,
+} as const
+
+export const FAIRBOT_TYPING_UI = {
+  DOT_SIZE: 6,
+  DOT_GAP: 4,
+  DOT_ANIMATION_MS: 1200,
+  DELAY_SHORT_MS: 120,
+  DELAY_LONG_MS: 240,
+} as const
+
+export const FAIRBOT_TIME_FORMAT = {
+  HOUR: '2-digit',
+  MINUTE: '2-digit',
+} as const
+
+export const FAIRBOT_FILE_SIZE = {
+  KILO_THRESHOLD: 1024,
+  MEGA_THRESHOLD: 1024 * 1024,
+  MEGA_DECIMALS: 1,
+  KILO_SUFFIX: 'KB',
+  MEGA_SUFFIX: 'MB',
+  ZERO_KB: '0 KB',
 } as const
 
 export const FAIRBOT_TIMING = {
@@ -220,10 +269,13 @@ export const FAIRBOT_QUICK_ACTIONS_TEXT = {
 
 export const FAIRBOT_IDS = {
   FILE_INPUT: 'fairbot-file-input',
+  MESSAGE_INPUT: 'fairbot-message-input',
 } as const
 
 export const FAIRBOT_INPUT_TYPES = {
   FILE: 'file',
+  BUTTON: 'button',
+  SUBMIT: 'submit',
 } as const
 
 export const FAIRBOT_MOCK_DATA = {
