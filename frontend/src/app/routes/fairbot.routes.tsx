@@ -6,9 +6,9 @@ export const fairbotRoutes: RouteObject[] = [
   {
     path: '/fairbot',
     element: (
-      <ProtectedRoute>
-        <FairBotChat />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <FairBotChat />
+      // </ProtectedRoute>
     ),
   },
 ]
