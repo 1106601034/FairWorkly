@@ -8,9 +8,9 @@ using FairWorkly.Domain.Employees.Entities;
 namespace FairWorkly.Domain.Documents.Entities;
 
 /// <summary>
-/// Represents AI-generated compliance and employment documents
-/// Primary use: Legal compliance (FWIS, Separation Certificates)
-/// Secondary use: Professional documents (Offer Letters)
+/// Document tracking entity
+/// Tracks which legally required documents have been provided to employees
+/// Focus: Compliance tracking, not document generation
 /// </summary>
 public class Document : AuditableEntity
 {
@@ -29,144 +29,55 @@ public class Document : AuditableEntity
   [Required]
   public DocumentType DocumentType { get; set; }
 
+  // Provision status
   /// <summary>
-  /// Document title
-  /// Example: "Fair Work Information Statement - Alice Chen"
+  /// Has this document been provided to the employee?
   /// </summary>
   [Required]
-  [MaxLength(200)]
-  public string Title { get; set; } = string.Empty;
+  public bool IsProvided { get; set; } = false;
 
   /// <summary>
-  /// Document description (optional)
-  /// Example: "FWIS for new Bartender starting Jan 20, 2025"
+  /// When was this document provided to the employee?
   /// </summary>
-  [MaxLength(500)]
-  public string? Description { get; set; }
-
-  // File storage
-  /// <summary>
-  /// File name for download
-  /// Example: "FWIS_AliceChen_20250120.pdf"
-  /// </summary>
-  [Required]
-  [MaxLength(255)]
-  public string FileName { get; set; } = string.Empty;
+  public DateTimeOffset? ProvidedAt { get; set; }
 
   /// <summary>
-  /// File path in storage (S3)
-  /// Example: "/documents/org_abc123/fwis/2025/FWIS_AliceChen_20250120.pdf"
-  /// </summary>
-  [Required]
-  [MaxLength(500)]
-  public string FilePath { get; set; } = string.Empty;
-
-  /// <summary>
-  /// File size in bytes
-  /// </summary>
-  public long FileSize { get; set; }
-
-  /// <summary>
-  /// MIME type
-  /// Typically "application/pdf" for PDF documents
-  /// "application/vnd.openxmlformats-officedocument.wordprocessingml.document" for DOCX
-  /// </summary>
-  [Required]
-  [MaxLength(100)]
-  public string MimeType { get; set; } = "application/pdf";
-
-  // AI generation details
-  /// <summary>
-  /// AI-generated content (Markdown/HTML before PDF conversion)
-  /// Stored for potential regeneration or editing
-  /// </summary>
-  public string? GeneratedContent { get; set; }
-
-  /// <summary>
-  /// AI prompt used to generate this document
-  /// Stored for audit trail and debugging
-  /// Example: "Generate FWIS for {EmployeeName}, Award: {AwardName}, Start Date: {Date}"
-  /// </summary>
-  public string? GenerationPrompt { get; set; }
-
-  /// <summary>
-  /// AI model used for generation
-  /// Example: "claude-sonnet-4-20250514"
-  /// </summary>
-  [MaxLength(100)]
-  public string? AIModel { get; set; }
-
-  /// <summary>
-  /// Token usage for cost tracking
-  /// Helps monitor API costs
-  /// </summary>
-  public int? TokensUsed { get; set; }
-
-  /// <summary>
-  /// Generation time in milliseconds
-  /// For performance monitoring
-  /// </summary>
-  public int? GenerationTimeMs { get; set; }
-
-  // Document status
-  /// <summary>
-  /// Document status workflow
-  /// Draft = AI generated, not yet finalized
-  /// Final = Approved, ready to send to employee
-  /// Sent = Delivered to employee
-  /// Archived = Superseded by newer version
-  /// </summary>
-  [Required]
-  [MaxLength(20)]
-  public string Status { get; set; } = "Draft";
-
-  /// <summary>
-  /// When was this document finalized?
-  /// Manager clicks "Approve" → Status becomes "Final"
-  /// </summary>
-  public DateTimeOffset? FinalizedAt { get; set; }
-
-  /// <summary>
-  /// When was this document sent to employee?
-  /// </summary>
-  public DateTimeOffset? SentAt { get; set; }
-
-  /// <summary>
-  /// How was it delivered?
-  /// "Email", "Download", "Printed", "Portal"
+  /// How was it provided?
+  /// Examples: "Email", "Printed", "Downloaded", "Via HR System"
   /// </summary>
   [MaxLength(50)]
-  public string? DeliveryMethod { get; set; }
+  public string? ProvidedMethod { get; set; }
 
-  // Legal compliance tracking
+  // Compliance tracking
   /// <summary>
   /// Is this document legally required by Fair Work?
-  /// True for: FWIS, Separation Certificate, Casual Conversion Notice
-  /// False for: Offer Letter, Employment Contract, Position Description
+  /// True: FWIS, Separation Certificate, Casual Conversion Notice
+  /// False: Offer Letter (optional)
   /// </summary>
+  [Required]
   public bool IsLegallyRequired { get; set; }
 
   /// <summary>
   /// Compliance deadline (if legally required)
-  /// FWIS: Before first day of work
-  /// Separation Certificate: Within 14 days of termination
-  /// Casual Conversion: When employee becomes eligible (12 months)
+  /// FWIS: Employee start date
+  /// Separation Certificate: 14 days after last day
+  /// Casual Conversion: 12 months after start date
   /// </summary>
   public DateTime? ComplianceDeadline { get; set; }
 
   /// <summary>
   /// Is compliance requirement met? (computed)
-  /// True if: Not required OR Sent before deadline
+  /// True if: Not required OR provided before deadline
   /// </summary>
   [NotMapped]
   public bool IsCompliant =>
       !IsLegallyRequired ||
       !ComplianceDeadline.HasValue ||
-      (SentAt.HasValue && SentAt.Value.DateTime <= ComplianceDeadline.Value);
+      (ProvidedAt.HasValue && ProvidedAt.Value.DateTime <= ComplianceDeadline.Value);
 
   /// <summary>
   /// Days until compliance deadline (computed)
-  /// Negative = overdue
+  /// Negative = overdue, Positive = days remaining
   /// </summary>
   [NotMapped]
   public int? DaysUntilDeadline =>
@@ -174,38 +85,32 @@ public class Document : AuditableEntity
           ? (ComplianceDeadline.Value - DateTime.UtcNow.Date).Days
           : null;
 
-  // Version control
+  // Optional: User-uploaded proof
   /// <summary>
-  /// Document version number
-  /// Starts at 1, increments when regenerated
-  /// Example: Manager regenerates FWIS with updated info → Version 2
+  /// Optional: User can upload a copy of the document for record keeping
+  /// Example: "FWIS_AliceChen_Signed.pdf"
   /// </summary>
-  public int Version { get; set; } = 1;
+  [MaxLength(255)]
+  public string? UploadedFileName { get; set; }
 
   /// <summary>
-  /// Reference to previous version (if this is a regeneration)
-  /// Null for first version
+  /// Optional: File path in storage
   /// </summary>
-  public Guid? PreviousVersionId { get; set; }
+  [MaxLength(500)]
+  public string? UploadedFilePath { get; set; }
 
   /// <summary>
-  /// Navigation to previous version
+  /// Optional: File size in bytes
   /// </summary>
-  public virtual Document? PreviousVersion { get; set; }
+  public long? UploadedFileSize { get; set; }
 
-  // Additional metadata
+  // Notes
   /// <summary>
   /// Optional notes from Manager
-  /// Example: "Regenerated with updated salary", "Sent via email on Jan 15"
+  /// Examples: "Sent via email on Jan 15", "Employee signed on receipt"
   /// </summary>
   [MaxLength(1000)]
   public string? Notes { get; set; }
 
-  /// <summary>
-  /// Tags for categorization/search
-  /// Example: "urgent", "new-hire", "termination"
-  /// Comma-separated
-  /// </summary>
-  [MaxLength(200)]
-  public string? Tags { get; set; }
+
 }
