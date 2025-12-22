@@ -1,52 +1,41 @@
+import React from "react";
 import { styled } from "@mui/material/styles";
-import { CheckCircleOutline } from '@mui/icons-material';
-import Box, { type BoxProps } from '@mui/material/Box';
-import { SectionContainer, ContentWrapper } from './SectionComponents';
-import { tokens } from "@/app/providers/ThemeProvider";
+import Box, { type BoxProps } from "@mui/material/Box";
+import Typography, { type TypographyProps } from "@mui/material/Typography";
+import { CheckCircleOutline } from "@mui/icons-material";
 
 
-interface AwardItem {
-  id: string;
-  title: string;
-  description: string;
-};
 
-const AWARDS: AwardItem[] = [
-  {
-    id: "retail",
-    title: "Retail Award",
-    description: "— Complex penalty rates simplified",
-  },
-  {
-    id: "hospitality",
-    title: "Hospitality Award",
-    description: "— Overtime, split shifts covered",
-  },
-  {
-    id: "clerks",
-    title: "Clerk Award",
-    description: "— Office entitlements made clear",
-  }
-];
+const ShowcaseSectionWrapper = styled("section")(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  padding: theme.spacing(10, 0),
+}));
 
+const ShowcaseContentWrapper = styled("div")(({ theme }) => ({
+  maxWidth: 1280,
+  margin: "0 auto",
+  padding: theme.spacing(0, 3),
+}));
 
-const ContentGrid = styled(Box)<BoxProps>(({ theme }) => ({
+const ContentGrid = styled("div")(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr",
   gap: theme.spacing(6),
   alignItems: "center",
+
   [theme.breakpoints.up("md")]: {
     gridTemplateColumns: "1fr 1fr",
     gap: theme.spacing(8),
   },
 }));
 
-const ImageColumn = styled(Box)<BoxProps>({
+
+const ImageColumn = styled(Box)<BoxProps>(({ theme }) => ({
   position: "relative",
-  borderRadius: tokens.borderRadius.large,
+  borderRadius: theme.shape.borderRadius,
   overflow: "hidden",
-  boxShadow: tokens.imageShadow,
-});
+  boxShadow: theme.shadows[3],
+}));
 
 const StyledImage = styled("img")({
   width: "100%",
@@ -55,33 +44,23 @@ const StyledImage = styled("img")({
   objectFit: "cover",
 });
 
+
+
 const TextColumn = styled(Box)<BoxProps>(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.spacing(3),
 }));
 
-const Heading = styled("h2")(({ theme }) => ({
-  fontSize: "1.5rem",
-  fontWeight: 700,
-  color: tokens.colors.gray900,
-  lineHeight: 1.2,
-  margin: 0,
-  [theme.breakpoints.up("md")]: {
-    fontSize: "2rem",
-  },
+const Heading = styled(Typography)<TypographyProps>(({ theme }) => ({
+  color: theme.palette.text.primary,
 }));
 
-const Paragraph = styled("p")(({ theme }) => ({
-  fontSize: "0.875rem",
-  lineHeight: 1.6,
-  color: tokens.colors.gray500,
-  margin: 0,
-
-  [theme.breakpoints.up("md")]: {
-    fontSize: "1.125rem",
-  }
+const Paragraph = styled(Typography)<TypographyProps>(({ theme }) => ({
+  color: theme.palette.text.secondary,
 }));
+
+
 
 const AwardList = styled("ul")(({ theme }) => ({
   listStyle: "none",
@@ -98,35 +77,53 @@ const AwardItem = styled("li")(({ theme }) => ({
   gap: theme.spacing(1.5),
 }));
 
-const AwardContent = styled(Box)<BoxProps>({
-  display: "flex",
+const AwardContent = styled("span")({
+  display: "inline-flex",
   flexWrap: "wrap",
+  alignItems: "baseline",
 });
 
-const AwardTitle = styled("span")({
-  fontSize: "1rem",
-  fontWeight: 700,
-  color: tokens.colors.gray900,
-});
+const AwardTitle = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  display: "inline",
+}));
 
-const AwardDescription = styled("span")(({ theme }) => ({
-  fontSize: "1rem",
-  fontWeight: 400,
-  marginLeft: theme.spacing(0.625),
-  color: tokens.colors.gray500,
+const AwardDescription = styled(Typography)(({ theme }) => ({
+  marginLeft: theme.spacing(0.75),
+  color: theme.palette.text.secondary,
+  display: "inline",
 }));
 
 const CheckIcon = styled(CheckCircleOutline)(({ theme }) => ({
-  fontSize: "1.25rem",
   color: theme.palette.success.main,
   flexShrink: 0,
 }));
 
 
-export const ShowcaseSection = () => {
+
+export const ShowcaseSection: React.FC = () => {
+
+  const awards = [
+    {
+      id: "retail",
+      title: "Retail Award",
+      description: "— Complex penalty rates simplified",
+    },
+    {
+      id: "hospitality",
+      title: "Hospitality Award",
+      description: "— Overtime, split shifts covered",
+    },
+    {
+      id: "clerks",
+      title: "Clerk Award",
+      description: "— Office entitlements made clear",
+    },
+  ];
+
   return (
-    <SectionContainer>
-      <ContentWrapper>
+    <ShowcaseSectionWrapper>
+      <ShowcaseContentWrapper>
         <ContentGrid>
           <ImageColumn>
             <StyledImage
@@ -134,23 +131,32 @@ export const ShowcaseSection = () => {
               alt="Australian small business owner"
             />
           </ImageColumn>
+
           <TextColumn>
-            <Heading>Built for Australian Small Business Owners</Heading>
-            <Paragraph>Whether you run a café in Melbourne, a retail store in Sydney, or a hospitality venue in Brisbane — FairWorkly understands your specific award requirements.</Paragraph>
+            <Heading variant="h3" component="h2">
+              Built for Australian Small Business Owners
+            </Heading>
+
+            <Paragraph variant="body1" component="p">
+              Whether you run a café in Melbourne, a retail store in Sydney, or a
+              hospitality venue in Brisbane — FairWorkly understands your
+              specific award requirements.
+            </Paragraph>
+
             <AwardList>
-              {AWARDS.map((award) => (
+              {awards.map((award) => (
                 <AwardItem key={award.id}>
                   <CheckIcon aria-hidden="true" />
                   <AwardContent>
-                    <AwardTitle>{award.title}</AwardTitle>
-                    <AwardDescription>{award.description}</AwardDescription>
+                    <AwardTitle variant="subtitle1" >{award.title}</AwardTitle>
+                    <AwardDescription >{award.description}</AwardDescription>
                   </AwardContent>
                 </AwardItem>
               ))}
             </AwardList>
           </TextColumn>
         </ContentGrid>
-      </ContentWrapper>
-    </SectionContainer>
-  )
-}
+      </ShowcaseContentWrapper>
+    </ShowcaseSectionWrapper>
+  );
+};
