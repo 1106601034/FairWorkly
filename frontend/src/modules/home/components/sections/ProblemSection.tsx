@@ -53,6 +53,7 @@ const SectionLabel = styled("div")(({ theme }) => ({
 
 const LabelIcon = styled("div")({
     fontSize: "inherit",
+    lineHeight: 0.2,
     verticalAlign: "middle",
 });
 

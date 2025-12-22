@@ -1,26 +1,26 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import Box, { type BoxProps } from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import Typography, { type TypographyProps } from "@mui/material/Typography";
 import { CheckCircleOutline } from "@mui/icons-material";
 
 
 
-const ShowcaseSectionWrapper = styled("section")(({ theme }) => ({
+const Section = styled("section")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(10, 0),
 }));
 
-const ShowcaseContentWrapper = styled("div")(({ theme }) => ({
+const ContentWrapper = styled("div")(({ theme }) => ({
   maxWidth: 1280,
   margin: "0 auto",
-  padding: theme.spacing(0, 3),
+  padding: theme.spacing(0, 4),
 }));
 
 const ContentGrid = styled("div")(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr",
-  gap: theme.spacing(6),
+  gap: theme.spacing(4),
   alignItems: "center",
 
   [theme.breakpoints.up("md")]: {
@@ -30,76 +30,44 @@ const ContentGrid = styled("div")(({ theme }) => ({
 }));
 
 
-const ImageColumn = styled(Box)<BoxProps>(({ theme }) => ({
-  position: "relative",
+const StyledImage = styled("img")(({ theme }) => ({
+  width: "100%",
   borderRadius: theme.shape.borderRadius,
-  overflow: "hidden",
   boxShadow: theme.shadows[3],
 }));
 
-const StyledImage = styled("img")({
-  width: "100%",
-  height: "auto",
-  display: "block",
-  objectFit: "cover",
-});
-
-
-
-const TextColumn = styled(Box)<BoxProps>(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  gap: theme.spacing(3),
-}));
 
 const Heading = styled(Typography)<TypographyProps>(({ theme }) => ({
-  color: theme.palette.text.primary,
+  marginBottom: theme.spacing(2)
 }));
 
 const Paragraph = styled(Typography)<TypographyProps>(({ theme }) => ({
   color: theme.palette.text.secondary,
+  marginBottom: theme.spacing(3)
 }));
 
 
-
 const AwardList = styled("ul")(({ theme }) => ({
-  listStyle: "none",
-  padding: 0,
   margin: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: theme.spacing(2),
+  padding: 0,
+  listStyle: "none",
+  marginBottom: theme.spacing(4)
 }));
 
 const AwardItem = styled("li")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
   gap: theme.spacing(1.5),
+  padding: theme.spacing(1.5, 0),
 }));
 
-const AwardContent = styled("span")({
-  display: "inline-flex",
-  flexWrap: "wrap",
-  alignItems: "baseline",
-});
-
-const AwardTitle = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  display: "inline",
-}));
-
-const AwardDescription = styled(Typography)(({ theme }) => ({
-  marginLeft: theme.spacing(0.75),
-  color: theme.palette.text.secondary,
-  display: "inline",
-}));
 
 const CheckIcon = styled(CheckCircleOutline)(({ theme }) => ({
   color: theme.palette.success.main,
-  flexShrink: 0,
+  marginTop: theme.spacing(0.25),
+  verticalAlign: "middle",
+  fontSize: "inherit"
 }));
-
-
 
 export const ShowcaseSection: React.FC = () => {
 
@@ -122,17 +90,15 @@ export const ShowcaseSection: React.FC = () => {
   ];
 
   return (
-    <ShowcaseSectionWrapper>
-      <ShowcaseContentWrapper>
+    <Section>
+      <ContentWrapper>
         <ContentGrid>
-          <ImageColumn>
-            <StyledImage
-              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
-              alt="Australian small business owner"
-            />
-          </ImageColumn>
+          <StyledImage
+            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
+            alt="Australian small business owner"
+          />
 
-          <TextColumn>
+          <Box>
             <Heading variant="h3" component="h2">
               Built for Australian Small Business Owners
             </Heading>
@@ -147,16 +113,14 @@ export const ShowcaseSection: React.FC = () => {
               {awards.map((award) => (
                 <AwardItem key={award.id}>
                   <CheckIcon aria-hidden="true" />
-                  <AwardContent>
-                    <AwardTitle variant="subtitle1" >{award.title}</AwardTitle>
-                    <AwardDescription >{award.description}</AwardDescription>
-                  </AwardContent>
+                  <Typography variant="h6" >{award.title}</Typography>
+                  <Typography variant="body1">{award.description}</Typography>
                 </AwardItem>
               ))}
             </AwardList>
-          </TextColumn>
+          </Box>
         </ContentGrid>
-      </ShowcaseContentWrapper>
-    </ShowcaseSectionWrapper>
+      </ContentWrapper>
+    </Section>
   );
 };

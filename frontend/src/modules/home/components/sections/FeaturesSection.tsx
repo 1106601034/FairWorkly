@@ -3,8 +3,6 @@ import { styled, alpha } from "@mui/material/styles";
 import type { Theme } from "@mui/material/styles";
 
 import Box, { type BoxProps } from "@mui/material/Box";
-import Paper, { type PaperProps } from "@mui/material/Paper";
-import Chip from "@mui/material/Chip";
 import Typography, { type TypographyProps } from "@mui/material/Typography";
 
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
@@ -30,7 +28,7 @@ const Section = styled("section")(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   padding: theme.spacing(12, 0),
   borderTop: `1px solid ${theme.palette.divider}`,
-  boderBottom: `1px solid ${theme.palette.divider}`,
+  borderBottom: `1px solid ${theme.palette.divider}`,
 }));
 
 const ContentWrapper = styled("div")(({ theme }) => ({
@@ -62,6 +60,7 @@ const SectionLabel = styled("div")(({ theme }) => ({
 const LabelIcon = styled("div")({
   fontSize: "inherit",
   verticalAlign: "middle",
+  lineHeight: 0.2,
 });
 
 const HeaderContainer = styled("header")(({ theme }) => ({
@@ -126,10 +125,6 @@ const CardIconWrapper = styled("div")<{ tone: Tone }>(({ theme, tone }) => ({
 
 const CardHeaderContent = styled("div")({
   display: "block",
-  // flex: 1,
-  // flexDirection: "column",
-  // alignItems: "flex-start",
-  // gap: theme.spacing(0.5),
 });
 
 const CardAgentTypeLabel = styled("span")<{ tone: Tone }>(({ theme, tone }) => ({
@@ -152,14 +147,14 @@ const CardDescription = styled(Typography)<TypographyProps>(({ theme }) => ({
 
 const CardFeaturesGrid = styled("ul")(({ theme }) => ({
   display: "grid",
-  gridTemplateColumns: "repeat(2, 1fr)",
+  gridTemplateColumns: "1 fr",
   gap: theme.spacing(1.5),
   listStyle: "none",
   padding: 0,
   margin: 0,
 
-  [theme.breakpoints.down("sm")]: {
-    gridTemplateColumns: "1fr",
+  [theme.breakpoints.up("sm")]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
   },
 }));
 
