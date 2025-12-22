@@ -97,6 +97,39 @@ public class PayrollIssue : BaseEntity
           ? ActualValue.Value - ExpectedValue.Value
           : null;
 
+  //  New fields for dynamic description generation
+  /// <summary>
+  /// Number of units affected by this issue
+  /// Examples:
+  /// - For rate issues: number of hours worked at wrong rate (8 hours)
+  /// - For hours issues: number of hours over limit (15 hours overtime)
+  /// - For days issues: number of consecutive days (8 days)
+  /// Used to calculate financial impact
+  /// </summary>
+  public decimal? AffectedUnits { get; set; }
+
+  /// <summary>
+  /// Type of unit for values and AffectedUnits
+  /// Examples: "$/hr", "hours", "days", "%", "$"
+  /// Used for formatting values in UI
+  /// Example usage:
+  /// - ExpectedValue=31.76, UnitType="$/hr" → display as "$31.76/hr"
+  /// - ExpectedValue=40, UnitType="hours" → display as "40 hours"
+  /// - ExpectedValue=25, UnitType="%" → display as "25%"
+  /// </summary>
+  [MaxLength(20)]
+  public string? UnitType { get; set; }
+
+  /// <summary>
+  /// Context label describing what is being checked
+  /// Examples: "Saturday rate", "Ordinary hours", "Casual loading", "Rest period"
+  /// Used to build descriptive sentences
+  /// Template: "{ContextLabel} {ActualValue}{UnitType} should be {ExpectedValue}{UnitType}"
+  /// Result: "Saturday rate $23.50/hr should be $31.76/hr"
+  /// </summary>
+  [MaxLength(100)]
+  public string? ContextLabel { get; set; }
+
   //  Resolution 
 
   /// <summary>
