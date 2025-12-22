@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles'
-import type { ReactNode } from 'react'
+import type { ReactNode, RefObject } from 'react'
 import {
   FAIRBOT_ARIA,
   FAIRBOT_IDS,
@@ -7,10 +7,11 @@ import {
   FAIRBOT_LABELS,
   FAIRBOT_UPLOAD,
 } from '../../constants/fairbot.constants'
-import type { UseFileUploadResult } from '../../hooks/useFileUpload'
+import type { FileUploadControls } from '../../hooks/useFileUpload'
 
 interface FileUploadZoneProps {
-  upload: UseFileUploadResult
+  upload: FileUploadControls
+  inputRef: RefObject<HTMLInputElement>
   children: ReactNode
   helperText?: string
   disabled?: boolean
@@ -72,6 +73,7 @@ const ErrorText = styled('p')(({ theme }) => ({
 
 export const FileUploadZone = ({
   upload,
+  inputRef,
   children,
   helperText = FAIRBOT_LABELS.UPLOAD_TIP,
   disabled = false,
@@ -96,7 +98,7 @@ export const FileUploadZone = ({
     >
       <HiddenInput
         id={FAIRBOT_IDS.FILE_INPUT}
-        ref={upload.inputRef}
+        ref={inputRef}
         type={FAIRBOT_INPUT_TYPES.FILE}
         accept={upload.acceptAttribute}
         onChange={handleFileSelect}

@@ -16,7 +16,7 @@ import {
   FAIRBOT_TEXT,
 } from '../../constants/fairbot.constants'
 import type { FairBotPermission, FairBotQuickAction } from '../../types/fairbot.types'
-import type { UseFileUploadResult } from '../../hooks/useFileUpload'
+import type { FileUploadControls } from '../../hooks/useFileUpload'
 import { usePermissions } from '../../hooks/usePermissions'
 import { quickActionLabels, quickActions } from './actions.config'
 
@@ -27,7 +27,7 @@ interface ActionPaletteKeys {
 }
 
 interface QuickActionsProps {
-  upload: UseFileUploadResult
+  upload: FileUploadControls
   onSendMessage: (message: string) => Promise<void>
   actions?: FairBotQuickAction[]
 }

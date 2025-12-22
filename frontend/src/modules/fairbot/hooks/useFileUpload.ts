@@ -19,9 +19,8 @@ export interface UseFileUploadOptions {
   onFileAccepted?: (file: File) => void
 }
 
-export interface UseFileUploadResult extends FairBotUploadState {
+export interface FileUploadControls extends FairBotUploadState {
   acceptAttribute: string
-  inputRef: RefObject<HTMLInputElement>
   openFileDialog: () => void
   handleDragEnter: (event: DragEvent<HTMLElement>) => void
   handleDragLeave: (event: DragEvent<HTMLElement>) => void
@@ -29,6 +28,11 @@ export interface UseFileUploadResult extends FairBotUploadState {
   handleDrop: (event: DragEvent<HTMLElement>) => void
   handleFileSelect: (event: ChangeEvent<HTMLInputElement>) => void
   reset: () => void
+}
+
+export interface UseFileUploadResult {
+  inputRef: RefObject<HTMLInputElement>
+  controls: FileUploadControls
 }
 
 const getFileExtension = (fileName: string): string => {
@@ -160,11 +164,10 @@ export const useFileUpload = (
     inputRef.current?.click()
   }, [])
 
-  return useMemo(
+  const controls = useMemo(
     () => ({
       ...state,
       acceptAttribute: FAIRBOT_FILE.ACCEPT_ATTRIBUTE,
-      inputRef,
       openFileDialog,
       handleDragEnter,
       handleDragLeave,
@@ -183,5 +186,13 @@ export const useFileUpload = (
       reset,
       state,
     ],
+  )
+
+  return useMemo(
+    () => ({
+      inputRef,
+      controls,
+    }),
+    [controls, inputRef],
   )
 }

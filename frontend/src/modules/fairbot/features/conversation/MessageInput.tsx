@@ -12,11 +12,11 @@ import {
   FAIRBOT_LABELS,
   FAIRBOT_TEXT,
 } from '../../constants/fairbot.constants'
-import type { UseFileUploadResult } from '../../hooks/useFileUpload'
+import type { FileUploadControls } from '../../hooks/useFileUpload'
 
 interface MessageInputProps {
   onSendMessage: (message: string) => Promise<void>
-  upload: UseFileUploadResult
+  upload: FileUploadControls
   disabled?: boolean
 }
 

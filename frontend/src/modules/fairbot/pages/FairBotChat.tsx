@@ -56,7 +56,7 @@ const ResultsColumn = styled('aside')({
 
 export const FairBotChat = () => {
   const conversation = useConversation()
-  const upload = useFileUpload({
+  const { inputRef, controls: upload } = useFileUpload({
     onFileAccepted: async (file) => {
       await conversation.sendMessage(FAIRBOT_LABELS.FILE_UPLOAD_PROMPT, file)
     },
@@ -83,7 +83,11 @@ export const FairBotChat = () => {
           />
         </ScrollArea>
         <Stack spacing={FAIRBOT_LAYOUT.MESSAGE_SECTION_GAP}>
-          <FileUploadZone upload={upload} helperText={FAIRBOT_LABELS.UPLOAD_TIP}>
+          <FileUploadZone
+            upload={upload}
+            inputRef={inputRef}
+            helperText={FAIRBOT_LABELS.UPLOAD_TIP}
+          >
             <Typography variant="body2">{FAIRBOT_LABELS.FILE_UPLOAD_PROMPT}</Typography>
           </FileUploadZone>
           <Divider />

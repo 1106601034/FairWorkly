@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FAIRBOT_TIMING } from '../constants/fairbot.constants'
+import { FAIRBOT_NUMBERS, FAIRBOT_TIMING } from '../constants/fairbot.constants'
 
 interface UseMessageStreamResult {
   isTyping: boolean
@@ -10,23 +10,21 @@ export const useMessageStream = (isLoading: boolean): UseMessageStreamResult => 
 
   useEffect(() => {
     if (!isLoading) {
-      setIsTyping(false)
-      return
+      const stopDelay = window.setTimeout(() => {
+        setIsTyping(false)
+      }, FAIRBOT_NUMBERS.ZERO)
+
+      return () => {
+        window.clearTimeout(stopDelay)
+      }
     }
 
     const startDelay = window.setTimeout(() => {
       setIsTyping(true)
     }, FAIRBOT_TIMING.TYPING_INDICATOR_DELAY_MS)
 
-    const minDisplay = window.setTimeout(() => {
-      if (!isLoading) {
-        setIsTyping(false)
-      }
-    }, FAIRBOT_TIMING.TYPING_INDICATOR_MIN_MS)
-
     return () => {
       window.clearTimeout(startDelay)
-      window.clearTimeout(minDisplay)
     }
   }, [isLoading])
 

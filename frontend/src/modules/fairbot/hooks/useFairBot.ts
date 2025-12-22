@@ -25,10 +25,6 @@ interface UseFairBotResult extends FairBotConversationState {
   sendMessage: (text: string, file?: File) => Promise<void>
 }
 
-interface ResultsPanelHandlers {
-  setCurrentResult?: (result: FairBotResult | null) => void
-}
-
 const EMPTY_MESSAGES: FairBotMessage[] = []
 
 const canUseSessionStorage = (): boolean =>
@@ -58,7 +54,10 @@ const persistMessagesToSession = (messages: FairBotMessage[]) => {
   }
 
   try {
-    const serialized = messages.map(({ file, ...rest }) => rest)
+    const serialized = messages.map((message) => ({
+      ...message,
+      file: undefined,
+    }))
     window.sessionStorage.setItem(
       FAIRBOT_SESSION_KEYS.CONVERSATION,
       JSON.stringify(serialized),
@@ -165,9 +164,7 @@ const buildMockResponse = (text: string, file?: File): FairBotAgentResponse => {
 }
 
 export const useFairBot = (): UseFairBotResult => {
-  const resultsPanel = useResultsPanel() as ResultsPanelHandlers
-  const setCurrentResult =
-    resultsPanel?.setCurrentResult ?? (() => undefined)
+  const { setCurrentResult } = useResultsPanel()
 
   const [messages, setMessages] = useState<FairBotMessage[]>(
     readMessagesFromSession,
