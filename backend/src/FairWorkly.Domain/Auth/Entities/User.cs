@@ -32,7 +32,7 @@ public class User : AuditableEntity
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiresAt { get; set; }
 
-    // Password Reset 
+    // Password Reset
     public string? PasswordResetToken { get; set; }
     public DateTime? PasswordResetTokenExpiry { get; set; }
 
