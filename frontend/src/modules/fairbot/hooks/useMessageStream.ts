@@ -19,6 +19,7 @@ export const useMessageStream = (isLoading: boolean): UseMessageStreamResult => 
       }
     }
 
+    // Delay indicator start to avoid flicker on fast responses.
     const startDelay = window.setTimeout(() => {
       setIsTyping(true)
     }, FAIRBOT_TIMING.TYPING_INDICATOR_DELAY_MS)

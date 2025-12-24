@@ -3,6 +3,7 @@ import { useFairBot } from '../../hooks/useFairBot'
 import { useMessageStream } from '../../hooks/useMessageStream'
 import type { FairBotMessage } from '../../types/fairbot.types'
 
+// View-model hook that combines conversation state with typing indicator timing.
 interface UseConversationResult {
   messages: FairBotMessage[]
   isLoading: boolean

@@ -62,6 +62,7 @@ const FileBadge = styled('div')(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
+// Format message timestamps for display, falling back to raw input if invalid.
 const formatTimestamp = (timestamp: string): string => {
   const date = new Date(timestamp)
   if (Number.isNaN(date.getTime())) {

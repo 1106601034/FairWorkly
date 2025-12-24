@@ -6,6 +6,7 @@ import {
 } from '../../constants/fairbot.constants'
 import type { FairBotQuickAction } from '../../types/fairbot.types'
 
+// Central definition for quick actions shown in the FairBot chat UI.
 export const quickActions: FairBotQuickAction[] = [
   {
     id: FAIRBOT_QUICK_ACTIONS.IDS.CHECK_PAYROLL,

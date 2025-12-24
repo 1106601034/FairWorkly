@@ -17,6 +17,7 @@ import { FileUploadZone } from '../features/conversation/FileUploadZone'
 import { MessageInput } from '../features/conversation/MessageInput'
 import { ResultsPanel } from '../features/resultsPanel/ResultsPanel'
 
+// FairBot chat page wires conversation and upload flows into the two-column layout.
 const PageContainer = styled('div')({
   display: 'grid',
   gridTemplateColumns: `minmax(0, 1fr) ${FAIRBOT_LAYOUT.RESULTS_PANEL_WIDTH}px`,
@@ -56,6 +57,7 @@ const ResultsColumn = styled('aside')({
 
 export const FairBotChat = () => {
   const conversation = useConversation()
+  // Treat file uploads as messages to keep the chat flow consistent.
   const { inputRef, controls: upload } = useFileUpload({
     onFileAccepted: async (file) => {
       await conversation.sendMessage(FAIRBOT_LABELS.FILE_UPLOAD_PROMPT, file)

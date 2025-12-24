@@ -23,6 +23,7 @@ interface UploadContainerProps {
   isDisabled: boolean
 }
 
+// Drop zone styling is driven by state props, so keep them off the DOM.
 const UploadContainer = styled('div', {
   shouldForwardProp: (prop) =>
     prop !== 'isDragging' && prop !== 'hasError' && prop !== 'isDisabled',

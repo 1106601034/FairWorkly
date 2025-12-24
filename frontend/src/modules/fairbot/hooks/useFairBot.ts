@@ -21,6 +21,7 @@ import type {
 } from '../types/fairbot.types'
 import { useResultsPanel } from './useResultsPanel'
 
+// Manages FairBot conversation state, mock agent replies, and persistence.
 interface UseFairBotResult extends FairBotConversationState {
   sendMessage: (text: string, file?: File) => Promise<void>
 }
@@ -54,6 +55,7 @@ const persistMessagesToSession = (messages: FairBotMessage[]) => {
   }
 
   try {
+    // Strip File objects before persistence to keep session storage serializable.
     const serialized = messages.map((message) => ({
       ...message,
       file: undefined,
@@ -152,6 +154,7 @@ const buildQuickSummary = (resultType: FairBotResultType): FairBotResult => {
 }
 
 const buildMockResponse = (text: string, file?: File): FairBotAgentResponse => {
+  // Mock response for UI scaffolding; replace with agent-service integration.
   const detectedType =
     getResultTypeFromText(text) ?? (file ? getResultTypeFromText(file.name) : null)
 

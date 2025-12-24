@@ -15,6 +15,7 @@ import {
 } from '../constants/fairbot.constants'
 import type { FairBotError, FairBotUploadState } from '../types/fairbot.types'
 
+// Encapsulates drag/drop + file picker logic and validation for FairBot uploads.
 export interface UseFileUploadOptions {
   onFileAccepted?: (file: File) => void
 }
@@ -94,6 +95,7 @@ export const useFileUpload = (
     (file: File) => {
       const validationError = validateFile(file)
       if (validationError) {
+        // Surface validation errors through the shared upload state.
         setState((prev) => ({ ...prev, error: validationError }))
         return
       }

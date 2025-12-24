@@ -10,6 +10,7 @@ import { useResultsPanel } from '../../hooks/useResultsPanel'
 import { ResultsEmpty } from './ResultsEmpty'
 import { QuickSummary } from './QuickSummary'
 
+// Results panel reads the latest summary from session storage and renders the right state.
 const PanelContainer = styled('section')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',

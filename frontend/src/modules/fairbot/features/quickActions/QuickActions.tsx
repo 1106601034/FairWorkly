@@ -147,6 +147,7 @@ export const QuickActions = ({
     return null
   }
 
+  // If there is an odd count, let the last card span full width for balance.
   const actionCountIsOdd =
     visibleActions.length % FAIRBOT_NUMBERS.TWO !== FAIRBOT_NUMBERS.ZERO
 

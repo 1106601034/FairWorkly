@@ -22,6 +22,7 @@ const SummaryContainer = styled('div')({
 })
 
 export const QuickSummary = ({ result }: QuickSummaryProps) => {
+  // Switch on result type to render the appropriate summary card.
   switch (result.type) {
     case FAIRBOT_RESULTS.TYPES.PAYROLL:
       return <PayrollSummary data={result.data} detailsUrl={result.detailsUrl} />

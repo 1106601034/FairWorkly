@@ -5,6 +5,7 @@ import {
 } from '../constants/fairbot.constants'
 import type { FairBotResult } from '../types/fairbot.types'
 
+// Persist and hydrate the latest results panel summary in session storage.
 interface UseResultsPanelResult {
   currentResult: FairBotResult | null
   setCurrentResult: (result: FairBotResult | null) => void

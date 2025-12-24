@@ -6,6 +6,7 @@ interface UsePermissionsResult {
 
 export const usePermissions = (): UsePermissionsResult => {
   const hasPermission = (permission: FairBotPermission | null) => {
+    // Placeholder: wire to real permission checks when auth is available.
     if (!permission) {
       return true
     }
