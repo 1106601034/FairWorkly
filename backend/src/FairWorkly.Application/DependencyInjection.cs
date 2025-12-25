@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using FairWorkly.Application.Common.Behaviors;
 using FairWorkly.Application.Compliance.Orchestrators;
+using FairWorkly.Application.Documents.Interfaces;
 using FairWorkly.Application.Documents.Orchestrators;
 using FairWorkly.Application.Documents.Services;
+using FairWorkly.Application.Employees.Interfaces;
 using FairWorkly.Application.Employees.Orchestrators;
 using FairWorkly.Application.Employees.Services;
 using FairWorkly.Application.Payroll.Orchestrators;
