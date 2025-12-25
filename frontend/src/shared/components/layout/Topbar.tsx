@@ -6,6 +6,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
+
+// this topbar now map over shared nav arrays
+// to remove duplicated JSX
+// and make ordering/labels a single-source-of-truth update. 
 import {
   APP_LABELS,
   NAV_ARIA,

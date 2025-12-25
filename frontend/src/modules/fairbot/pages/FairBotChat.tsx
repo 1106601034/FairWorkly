@@ -28,18 +28,21 @@ const PageContainer = styled('div')({
   },
 })
 
+// Left column that holds the conversational UI stack.
 const ChatColumn = styled('section')({
   display: 'flex',
   flexDirection: 'column',
   gap: `${FAIRBOT_LAYOUT.CONTENT_GAP}px`,
 })
 
+// Page header for title/subtitle within the chat column.
 const ChatHeader = styled('header')({
   display: 'flex',
   flexDirection: 'column',
   gap: `${FAIRBOT_LAYOUT.MESSAGE_STACK_GAP}px`,
 })
 
+// Scrollable wrapper around message list to keep input/footer in view.
 const ScrollArea = styled('div')({
   display: 'flex',
   flexDirection: 'column',
@@ -49,6 +52,7 @@ const ScrollArea = styled('div')({
   paddingRight: `${FAIRBOT_LAYOUT.MESSAGE_SECTION_GAP}px`,
 })
 
+// Right column that hosts the summary panel (stacks below on mobile).
 const ResultsColumn = styled('aside')({
   [`@media (max-width: ${FAIRBOT_LAYOUT.MOBILE_BREAKPOINT}px)`]: {
     order: 2,
@@ -66,6 +70,7 @@ export const FairBotChat = () => {
 
   return (
     <PageContainer>
+      {/* Chat column: greeting, quick actions, message list, upload zone, input. */}
       <ChatColumn aria-label={FAIRBOT_ARIA.CHAT_AREA}>
         <ChatHeader>
           <Typography variant="h5">{FAIRBOT_LABELS.TITLE}</Typography>
@@ -96,6 +101,7 @@ export const FairBotChat = () => {
           <MessageInput upload={upload} onSendMessage={conversation.sendMessage} />
         </Stack>
       </ChatColumn>
+      {/* Results column: mirrors the latest summary for faster navigation. */}
       <ResultsColumn>
         <ResultsPanel />
       </ResultsColumn>

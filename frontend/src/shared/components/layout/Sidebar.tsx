@@ -9,6 +9,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import { Link as RouterLink } from "react-router-dom";
+
+// this sidebar now map over shared nav arrays
+// to remove duplicated JSX
+// and make ordering/labels a single-source-of-truth update. 
 import {
   NAV_ARIA,
   SIDEBAR_NAV_ITEMS,
