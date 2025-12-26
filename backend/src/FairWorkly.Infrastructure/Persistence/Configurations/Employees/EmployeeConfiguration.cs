@@ -19,7 +19,7 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder
             .HasIndex(e => new { e.OrganizationId, e.EmployeeNumber })
             .IsUnique()
-            .HasFilter("[EmployeeNumber] IS NOT NULL");
+            .HasFilter("employee_number IS NOT NULL");
 
         // Email is usually unique as well
         builder.HasIndex(e => new { e.OrganizationId, e.Email }).IsUnique();

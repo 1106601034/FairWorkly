@@ -39,13 +39,13 @@ public class Payslip : AuditableEntity
     // Pay Period
 
     [Required]
-    public DateTime PayPeriodStart { get; set; }
+    public DateTimeOffset PayPeriodStart { get; set; }
 
     [Required]
-    public DateTime PayPeriodEnd { get; set; }
+    public DateTimeOffset PayPeriodEnd { get; set; }
 
     [Required]
-    public DateTime PayDate { get; set; }
+    public DateTimeOffset PayDate { get; set; }
 
     /// <summary>
     /// Snapshot of employee name at time of upload
