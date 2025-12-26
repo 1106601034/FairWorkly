@@ -25,4 +25,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\FairWorkly.Domain\FairWorkly.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="TestData\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
