@@ -19,6 +19,9 @@
 [Bb]in/
 [Oo]bj/
 
+# Backend AI Files
+.raw_materials/
+
 # Serilog log files
 logs/
 
