@@ -18,7 +18,7 @@ const PanelContainer = styled('section')(({ theme }) => ({
   boxSizing: FAIRBOT_LAYOUT.BOX_SIZING_BORDER_BOX,
   borderRadius: `${FAIRBOT_RESULTS_UI.CARD_RADIUS}px`,
   border: FAIRBOT_RESULTS_UI.PANEL_BORDER,
-  width: `${FAIRBOT_LAYOUT.RESULTS_PANEL_WIDTH}px`,
+  width: `min(${FAIRBOT_LAYOUT.RESULTS_PANEL_WIDTH}px, ${FAIRBOT_LAYOUT.COLUMN_FULL_WIDTH})`,
   maxWidth: FAIRBOT_LAYOUT.COLUMN_FULL_WIDTH,
   minHeight: `${FAIRBOT_RESULTS_UI.MIN_HEIGHT}px`,
 }))
