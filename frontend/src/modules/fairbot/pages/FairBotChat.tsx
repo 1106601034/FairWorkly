@@ -25,6 +25,7 @@ const PageContainer = styled('div')({
   gridTemplateColumns: `${FAIRBOT_LAYOUT.SIDEBAR_WIDTH}px minmax(0, 1fr) ${FAIRBOT_LAYOUT.RESULTS_PANEL_WIDTH}px`,
   gap: `${FAIRBOT_LAYOUT.CONTENT_GAP}px`,
   alignItems: 'start',
+  minHeight: FAIRBOT_LAYOUT.PAGE_MIN_HEIGHT,
   [`@media (max-width: ${FAIRBOT_LAYOUT.MOBILE_BREAKPOINT}px)`]: {
     gridTemplateColumns: FAIRBOT_TEXT.SINGLE_COLUMN,
   },
@@ -63,6 +64,8 @@ const ScrollArea = styled('div')({
 
 // Right column that hosts the summary panel (stacks below on mobile).
 const ResultsColumn = styled('aside')({
+  alignSelf: FAIRBOT_LAYOUT.ALIGN_STRETCH,
+  height: FAIRBOT_LAYOUT.COLUMN_FULL_HEIGHT,
   [`@media (max-width: ${FAIRBOT_LAYOUT.MOBILE_BREAKPOINT}px)`]: {
     order: FAIRBOT_NUMBERS.TWO,
   },

@@ -209,6 +209,12 @@ export const FAIRBOT_LAYOUT = {
   MESSAGE_SECTION_GAP: 1.5,
   // Padding inside the message list container.
   MESSAGE_LIST_PADDING: 8,
+  // Minimum height for the page-level grid container.
+  PAGE_MIN_HEIGHT: '100vh',
+  // Full-height value for stretching columns/panels.
+  COLUMN_FULL_HEIGHT: '100%',
+  // Grid alignment value for stretching items.
+  ALIGN_STRETCH: 'stretch',
 } as const
 
 export const FAIRBOT_UPLOAD = {
