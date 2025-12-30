@@ -214,8 +214,8 @@ export const FAIRBOT_LAYOUT = {
 export const FAIRBOT_UPLOAD = {
   // Border radius for upload drop zone.
   BORDER_RADIUS: 16,
-  // Border width for upload drop zone.
-  BORDER_WIDTH: 0,
+  // Border override for upload drop zone.
+  BORDER_NONE: 'none',
   // Padding inside the upload zone.
   PADDING: 12,
   // Gap between upload zone elements.
@@ -226,12 +226,10 @@ export const FAIRBOT_UPLOAD = {
   TRANSITION_MS: 150,
   // Minimum height for upload zone.
   MIN_HEIGHT: 48,
-  // Border style for upload zone.
-  BORDER_STYLE: 'dashed',
   // Easing for upload zone transitions.
   TRANSITION_EASING: 'ease',
   // CSS properties animated on upload zone.
-  TRANSITION_PROPERTIES: 'border-color, background-color',
+  TRANSITION_PROPERTIES: 'background-color',
 } as const
 
 export const FAIRBOT_QUICK_ACTIONS_UI = {

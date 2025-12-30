@@ -19,22 +19,15 @@ interface FileUploadZoneProps {
 
 interface UploadContainerProps {
   isDragging: boolean
-  hasError: boolean
   isDisabled: boolean
 }
 
 // Drop zone styling is driven by state props, so keep them off the DOM.
 const UploadContainer = styled('div', {
   shouldForwardProp: (prop) =>
-    prop !== 'isDragging' && prop !== 'hasError' && prop !== 'isDisabled',
-})<UploadContainerProps>(({ theme, isDragging, hasError, isDisabled }) => ({
-  borderWidth: `${FAIRBOT_UPLOAD.BORDER_WIDTH}px`,
-  borderStyle: FAIRBOT_UPLOAD.BORDER_STYLE,
-  borderColor: hasError
-    ? theme.palette.error.main
-    : isDragging
-      ? theme.palette.primary.main
-      : theme.palette.divider,
+    prop !== 'isDragging' && prop !== 'isDisabled',
+})<UploadContainerProps>(({ theme, isDragging, isDisabled }) => ({
+  border: FAIRBOT_UPLOAD.BORDER_NONE,
   borderRadius: `${FAIRBOT_UPLOAD.BORDER_RADIUS}px`,
   padding: `${FAIRBOT_UPLOAD.PADDING}px`,
   minHeight: `${FAIRBOT_UPLOAD.MIN_HEIGHT}px`,
@@ -81,7 +74,6 @@ export const FileUploadZone = ({
   helperText = FAIRBOT_LABELS.UPLOAD_TIP,
   disabled = false,
 }: FileUploadZoneProps) => {
-  const hasError = Boolean(upload.error)
   const handleDragEnter = disabled ? undefined : upload.handleDragEnter
   const handleDragLeave = disabled ? undefined : upload.handleDragLeave
   const handleDragOver = disabled ? undefined : upload.handleDragOver
@@ -92,7 +84,6 @@ export const FileUploadZone = ({
     <UploadContainer
       aria-label={FAIRBOT_ARIA.FILE_UPLOAD}
       isDragging={upload.isDragging}
-      hasError={hasError}
       isDisabled={disabled}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
