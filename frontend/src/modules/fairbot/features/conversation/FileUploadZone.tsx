@@ -61,6 +61,7 @@ const HiddenInput = styled('input')({
 const HelperText = styled('p')(({ theme }) => ({
   ...theme.typography.body2,
   marginTop: `${FAIRBOT_UPLOAD.GAP}px`,
+  marginLeft: `${FAIRBOT_UPLOAD.HELPER_TEXT_OFFSET_PX}px`,
   marginBottom: 0,
   color: theme.palette.text.secondary,
 }))

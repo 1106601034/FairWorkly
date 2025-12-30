@@ -206,7 +206,7 @@ export const FAIRBOT_LAYOUT = {
   // Gap between stacked message elements.
   MESSAGE_STACK_GAP: 8,
   // Gap between message section blocks.
-  MESSAGE_SECTION_GAP: 12,
+  MESSAGE_SECTION_GAP: 1.5,
   // Padding inside the message list container.
   MESSAGE_LIST_PADDING: 8,
 } as const
@@ -215,11 +215,13 @@ export const FAIRBOT_UPLOAD = {
   // Border radius for upload drop zone.
   BORDER_RADIUS: 16,
   // Border width for upload drop zone.
-  BORDER_WIDTH: 1,
+  BORDER_WIDTH: 0,
   // Padding inside the upload zone.
   PADDING: 12,
   // Gap between upload zone elements.
   GAP: 8,
+  // Horizontal offset for helper text alignment.
+  HELPER_TEXT_OFFSET_PX: 10,
   // Transition duration for upload hover states.
   TRANSITION_MS: 150,
   // Minimum height for upload zone.

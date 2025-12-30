@@ -102,21 +102,20 @@ export const FairBotChat = () => {
           />
         </ScrollArea>
         <Stack spacing={FAIRBOT_LAYOUT.MESSAGE_SECTION_GAP}>
+          <Divider />
           <FileUploadZone
             upload={upload}
             inputRef={inputRef}
             helperText={FAIRBOT_LABELS.UPLOAD_TIP}
           >
-            <Typography variant="body2">{FAIRBOT_LABELS.FILE_UPLOAD_PROMPT}</Typography>
+            <MessageInput upload={upload} onSendMessage={conversation.sendMessage} />
           </FileUploadZone>
-          <Divider />
-          <MessageInput upload={upload} onSendMessage={conversation.sendMessage} />
         </Stack>
       </ChatColumn>
       {/* Results column: mirrors the latest summary for faster navigation. */}
       <ResultsColumn>
         <ResultsPanel />
       </ResultsColumn>
-    </PageContainer>
+    </PageContainer >
   )
 }
