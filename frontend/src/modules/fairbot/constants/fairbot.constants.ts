@@ -24,62 +24,20 @@ export const FAIRBOT_LABELS = {
     "Upload a file or ask a question, and I'll display a quick summary with links to detailed reports.",
   // Helper tip under the file upload zone.
   UPLOAD_TIP: 'Tip: Upload roster or payroll files (.xlsx, .csv) for instant analysis',
-  // Label for roster quick action.
-  CHECK_ROSTER: 'Check Roster',
   // Label for ask question quick action.
   ASK_QUESTION: 'Ask a Question',
-  // Call-to-action label for detailed report links.
-  VIEW_DETAILED_REPORT: 'View Detailed Report',
   // Typing indicator message.
   LOADING_MESSAGE: 'FairBot is thinking...',
   // Generic error message for chat actions.
   ERROR_GENERIC: 'Something went wrong. Please try again.',
   // Attachment label in message metadata.
   ATTACHMENT_LABEL: 'Attachment',
-  // Section header for quick actions.
-  QUICK_ACTIONS_HEADER: 'Quick Actions',
   // Label for contract generation quick action.
   GENERATE_CONTRACT: 'Generate Employment Contract',
   // Label for payroll compliance quick action.
   CHECK_PAYROLL_COMPLIANCE: 'Check Payroll Compliance',
   // Label for roster compliance quick action.
   CHECK_ROSTER_COMPLIANCE: 'Check Roster Compliance',
-  // Title for results panel.
-  RESULTS_PANEL_TITLE: 'Results Summary',
-  // Subtitle for results panel.
-  RESULTS_PANEL_SUBTITLE: 'Summary based on your latest request.',
-  // Title for payroll summary card.
-  PAYROLL_SUMMARY_TITLE: 'Payroll Check Complete',
-  // Title for roster summary card.
-  ROSTER_SUMMARY_TITLE: 'Roster Check Complete',
-  // Title for employee summary placeholder.
-  EMPLOYEE_SUMMARY_TITLE: 'Employee Review Complete',
-  // Title for document summary placeholder.
-  DOCUMENT_SUMMARY_TITLE: 'Document Generation Complete',
-  // Label for total records stat.
-  TOTAL_RECORDS_LABEL: 'Total Records',
-  // Label for shift count stat.
-  SHIFT_COUNT_LABEL: 'Shifts Reviewed',
-  // Label for employees reviewed stat.
-  EMPLOYEES_REVIEWED_LABEL: 'Employees Reviewed',
-  // Label for documents generated stat.
-  DOCUMENTS_GENERATED_LABEL: 'Documents Generated',
-  // Label for issues found stat.
-  ISSUES_FOUND_LABEL: 'Issues Found',
-  // Label for top issues list.
-  TOP_ISSUES_LABEL: 'Top Issues',
-  // Success message when payroll has no issues.
-  NO_PAYROLL_ISSUES: 'No payroll issues detected.',
-  // Success message when roster has no issues.
-  NO_ROSTER_ISSUES: 'No roster issues detected.',
-  // Placeholder summary for employee result type.
-  EMPLOYEE_ISSUES_SUMMARY: 'Employee review summary',
-  // Placeholder summary for document result type.
-  DOCUMENTS_SUMMARY: 'Document generation summary',
-  // Tooltip label for view results action.
-  VIEW_RESULTS_TITLE: 'View results',
-  // Helper hint below results panel.
-  RESULTS_PANEL_HINT: 'Open detailed reports to review findings.',
   // Chat label for assistant messages.
   ASSISTANT_LABEL: 'FairBot',
   // Chat label for user messages.
@@ -96,8 +54,6 @@ export const FAIRBOT_LABELS = {
   MESSAGE_LIST_HEADING: 'Conversation',
   // Message text used when a file upload is sent.
   FILE_UPLOAD_PROMPT: 'Drop a file here or click to upload',
-  // Hint when user cannot submit.
-  SUBMIT_DISABLED_HINT: 'Please enter a message or attach a file.',
 } as const
 
 export const FAIRBOT_ARIA = {
@@ -191,20 +147,12 @@ const FAIRBOT_GRID_TEMPLATE_COLUMNS =
   `${FAIRBOT_GRID_COLUMNS.SIDEBAR} ${FAIRBOT_GRID_COLUMNS.CHAT} ${FAIRBOT_GRID_COLUMNS.RESULTS}` as const
 
 export const FAIRBOT_LAYOUT = {
-  // margin of things in chat column.
-  CHAT_HEADER_MARGIN: `25px`,
-  // margin of things in chat column.
-  CHAT_SCROLL_AREA_MARGIN: `25px`,
-  // margin of things in chat column.
-  CHAT_MESSAGE_AREA_MARGIN: `25px`,
-  // height of chat header.
-  CHAT_HEADER_HEIGHT: `100px`,
-  // Max width of the chat column content.
-  CHAT_MAX_WIDTH: 760,
+  // Uniform margin for chat sections (header, scroll area, composer).
+  CHAT_SECTION_MARGIN_PX: 25,
+  // Fixed height for the chat header.
+  CHAT_HEADER_HEIGHT_PX: 100,
   // Fixed width for the results panel.
   RESULTS_PANEL_WIDTH: 360,
-  // Reserved width for sidebar layouts.
-  SIDEBAR_WIDTH: 220,
   // Breakpoint for mobile layout adjustments.
   MOBILE_BREAKPOINT: 900,
   // Gap between quick action cards.
@@ -225,8 +173,6 @@ export const FAIRBOT_LAYOUT = {
   MESSAGE_LIST_PADDING: 8,
   // Sidebar column width for the FairBot grid layout.
   SIDEBAR_COLUMN_WIDTH: FAIRBOT_GRID_COLUMNS.SIDEBAR,
-  // Results column width for the FairBot grid layout.
-  RESULTS_COLUMN_WIDTH: FAIRBOT_GRID_COLUMNS.RESULTS,
   // Grid template columns for the FairBot page container.
   GRID_TEMPLATE_COLUMNS: FAIRBOT_GRID_TEMPLATE_COLUMNS,
   // Minimum height for the page-level grid container.
@@ -239,8 +185,6 @@ export const FAIRBOT_LAYOUT = {
   ALIGN_CENTER: 'center',
   // Center justification value for flex layouts.
   JUSTIFY_CENTER: 'center',
-  // Auto value for flex spacing.
-  AUTO: 'auto',
   // Border-box sizing for panel width calculations.
   BOX_SIZING_BORDER_BOX: 'border-box',
   // Full-width value for grid children.
@@ -318,13 +262,9 @@ export const FAIRBOT_QUICK_ACTIONS_UI = {
       border: 'warning',
     },
   },
-  // Column span for full-width cards.
-  FULL_SPAN_COLUMNS: 2,
 } as const
 
 export const FAIRBOT_RESULTS_UI = {
-  // Icon size for results header.
-  HEADER_ICON_SIZE: 56,
   // Border radius for results cards.
   CARD_RADIUS: 16,
   // Border override for results panel.
@@ -333,24 +273,10 @@ export const FAIRBOT_RESULTS_UI = {
   CARD_PADDING: 16,
   // Radius for empty state icon container.
   EMPTY_ICON_RADIUS: 48,
-  // Icon size inside empty state circle.
-  EMPTY_ICON_SIZE: 32,
   // Gap between stats in results cards.
   STAT_GAP: 12,
-  // Gap between list items in summaries.
-  LIST_GAP: 8,
-  // Background token for empty icon container.
-  EMPTY_ICON_BG: 'action.hover',
-  // Column count for stats grid.
-  STATS_GRID_COLUMNS: 2,
-  // Gap between stacked summary sections.
-  STACK_GAP: 16,
   // Minimum height for results panel.
   MIN_HEIGHT: 320,
-  // Border width for results cards.
-  CARD_BORDER_WIDTH: 1,
-  // Gap between header title and subtitle.
-  HEADER_GAP: 4,
 } as const
 
 export const FAIRBOT_MESSAGE_UI = {
