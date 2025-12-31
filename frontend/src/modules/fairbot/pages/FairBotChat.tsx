@@ -44,7 +44,7 @@ const ChatColumn = styled('section')({
   display: FAIRBOT_LAYOUT.DISPLAY_FLEX,
   flexDirection: FAIRBOT_LAYOUT.FLEX_DIRECTION_COLUMN,
   alignSelf: FAIRBOT_LAYOUT.ALIGN_STRETCH,
-  height: FAIRBOT_LAYOUT.COLUMN_FULL_HEIGHT,
+  height: FAIRBOT_LAYOUT.PAGE_MIN_HEIGHT,
 })
 
 // Page header for title/subtitle within the chat column.
@@ -61,6 +61,8 @@ const ScrollArea = styled('div')({
   gap: `${FAIRBOT_LAYOUT.MESSAGE_LIST_GAP}px`,
   flex: FAIRBOT_NUMBERS.ONE,
   minHeight: FAIRBOT_NUMBERS.ZERO,
+  marginTop: `${FAIRBOT_LAYOUT.SCROLL_AREA_TOP_GAP}px`,
+  marginBottom: `${FAIRBOT_LAYOUT.SCROLL_AREA_BOTTOM_GAP}px`,
   overflowY: 'auto',
   paddingRight: `${FAIRBOT_LAYOUT.MESSAGE_SECTION_GAP}px`,
 })

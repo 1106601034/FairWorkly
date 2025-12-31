@@ -193,14 +193,14 @@ const FAIRBOT_GRID_TEMPLATE_COLUMNS =
 export const FAIRBOT_LAYOUT = {
   // Max width of the chat column content.
   CHAT_MAX_WIDTH: 760,
+  SCROLL_AREA_TOP_GAP: 30,
+  SCROLL_AREA_BOTTOM_GAP: 30,
   // Fixed width for the results panel.
   RESULTS_PANEL_WIDTH: 360,
   // Reserved width for sidebar layouts.
   SIDEBAR_WIDTH: 220,
   // Base gap used between layout sections.
   CONTENT_GAP: 24,
-  // Max height for the scrollable message list.
-  CHAT_SCROLL_HEIGHT: 540,
   // Breakpoint for mobile layout adjustments.
   MOBILE_BREAKPOINT: 900,
   // Gap between quick action cards.
