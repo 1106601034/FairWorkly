@@ -27,7 +27,7 @@ export const ResultsPanel = () => {
 
   return (
     <PanelContainer aria-label={FAIRBOT_ARIA.RESULTS_PANEL}>
-      {currentResult ? <QuickSummary /> : <ResultsEmpty />}
+      {currentResult ? <QuickSummary result={currentResult} /> : <ResultsEmpty />}
     </PanelContainer>
   )
 }

@@ -47,6 +47,8 @@ For shared UI, hooks, and constants referenced here, see `src/shared/README.md`.
 
 - Route: `src/app/routes/fairbot.routes.tsx` maps `/fairbot` to the page.
 - Page component: `src/modules/fairbot/pages/FairBotChat.tsx`
+- Access control: `fairbot.routes.tsx` currently renders `FairBotChat` directly; wrap with
+  `ProtectedRoute` once auth is wired.
 
 ## UI Composition (FairBotChat)
 

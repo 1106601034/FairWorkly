@@ -53,7 +53,26 @@ export const FAIRBOT_LABELS = {
   // Heading for message list section.
   MESSAGE_LIST_HEADING: 'Conversation',
   // Message text used when a file upload is sent.
+  VIEW_DETAILED_REPORT: 'View Detailed Report',
   FILE_UPLOAD_PROMPT: 'Drop a file here or click to upload',
+  RESULTS_PANEL_TITLE: 'Results Summary',
+  RESULTS_PANEL_SUBTITLE: 'Summary based on your latest request.',
+  PAYROLL_SUMMARY_TITLE: 'Payroll Check Complete',
+  ROSTER_SUMMARY_TITLE: 'Roster Check Complete',
+  EMPLOYEE_SUMMARY_TITLE: 'Employee Review Complete',
+  DOCUMENT_SUMMARY_TITLE: 'Document Generation Complete',
+  TOTAL_RECORDS_LABEL: 'Total Records',
+  SHIFT_COUNT_LABEL: 'Shifts Reviewed',
+  EMPLOYEES_REVIEWED_LABEL: 'Employees Reviewed',
+  DOCUMENTS_GENERATED_LABEL: 'Documents Generated',
+  ISSUES_FOUND_LABEL: 'Issues Found',
+  TOP_ISSUES_LABEL: 'Top Issues',
+  NO_PAYROLL_ISSUES: 'No payroll issues detected.',
+  NO_ROSTER_ISSUES: 'No roster issues detected.',
+  EMPLOYEE_ISSUES_SUMMARY: 'Employee review summary',
+  DOCUMENTS_SUMMARY: 'Document generation summary',
+  VIEW_RESULTS_TITLE: 'View results',
+  RESULTS_PANEL_HINT: 'Open detailed reports to review findings.',
 } as const
 
 export const FAIRBOT_ARIA = {
@@ -277,6 +296,9 @@ export const FAIRBOT_RESULTS_UI = {
   STAT_GAP: 12,
   // Minimum height for results panel.
   MIN_HEIGHT: 320,
+  STATS_GRID_COLUMNS: 2,
+  STACK_GAP: 16,
+  LIST_GAP: 8,
 } as const
 
 export const FAIRBOT_MESSAGE_UI = {
@@ -341,10 +363,8 @@ export const FAIRBOT_FILE_SIZE = {
 } as const
 
 export const FAIRBOT_TIMING = {
-  // Delay before showing typing indicator.
+  // Delay before showing typing indicator to reduce flicker.
   TYPING_INDICATOR_DELAY_MS: 200,
-  // Minimum time to keep typing indicator visible.
-  TYPING_INDICATOR_MIN_MS: 800,
 } as const
 
 export const FAIRBOT_FILE = {
