@@ -1,9 +1,11 @@
 using FairWorkly.Application.Common.Interfaces;
 using FairWorkly.Application.Employees.Interfaces;
+using FairWorkly.Application.Payroll.Interfaces;
 using FairWorkly.Infrastructure.AI.Mocks;
 using FairWorkly.Infrastructure.AI.PythonServices;
 using FairWorkly.Infrastructure.Persistence;
 using FairWorkly.Infrastructure.Persistence.Repositories.Employees;
+using FairWorkly.Infrastructure.Persistence.Repositories.Payroll;
 using FairWorkly.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +41,9 @@ public static class DependencyInjection
 
         // Register Repositories
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IPayrollValidationRepository, PayrollValidationRepository>();
+        services.AddScoped<IPayslipRepository, PayslipRepository>();
+        services.AddScoped<IPayrollIssueRepository, PayrollIssueRepository>();
 
         // Register UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();
