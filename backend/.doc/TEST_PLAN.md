@@ -345,7 +345,9 @@ result.Summary.AffectedEmployees.Should().Be(6);
 | PenaltyRateRuleTests.cs | 13 | ✅ |
 | CasualLoadingRuleTests.cs | 17 | ✅ |
 | SuperannuationRuleTests.cs | 22 | ✅ |
-| **总计** | **89** | ✅ |
+| ValidatePayrollHandlerTests.cs | 13 | ✅ |
+| PayrollValidationTests.cs | 7 | ✅ |
+| **总计** | **109** | ✅ |
 
 ### 8.2 业务规则覆盖
 

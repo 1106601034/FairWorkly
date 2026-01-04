@@ -84,14 +84,17 @@ CSV上传 → 解析数据 → 员工Upsert → 4规则检查 → 输出违规�
 |------|-------|------|--------|
 | CSV 解析 + 员工同步 | ISSUE_01 | ✅ 完成 | 100% |
 | 合规规则引擎 (4规则) | ISSUE_02 | ✅ 完成 | 100% |
-| Handler + API 集成 | ISSUE_03 | ⏳ 待开发 | 0% |
-| **总体进度** | - | - | **67%** |
+| Handler + API 集成 | ISSUE_03 | ✅ 完成 | 100% |
+| **总体进度** | - | - | **100%** |
 
-### 当前任务
+### 当前状态
 
-**→ ISSUE_03: Handler 集成 + API**
+**✅ 所有 Issue 已完成！**
 
-详见: [.doc/issues/ISSUE_03_Handler_API.md](./issues/ISSUE_03_Handler_API.md)
+Payroll 模块的 MVP 功能已全部实现：
+- CSV 解析和员工同步
+- 4 个合规规则检查
+- Handler 集成和 REST API
 
 ---
 
@@ -183,7 +186,7 @@ tests/FairWorkly.UnitTests/
     └── EmployeeSyncIntegrationTests.cs ✅ 3 tests
 ```
 
-**测试总计**: 81 tests passing
+**测试总计**: 109 tests passing
 
 ### DI 注册状态
 
@@ -196,33 +199,36 @@ tests/FairWorkly.UnitTests/
 | IComplianceRule → PenaltyRateRule | ✅ 已注册 |
 | IComplianceRule → CasualLoadingRule | ✅ 已注册 |
 | IComplianceRule → SuperannuationRule | ✅ 已注册 |
-| IPayslipRepository | ❌ 未实现 |
-| IPayrollValidationRepository | ❌ 未实现 |
-| IPayrollIssueRepository | ❌ 未实现 |
+| IPayslipRepository → PayslipRepository | ✅ 已注册 |
+| IPayrollValidationRepository → PayrollValidationRepository | ✅ 已注册 |
+| IPayrollIssueRepository → PayrollIssueRepository | ✅ 已注册 |
 
 ---
 
-## 待实现的交付物 (ISSUE_03)
+## 已完成的交付物 (ISSUE_03)
 
-### ISSUE_03: Handler + API
+### ISSUE_03: Handler + API ✅
 
 ```
 src/FairWorkly.Application/Payroll/Features/ValidatePayroll/
-├── ValidatePayrollCommand.cs
-├── ValidatePayrollValidator.cs
-├── ValidatePayrollHandler.cs
-└── ValidationResultDto.cs
+├── ValidatePayrollCommand.cs        ✅
+├── ValidatePayrollValidator.cs      ✅
+├── ValidatePayrollHandler.cs        ✅
+└── ValidationResultDto.cs           ✅
 
 src/FairWorkly.Infrastructure/Persistence/Repositories/Payroll/
-├── PayslipRepository.cs
-├── PayrollValidationRepository.cs
-└── PayrollIssueRepository.cs
+├── PayslipRepository.cs             ✅
+├── PayrollValidationRepository.cs   ✅
+└── PayrollIssueRepository.cs        ✅
 
-src/FairWorkly.API/Controllers/
-└── PayrollController.cs             ← 实现 POST /api/payroll/validation
+src/FairWorkly.API/Controllers/Payroll/
+└── PayrollController.cs             ✅ POST /api/payroll/validation
 
-tests/FairWorkly.UnitTests/Integration/
-└── PayrollValidationTests.cs
+tests/FairWorkly.UnitTests/
+├── Unit/
+│   └── ValidatePayrollHandlerTests.cs    ✅ 13 tests
+└── Integration/
+    └── PayrollValidationTests.cs         ✅ 7 tests
 ```
 
 ---
@@ -243,7 +249,7 @@ tests/FairWorkly.UnitTests/Integration/
 |-------|------|------|
 | ISSUE_01 | [CSV 解析 + 员工同步](./issues/ISSUE_01_CsvParser_EmployeeSync.md) | ✅ 完成 |
 | ISSUE_02 | [合规规则引擎](./issues/ISSUE_02_ComplianceEngine.md) | ✅ 完成 |
-| ISSUE_03 | [Handler 集成 + API](./issues/ISSUE_03_Handler_API.md) | ⏳ 当前任务 |
+| ISSUE_03 | [Handler 集成 + API](./issues/ISSUE_03_Handler_API.md) | ✅ 完成 |
 
 ---
 
@@ -375,4 +381,4 @@ docker exec fairworkly-db psql -U postgres -d FairWorklyDb -c "\dt"
 
 ---
 
-*最后更新: 2026-01-02 (架构问题修正)*
+*最后更新: 2026-01-04 (ISSUE_03 完成)*
