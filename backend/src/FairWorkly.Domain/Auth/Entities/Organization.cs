@@ -105,13 +105,14 @@ public class Organization : AuditableEntity
     /// Used for business logic validation
     /// </summary>
     [NotMapped]
-    public int MaxEmployees => SubscriptionTier switch
-    {
-        SubscriptionTier.Tier1 => 50,
-        SubscriptionTier.Tier2 => 100,
-        SubscriptionTier.Tier3 => 150,
-        _ => 50
-    };
+    public int MaxEmployees =>
+        SubscriptionTier switch
+        {
+            SubscriptionTier.Tier1 => 50,
+            SubscriptionTier.Tier2 => 100,
+            SubscriptionTier.Tier3 => 150,
+            _ => 50,
+        };
 
     /// <summary>
     /// Current employee count
@@ -133,6 +134,6 @@ public class Organization : AuditableEntity
     /// Active Awards for this organization
     /// Shown in "Active Awards" section of Settings
     /// </summary>
-    public virtual ICollection<OrganizationAward> OrganizationAwards { get; set; } = new List<OrganizationAward>();
-
+    public virtual ICollection<OrganizationAward> OrganizationAwards { get; set; } =
+        new List<OrganizationAward>();
 }

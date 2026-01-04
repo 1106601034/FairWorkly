@@ -70,10 +70,9 @@ public class Employee : AuditableEntity
     /// <summary>
     /// Guaranteed hours per week (for Part-time only)
     /// </summary>
-    public int? GuaranteedHours
-    { get; set; }
+    public int? GuaranteedHours { get; set; }
 
-    //Award & Pay 
+    //Award & Pay
     /// <summary>
     /// Which Award applies to this employee
     /// </summary>
@@ -111,15 +110,16 @@ public class Employee : AuditableEntity
     /// Used by: Payroll Agent to validate pay history
     /// </summary>
     public virtual ICollection<Payslip> Payslips { get; set; } = new List<Payslip>();
+
     /// <summary>
     /// All shifts assigned to this employee
     /// Used by: Compliance Agent to check roster compliance
     /// </summary>
     public virtual ICollection<Shift> Shifts { get; set; } = new List<Shift>();
+
     /// <summary>
     /// All documents generated for this employee
     /// Used by: Document Agent (contracts, FWIS, position descriptions)
     /// </summary>
-
     public virtual ICollection<Document> Documents { get; set; } = new List<Document>();
 }
