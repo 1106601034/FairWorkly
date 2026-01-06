@@ -1,5 +1,5 @@
 import React from "react";
-import Typography, { type TypographyProps } from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import {
@@ -10,23 +10,23 @@ import {
 } from "@mui/icons-material";
 import type { SvgIconProps } from "@mui/material/SvgIcon";
 import type { Theme } from "@mui/material/styles";
-import { Card, type CardProps } from "@mui/material";
+import { Box, Card } from "@mui/material";
 
 
 type PaletteKey = keyof Theme["palette"];
 type Tone = Extract<
     PaletteKey,
-    "primary" | "error" | "warning" | "info"
+    "primary" | "error" | "warning" | "info"   //取出palette定义好的样式
 >;
 
 
-const Section = styled("section")(({ theme }) => ({
+const WholeSection = styled("section")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(12, 0),
 }));
 
-const ContentWrapper = styled("div")(({ theme }) => ({
-    maxWidth: 1280,
+const WholeContentWrapper = styled(Box)(({ theme }) => ({
+    maxWidth: 1280,   //theme里没有找到参数
     margin: "0 auto",
     padding: theme.spacing(0, 4),
 }));
@@ -36,7 +36,7 @@ const SectionHeader = styled("header")(({ theme }) => ({
     marginBottom: theme.spacing(8),
 }));
 
-const SectionLabel = styled("div")(({ theme }) => ({
+const SectionLabel = styled(Box)(({ theme }) => ({
     display: "inline-flex",
     alignItems: "center",
     gap: theme.spacing(1),
@@ -45,15 +45,15 @@ const SectionLabel = styled("div")(({ theme }) => ({
     color: theme.palette.primary.main,
     borderRadius: theme.shape.borderRadius,
     fontSize: "0.8125rem",
-    fontWeight: 600,
+    fontWeight: 600,            //hardcode: theme里没有找到匹配样式
     textTransform: "uppercase",
     letterSpacing: "0.5px",
     marginBottom: theme.spacing(2),
 }));
 
-const LabelIcon = styled("div")({
+const LabelIcon = styled(Box)({
     fontSize: "inherit",
-    lineHeight: 0.2,
+    lineHeight: 0.2,              //hardcode: theme里没有找到匹配样式
     verticalAlign: "middle",
 });
 
@@ -61,17 +61,17 @@ const HeaderContainer = styled("header")(({ theme }) => ({
     marginTop: theme.spacing(3),
 }));
 
-const MainHeading = styled(Typography)<TypographyProps>(({ theme }) => ({
+const SectionTitle = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(2),
 }));
 
-const SubHeading = styled(Typography)<TypographyProps>(({ theme }) => ({
+const SubTitle = styled(Typography)(({ theme }) => ({
     margin: "0 auto",
     color: theme.palette.text.secondary,
 }));
 
 
-const CardsGrid = styled("div")(({ theme }) => ({
+const CardsLayout = styled(Box)(({ theme }) => ({
     display: "grid",
     gap: theme.spacing(3),
     [theme.breakpoints.up("sm")]: {
@@ -83,11 +83,11 @@ const CardsGrid = styled("div")(({ theme }) => ({
 }));
 
 
-const ProblemCardContainer = styled(Card)<CardProps>(({ theme }) => ({
+const ProblemCardContainer = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     border: `1px solid ${theme.palette.divider}`,
     padding: theme.spacing(4),
-    transition: "all 0.3s ease",
+    transition: "all 0.3s ease",   //hardcode: theme里没有找到匹配的
     textAlign: "center",
 
     "&:hover": {
@@ -96,7 +96,7 @@ const ProblemCardContainer = styled(Card)<CardProps>(({ theme }) => ({
     },
 }));
 
-const CardIconContainer = styled("div")<{ tone: Tone }>(({ theme, tone }) => ({
+const CardIconContainer = styled(Box)<{ tone: Tone }>(({ theme, tone }) => ({
     width: theme.spacing(7),
     height: theme.spacing(7),
     borderRadius: theme.spacing(1.75),
@@ -109,21 +109,21 @@ const CardIconContainer = styled("div")<{ tone: Tone }>(({ theme, tone }) => ({
     margin: `0 auto ${theme.spacing(2)}`,
 
     "& svg": {
-        fontSize: "1.75rem",
-      },
+        fontSize: "1.75rem",  //hardcode: icon大小theme里没有找到匹配
+    },
 }));
 
-const CardValueTitle = styled(Typography)<TypographyProps & { tone: Tone }>(({ theme, tone }) => ({
+const CardValueTitle = styled(Typography)<{ tone: Tone }>(({ theme, tone }) => ({
     color: theme.palette[tone].main,
     marginBottom: theme.spacing(1),
 }));
 
-const CardTextTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
-    fontweight: 600,
+const CardTextTitle = styled(Typography)(({ theme }) => ({
+    fontWeight: 600,              //hardcode: theme里没有找到匹配
     marginBottom: theme.spacing(1),
 }));
 
-const CardDescriptionText = styled(Typography)<TypographyProps>(({ theme }) => ({
+const CardDescriptionText = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
@@ -138,16 +138,16 @@ interface CardData {
 }
 
 function ProblemCard({ data }: { data: CardData }) {
-    const {tone, icon: IconComponent, label, value, description} = data;
+    const { tone, icon: IconComponent, label, value, description } = data;
     return (
-        <ProblemCardContainer component="article">
-            <CardIconContainer tone={tone} aria-hidden:true>
+        <ProblemCardContainer>
+            <CardIconContainer tone={tone} aria-hidden="true">
                 <IconComponent />
             </CardIconContainer>
 
-            <CardValueTitle variant="h2" component="p" tone={tone}>{value}</CardValueTitle>
-            <CardTextTitle variant="body1" component="h3">{label}</CardTextTitle>
-            <CardDescriptionText variant="body2" component="p">{description}</CardDescriptionText>
+            <CardValueTitle variant="h2" tone={tone}>{value}</CardValueTitle>
+            <CardTextTitle variant="body1" >{label}</CardTextTitle>
+            <CardDescriptionText variant="body2">{description}</CardDescriptionText>
         </ProblemCardContainer>
     );
 }
@@ -199,8 +199,8 @@ export const ProblemSection: React.FC = () => {
     ];
 
     return (
-        <Section>
-            <ContentWrapper>
+        <WholeSection>
+            <WholeContentWrapper>
                 <SectionHeader>
                     <SectionLabel>
                         <LabelIcon aria-hidden>
@@ -210,18 +210,18 @@ export const ProblemSection: React.FC = () => {
                     </SectionLabel>
 
                     <HeaderContainer>
-                        <MainHeading variant="h2" component="h2">{content.title}</MainHeading>
-                        <SubHeading variant="body1" component="p">{content.subtitle}</SubHeading>
+                        <SectionTitle variant="h2" >{content.title}</SectionTitle>
+                        <SubTitle variant="body1">{content.subtitle}</SubTitle>
                     </HeaderContainer>
                 </SectionHeader>
 
-                <CardsGrid>
+                <CardsLayout>
                     {cards.map((card) => (
                         <ProblemCard key={card.id} data={card} />
                     ))}
-                </CardsGrid>
+                </CardsLayout>
 
-            </ContentWrapper>
-        </Section>
+            </WholeContentWrapper>
+        </WholeSection>
     );
 };

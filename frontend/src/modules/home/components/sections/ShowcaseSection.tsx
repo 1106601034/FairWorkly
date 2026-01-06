@@ -1,23 +1,23 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Typography, { type TypographyProps } from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import { CheckCircleOutline } from "@mui/icons-material";
 
 
 
-const Section = styled("section")(({ theme }) => ({
+const WholeSection = styled("section")(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: theme.spacing(10, 0),
 }));
 
-const ContentWrapper = styled("div")(({ theme }) => ({
-  maxWidth: 1280,
+const WholeContentWrapper = styled(Box)(({ theme }) => ({
+  maxWidth: 1280,   //theme里没有找到参数
   margin: "0 auto",
   padding: theme.spacing(0, 4),
 }));
 
-const ContentGrid = styled("div")(({ theme }) => ({
+const ContentLayout = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr",
   gap: theme.spacing(4),
@@ -36,12 +36,16 @@ const StyledImage = styled("img")(({ theme }) => ({
   boxShadow: theme.shadows[3],
 }));
 
+const WordsWrapper = styled(Box)({
+  margin: 0,
+  padding: 0,
+})
 
-const Heading = styled(Typography)<TypographyProps>(({ theme }) => ({
+const SectionTitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(2)
 }));
 
-const Paragraph = styled(Typography)<TypographyProps>(({ theme }) => ({
+const SectionDescription = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   marginBottom: theme.spacing(3)
 }));
@@ -90,24 +94,24 @@ export const ShowcaseSection: React.FC = () => {
   ];
 
   return (
-    <Section>
-      <ContentWrapper>
-        <ContentGrid>
+    <WholeSection>
+      <WholeContentWrapper>
+        <ContentLayout>
           <StyledImage
             src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80"
             alt="Australian small business owner"
           />
 
-          <Box>
-            <Heading variant="h3" component="h2">
+          <WordsWrapper>
+            <SectionTitle variant="h3">
               Built for Australian Small Business Owners
-            </Heading>
+            </SectionTitle>
 
-            <Paragraph variant="body1" component="p">
+            <SectionDescription variant="body1">
               Whether you run a café in Melbourne, a retail store in Sydney, or a
               hospitality venue in Brisbane — FairWorkly understands your
               specific award requirements.
-            </Paragraph>
+            </SectionDescription>
 
             <AwardList>
               {awards.map((award) => (
@@ -118,9 +122,9 @@ export const ShowcaseSection: React.FC = () => {
                 </AwardItem>
               ))}
             </AwardList>
-          </Box>
-        </ContentGrid>
-      </ContentWrapper>
-    </Section>
+          </WordsWrapper>
+        </ContentLayout>
+      </WholeContentWrapper>
+    </WholeSection>
   );
 };
