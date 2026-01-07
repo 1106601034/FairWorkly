@@ -24,7 +24,7 @@ API 层是表现层，只负责：
 FairWorkly.API/
 ├── Controllers/
 │   └── Payroll/
-│       └── PayrollController.cs     ⚠️ 骨架，待 ISSUE_03 实现
+│       └── PayrollController.cs     ✅ 已实现 (ISSUE_03)
 ├── ExceptionHandlers/               ← 全局异常处理
 ├── Config/                          ← 配置类
 ├── Program.cs                       ← 应用入口
@@ -38,17 +38,17 @@ FairWorkly.API/
 
 | 组件 | 状态 | 说明 |
 |------|------|------|
-| PayrollController | ⚠️ 骨架 | 待 ISSUE_03 实现 POST /api/payroll/validation |
+| PayrollController | ✅ 已实现 | POST /api/payroll/validation (ISSUE_03 完成) |
 | ExceptionHandlers | ✅ 已实现 | 全局异常处理 |
 | Program.cs | ✅ 已配置 | MediatR, Swagger, CORS 等 |
 
 ---
 
-## API 端点规划
+## API 端点
 
 ### POST /api/payroll/validation
 
-**状态**: ⏳ ISSUE_03 待实现
+**状态**: ✅ 已实现 (ISSUE_03 完成)
 
 **请求**:
 ```
@@ -131,15 +131,15 @@ public class PayrollController : ControllerBase
 
 ### 依赖的下游服务
 - [Application 层](../FairWorkly.Application/AI_GUIDE.md)
-- [Payroll 模块](../FairWorkly.Application/Payroll/AI_GUIDE.md) ← **当前开发重点**
+- [Payroll 模块](../FairWorkly.Application/Payroll/AI_GUIDE.md) ← ✅ 已完成
 
 ### 同级导航
 - [Infrastructure 层](../FairWorkly.Infrastructure/AI_GUIDE.md)
 - [Tests](../../tests/FairWorkly.UnitTests/AI_GUIDE.md)
 
 ### Issue 文档
-- [ISSUE_03 (待开发)](../../.doc/issues/ISSUE_03_Handler_API.md) ← API 端点实现
+- [ISSUE_03 (✅ 已完成)](../../.doc/issues/ISSUE_03_Handler_API.md) ← API 端点实现
 
 ---
 
-*最后更新: 2026-01-01*
+*最后更新: 2026-01-07 (ISSUE_03 完成)*

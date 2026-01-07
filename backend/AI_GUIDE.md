@@ -23,13 +23,13 @@
 
 FairWorkly 后端服务，提供澳大利亚中小企业薪资合规审计功能。
 
-**当前项目进度: 33%**
+**当前项目进度: 100%** ✅
 
 | Issue | 名称 | 状态 |
 |-------|------|------|
 | ISSUE_01 | CSV 解析 + 员工同步 | ✅ 完成 |
-| ISSUE_02 | 合规规则引擎 | ⏳ **当前任务** |
-| ISSUE_03 | Handler + API 集成 | ⏳ 待开发 |
+| ISSUE_02 | 合规规则引擎 | ✅ 完成 |
+| ISSUE_03 | Handler + API 集成 | ✅ 完成 |
 
 ---
 
@@ -88,7 +88,7 @@ backend/
 | **仓库级** | 📍 **本文件** | 后端总览 |
 | API 层 | [src/FairWorkly.API/AI_GUIDE.md](./src/FairWorkly.API/AI_GUIDE.md) | Controller 和端点 |
 | Application 层 | [src/FairWorkly.Application/AI_GUIDE.md](./src/FairWorkly.Application/AI_GUIDE.md) | 服务和用例 |
-| ├─ Payroll 模块 | [src/.../Payroll/AI_GUIDE.md](./src/FairWorkly.Application/Payroll/AI_GUIDE.md) | **当前开发重点** |
+| ├─ Payroll 模块 | [src/.../Payroll/AI_GUIDE.md](./src/FairWorkly.Application/Payroll/AI_GUIDE.md) | ✅ 已完成 |
 | Infrastructure 层 | [src/FairWorkly.Infrastructure/AI_GUIDE.md](./src/FairWorkly.Infrastructure/AI_GUIDE.md) | Repository 和数据库 |
 | ├─ Persistence | [src/.../Persistence/AI_GUIDE.md](./src/FairWorkly.Infrastructure/Persistence/AI_GUIDE.md) | EF Core 配置 |
 | Tests | [tests/FairWorkly.UnitTests/AI_GUIDE.md](./tests/FairWorkly.UnitTests/AI_GUIDE.md) | 测试组织 |
@@ -108,8 +108,8 @@ backend/
 | Issue | 文档 | 状态 |
 |-------|------|------|
 | ISSUE_01 | [.doc/issues/ISSUE_01_CsvParser_EmployeeSync.md](./.doc/issues/ISSUE_01_CsvParser_EmployeeSync.md) | ✅ 完成 |
-| ISSUE_02 | [.doc/issues/ISSUE_02_ComplianceEngine.md](./.doc/issues/ISSUE_02_ComplianceEngine.md) | ⏳ 当前 |
-| ISSUE_03 | [.doc/issues/ISSUE_03_Handler_API.md](./.doc/issues/ISSUE_03_Handler_API.md) | ⏳ 待开发 |
+| ISSUE_02 | [.doc/issues/ISSUE_02_ComplianceEngine.md](./.doc/issues/ISSUE_02_ComplianceEngine.md) | ✅ 完成 |
+| ISSUE_03 | [.doc/issues/ISSUE_03_Handler_API.md](./.doc/issues/ISSUE_03_Handler_API.md) | ✅ 完成 |
 
 ### 宪法文档 (.raw_materials/) - 只读
 
@@ -117,7 +117,7 @@ backend/
 |------|------|------|
 | 入口文档 | AI 必读的第一个文档 | [AI_README_FIRST.md](./.raw_materials/AI_README_FIRST.md) |
 | 费率表 | Payroll 计算逻辑 | [Payroll_Engine_Logic.md](./.raw_materials/BUSINESS_RULES/Payroll_Engine_Logic.md) |
-| API 契约 | 前后端接口定义 | [API_Contract.md](./.raw_materials/BUSINESS_RULES/API_Contract.md) |
+| API 契约 | 前后端接口定义 | [API_Contract_v1.3.md](./.raw_materials/BUSINESS_RULES/API_Contract_v1.3.md) |
 | 编码标准 | 技术约束 | [CODING_STANDARDS.md](./.raw_materials/TECH_CONSTRAINTS/CODING_STANDARDS.md) |
 
 ---
@@ -191,4 +191,4 @@ dotnet ef database update --project src/FairWorkly.Infrastructure --startup-proj
 
 ---
 
-*最后更新: 2026-01-01*
+*最后更新: 2026-01-07 (Payroll MVP 100% 完成)*

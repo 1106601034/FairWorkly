@@ -20,15 +20,16 @@
 ```
 FairWorkly.UnitTests/
 ├── Unit/                            ← 单元测试
-│   ├── CsvParserServiceTests.cs     ✅ 7 tests (ISSUE_01)
+│   ├── CsvParserServiceTests.cs     ✅ 11 tests (ISSUE_01)
 │   ├── EmployeeSyncServiceTests.cs  ✅ 6 tests (ISSUE_01)
-│   ├── BaseRateRuleTests.cs         ✅ 13 tests (ISSUE_02)
+│   ├── BaseRateRuleTests.cs         ✅ 17 tests (ISSUE_02)
 │   ├── PenaltyRateRuleTests.cs      ✅ 13 tests (ISSUE_02)
 │   ├── CasualLoadingRuleTests.cs    ✅ 17 tests (ISSUE_02)
-│   └── SuperannuationRuleTests.cs   ✅ 22 tests (ISSUE_02)
+│   ├── SuperannuationRuleTests.cs   ✅ 22 tests (ISSUE_02)
+│   └── ValidatePayrollHandlerTests.cs ✅ 13 tests (ISSUE_03)
 ├── Integration/                     ← 集成测试
 │   ├── EmployeeSyncIntegrationTests.cs ✅ 3 tests (ISSUE_01)
-│   └── PayrollValidationTests.cs    ⏳ 待 ISSUE_03
+│   └── PayrollValidationTests.cs    ✅ 7 tests (ISSUE_03)
 ├── TestData/
 │   └── Csv/                         ← 测试 CSV 文件
 │       ├── TEST_01_NewEmployees.csv
@@ -50,9 +51,9 @@ FairWorkly.UnitTests/
 | ISSUE_02 | PenaltyRateRuleTests | 13 | ✅ Pass |
 | ISSUE_02 | CasualLoadingRuleTests | 17 | ✅ Pass |
 | ISSUE_02 | SuperannuationRuleTests | 22 | ✅ Pass |
-| ISSUE_03 | ValidatePayrollHandlerTests | - | ⏳ 待实现 |
-| ISSUE_03 | PayrollValidationTests | - | ⏳ 待实现 |
-| **总计** | - | **89** | **89/89 Pass** |
+| ISSUE_03 | ValidatePayrollHandlerTests | 13 | ✅ Pass |
+| ISSUE_03 | PayrollValidationTests | 7 | ✅ Pass |
+| **总计** | - | **109** | **109/109 Pass** |
 
 > 详细测试用例见 [TEST_PLAN.md](../../.doc/TEST_PLAN.md#8-测试统计)
 
@@ -148,14 +149,14 @@ dotnet ef database update --project src/FairWorkly.Infrastructure --startup-proj
 
 ### 被测试的代码
 - [Application 层](../../src/FairWorkly.Application/AI_GUIDE.md)
-- [Payroll 模块](../../src/FairWorkly.Application/Payroll/AI_GUIDE.md) ← **当前开发重点**
+- [Payroll 模块](../../src/FairWorkly.Application/Payroll/AI_GUIDE.md) ← ✅ 已完成
 - [Infrastructure 层](../../src/FairWorkly.Infrastructure/AI_GUIDE.md)
 
 ### Issue 文档
-- [ISSUE_01 (已完成)](../../.doc/issues/ISSUE_01_CsvParser_EmployeeSync.md) - 16 tests
-- [ISSUE_02 (已完成)](../../.doc/issues/ISSUE_02_ComplianceEngine.md) - 65 tests
-- [ISSUE_03 (当前)](../../.doc/issues/ISSUE_03_Handler_API.md) ← **下一个任务**
+- [ISSUE_01 (✅ 完成)](../../.doc/issues/ISSUE_01_CsvParser_EmployeeSync.md) - 20 tests
+- [ISSUE_02 (✅ 完成)](../../.doc/issues/ISSUE_02_ComplianceEngine.md) - 69 tests
+- [ISSUE_03 (✅ 完成)](../../.doc/issues/ISSUE_03_Handler_API.md) - 20 tests
 
 ---
 
-*最后更新: 2026-01-04 (Phase 2 完成, 89 tests)*
+*最后更新: 2026-01-07 (Payroll MVP 100% 完成, 109 tests)*

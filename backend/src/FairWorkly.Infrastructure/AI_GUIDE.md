@@ -52,13 +52,13 @@ FairWorkly.Infrastructure/
 | FileStorageService | ✅ |
 | Entity Configurations | ✅ 所有配置已完成 |
 
-### 待实现 (ISSUE_03)
+### 已实现 (ISSUE_03 完成)
 
 | 组件 | 状态 |
 |------|------|
-| PayslipRepository | ⏳ |
-| PayrollValidationRepository | ⏳ |
-| PayrollIssueRepository | ⏳ |
+| PayslipRepository | ✅ 已实现 |
+| PayrollValidationRepository | ✅ 已实现 |
+| PayrollIssueRepository | ✅ 已实现 |
 
 ---
 
@@ -76,9 +76,9 @@ Repository 接口定义在 **Application 层**：
 
 ```
 FairWorkly.Application/Payroll/Interfaces/
-├── IPayslipRepository.cs           ⚠️ 空壳
-├── IPayrollValidationRepository.cs ⚠️ 空壳
-└── IPayrollIssueRepository.cs      ⚠️ 空壳
+├── IPayslipRepository.cs           ✅ 已定义
+├── IPayrollValidationRepository.cs ✅ 已定义
+└── IPayrollIssueRepository.cs      ✅ 已定义
 
 FairWorkly.Application/Employees/Interfaces/
 └── IEmployeeRepository.cs          ✅ 已定义
@@ -97,10 +97,10 @@ public static IServiceCollection AddInfrastructureServices(this IServiceCollecti
     services.AddDbContext<FairWorklyDbContext>(...);
 
     // Repositories
-    services.AddScoped<IEmployeeRepository, EmployeeRepository>(); // ✅ 已注册
-    // PayslipRepository - 待 ISSUE_03
-    // PayrollValidationRepository - 待 ISSUE_03
-    // PayrollIssueRepository - 待 ISSUE_03
+    services.AddScoped<IEmployeeRepository, EmployeeRepository>();                     // ✅ 已注册
+    services.AddScoped<IPayslipRepository, PayslipRepository>();                       // ✅ 已注册 (ISSUE_03)
+    services.AddScoped<IPayrollValidationRepository, PayrollValidationRepository>();   // ✅ 已注册 (ISSUE_03)
+    services.AddScoped<IPayrollIssueRepository, PayrollIssueRepository>();             // ✅ 已注册 (ISSUE_03)
 
     // Services
     services.AddScoped<IDateTimeProvider, DateTimeProvider>(); // ✅
@@ -159,4 +159,4 @@ CSV 文件保存位置：`FairWorkly.API/wwwroot/uploads/`
 
 ---
 
-*最后更新: 2026-01-01*
+*最后更新: 2026-01-07 (ISSUE_03 完成，所有 Repository 已注册)*

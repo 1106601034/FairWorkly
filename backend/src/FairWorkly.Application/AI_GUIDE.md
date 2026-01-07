@@ -60,7 +60,7 @@ FairWorkly.Application/
 
 | 模块 | AI_GUIDE | 状态 |
 |------|----------|------|
-| **Payroll** | [Payroll/AI_GUIDE.md](./Payroll/AI_GUIDE.md) | ⏳ ISSUE_03 进行中 |
+| **Payroll** | [Payroll/AI_GUIDE.md](./Payroll/AI_GUIDE.md) | ✅ 完成 (MVP 100%) |
 | Compliance | - | 骨架已有 (Orchestrator) |
 | Documents | - | 已有骨架 |
 | Employees | - | Repository 接口已定义 |
@@ -132,13 +132,13 @@ Payroll/Features/
 | FluentValidation | ✅ |
 | ValidationBehavior | ✅ |
 
-## 待注册的服务 (ISSUE_03)
+## 已注册的服务 (ISSUE_03 完成)
 
 | 服务 | 状态 |
 |------|------|
-| IPayslipRepository → PayslipRepository | ⏳ |
-| IPayrollValidationRepository → PayrollValidationRepository | ⏳ |
-| IPayrollIssueRepository → PayrollIssueRepository | ⏳ |
+| IPayslipRepository → PayslipRepository | ✅ |
+| IPayrollValidationRepository → PayrollValidationRepository | ✅ |
+| IPayrollIssueRepository → PayrollIssueRepository | ✅ |
 
 ---
 
@@ -149,7 +149,7 @@ Payroll/Features/
 - [← .doc/AI_GUIDE.md](../../.doc/AI_GUIDE.md) - 项目状态
 
 ### 下级导航
-- [→ Payroll 模块](./Payroll/AI_GUIDE.md) ← **当前开发重点**
+- [→ Payroll 模块](./Payroll/AI_GUIDE.md) ← ✅ 已完成
 
 ### 同级导航
 - [API 层](../FairWorkly.API/AI_GUIDE.md)
@@ -158,4 +158,4 @@ Payroll/Features/
 
 ---
 
-*最后更新: 2026-01-02 (添加架构约束，同步 ISSUE_02 完成状态)*
+*最后更新: 2026-01-07 (Payroll MVP 100% 完成，所有服务已注册)*
