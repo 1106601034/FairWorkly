@@ -40,7 +40,7 @@ Start the FastAPI server with Uvicorn via Poetry (after the FAISS index exists).
 `config.yaml` defaults to the OpenAI “online” mode for both embeddings and LLM calls, so ensure `.env` has a valid `OPENAI_API_KEY`. To fall back to a local model, change `model_params.deployment_mode_llm` / `deployment_mode_embedding` back to `local` **and re-run** `scripts/ingest_assets_to_faiss.py` so the FAISS index matches the embedding model in use.
 
 ```bash
-poetry run uvicorn master_agent.main:app --reload --port 8000
+poetry run uvicorn master_agent.main:app --port 8000
 ```
 
 The root route (`/`) redirects to Swagger, so opening `http://localhost:8000/` immediately shows the API docs.
