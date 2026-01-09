@@ -96,7 +96,7 @@ class ComplianceFeature(FeatureBase):
             try:
                 self.retriever, self.vectorstore = _ensure_retriever(self.config, self.logger)
             except FileNotFoundError as exc:
-                self.logger.warning("Vector store unavailable: %s", exc)
+                self.logger.warning("Vector store unavailable: %s", exc, exc_info=True)
             except Exception as exc:
                 self.logger.error("Failed to initialize retriever: %s", exc, exc_info=True)
 
