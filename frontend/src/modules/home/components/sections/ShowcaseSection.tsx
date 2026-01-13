@@ -6,7 +6,7 @@ import { CheckCircleOutline, StoreOutlined, WarningOutlined } from "@mui/icons-m
 type PaletteKey = keyof Theme['palette'];
 type Tone = Extract<
     PaletteKey,
-    'primary' | 'success' | 'warning'    //取出palette定义好的样式
+    'primary' | 'success' | 'warning'   
 >;
 
 const PageSection = styled('section')(({ theme }) => ({
@@ -17,7 +17,7 @@ const PageSection = styled('section')(({ theme }) => ({
 }));
 
 const ContentContainer = styled(Box)(({ theme }) => ({
-    maxWidth: 1280,          //hardcode: theme里没有匹配参数
+    maxWidth: theme.fairworkly.layout.containerMaxWidth,          
     margin: '0 auto',
     padding: theme.spacing(0, 4),
 }));
@@ -35,11 +35,11 @@ const ContentLayout = styled(Box)(({ theme }) => ({
 
 const LeftDashboardContainer = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
-    borderRadius: theme.shape.borderRadius,      //样式为24px，theme里只有20px
+    borderRadius: theme.shape.borderRadius,     
     padding: theme.spacing(3),
     boxShadow: theme.shadows[4],
     border: `1px solid ${theme.palette.divider}`,
-}))
+}));
 
 const DashboardHeader = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.disabled,
@@ -47,29 +47,27 @@ const DashboardHeader = styled(Typography)(({ theme }) => ({
     letterSpacing: theme.spacing(0.1),
     marginBottom: theme.spacing(3),
     textAlign: 'center',
-    fontSize: '0.875rem',     //hardcode:没有匹配样式
-    fontWeight: '600',
-}))
+}));
 
 const DashboardCardsLayout = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
     marginBottom: theme.spacing(2)
-}))
+}));
 
 const CardContainer = styled(Card)<{ tone: Tone }>(({ theme, tone }) => ({
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(2),
-    borderRadius: theme.shape.borderRadius,       //样式为16px，theme里只有20px
+    borderRadius: theme.shape.borderRadius,       
     border: `1px solid ${theme.palette[tone].main}`,
     padding: theme.spacing(2.5),
     backgroundColor: theme.palette.background.default,
     transition: 'all 0.3 ease',
 
     '&:hover': {
-        transform: 'translateX(4px)',      //hardcode 
+        transform: 'translateX(4px)',      //hardcode: hover动画
     }
 }));
 
@@ -81,77 +79,68 @@ const CardIconContainer = styled(Box)(({ theme }) => ({
     width: theme.spacing(6),
     height: theme.spacing(6),
     backgroundColor: alpha(theme.palette.primary.main, 0.12),
-    borderRadius: '12px',   //hardcode
+    borderRadius: '12px',   //hardcode: 特定圆角
 
     '& svg': {
-        fontSize: '1.5rem',
+        fontSize: '1.5rem',     //hardcode: icon大小
         color: theme.palette.primary.main,
     },
 }));
 
 const CardTextContainer = styled(Box)({
-    flexGrow: '1',     //hardcode
+    flexGrow: 1, 
 });
 
 const CardTitle = styled(Typography)(({ theme }) => ({
-    //button
     marginBottom: theme.spacing(0.5),
-}))
+}));
 
 const CardDescription = styled(Typography)(({ theme }) => ({
-    fontSize: '0.8125rem',  //hardcode
     color: theme.palette.text.disabled,
-}))
+}));
 
-const CardBadgeContainer = styled(Box)<{ tone: Tone }>(({ theme, tone }) => ({
+const CardBadgeContainer = styled(Typography)<{ tone: Tone }>(({ theme, tone }) => ({
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(0.75),
     padding: theme.spacing(0.75, 1.5),
-    borderRadius: '8px',   //hardcode
-    fontSize: '0.8125rem',     //hardcode: theme里没有匹配样式
-    fontWeight: '600',
+    borderRadius: '8px',   //hardcode: 特定圆角
     whiteSpace: 'nowrap',
     backgroundColor: alpha(theme.palette[tone].main, 0.1),
     color: theme.palette[tone].main,
 
     '& svg': {
-        fontSize: '1rem',
+        fontSize: '1rem',     //hardcode: Icon大小
         verticalAlign: 'middle',
     },
-}))
+}));
 
 
 const DashboardBottomNote = styled(Typography)(({ theme }) => ({
     textAlign: 'center',
-    fontSize: '0.8125rem',   //hardcode
     color: theme.palette.text.disabled,
     fontStyle: 'italic',
-}))
+}));
 
 const RightInfoContainer = styled(Box)(({ theme }) => ({
     color: theme.palette.text.primary,
-    lineHeight: '1.6',    //hardcode
-}))
+    lineHeight: '1.6',    //hardcode: 特定行高
+}));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
-    fontSize: '1.875rem',
-    fontWeight: '800',
-    lineHeight: '1.2',
     marginBottom: theme.spacing(3),
-}))
+}));
 
 const SectionSubTitle = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.secondary,
     marginBottom: theme.spacing(3),
-    lineHeight: '1.7',    //hardcode
-}))
+}));
 
 const ChainList = styled('ul')(({ theme }) => ({
     listStyle: 'none',
     marginBottom: theme.spacing(3),
     padding: 0,
-}))
+}));
 
 
 const ChainItem = styled('li')(({ theme }) => ({
@@ -159,21 +148,21 @@ const ChainItem = styled('li')(({ theme }) => ({
     alignItems: 'flex-start',
     gap: theme.spacing(1.5),
     padding: theme.spacing(1.5, 0),
-}))
+}));
 
 const ChainText = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
-})
+});
 
 const ChainTitle = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.primary,
     fontWeight: 'bolder',
-}))
+}));
 
 const ChainDescription = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.primary,
-}))
+}));
 
 const ChainCheckIcon = styled(CheckCircleOutline)(({ theme }) => ({
     color: theme.palette.success.main,
@@ -183,20 +172,19 @@ const ChainCheckIcon = styled(CheckCircleOutline)(({ theme }) => ({
 }));
 
 const AwardsContainer = styled(Box)(({ theme }) => ({
-    //button
     color: theme.palette.text.secondary,
     padding: theme.spacing(2),
     backgroundColor: alpha(theme.palette.primary.main, 0.12),
-    borderRadius: '12px',     //hardcode
+    borderRadius: '12px',       //hardcode: 特定圆角
     borderLeft: `3px solid ${theme.palette.primary.main}`,
     marginBottom: theme.spacing(3),
-}))
+}));
 
 const AwardsTitle = styled(Typography)(({ theme }) => ({
     display: 'inline',
     color: theme.palette.primary.main,
     fontWeight: 'bolder',
-}))
+}));
 
 
 interface DashboardCardData {
@@ -206,7 +194,7 @@ interface DashboardCardData {
     description: string,
     badgeIcon: React.ComponentType<SvgIconProps>,
     badgeInfo: string,
-}
+};
 
 const DashbordCard = ({ data }: { data: DashboardCardData }) => {
     const { tone, badgeIcon: IconComponent, title, description, badgeInfo } = data;
@@ -217,16 +205,16 @@ const DashbordCard = ({ data }: { data: DashboardCardData }) => {
                 <StoreOutlined />
             </CardIconContainer>
             <CardTextContainer>
-                <CardTitle variant='button'>{title}</CardTitle>
-                <CardDescription>{description}</CardDescription>
+                <CardTitle variant='body1'>{title}</CardTitle>
+                <CardDescription variant='body2'>{description}</CardDescription>
             </CardTextContainer>
-            <CardBadgeContainer tone={tone}>
+            <CardBadgeContainer variant='subtitle2' tone={tone}>
                 <IconComponent />
                 {badgeInfo}
             </CardBadgeContainer>
         </CardContainer>
     )
-}
+};
 
 export const ShowcaseSection: React.FC = () => {
     const content = {
@@ -289,17 +277,17 @@ export const ShowcaseSection: React.FC = () => {
             <ContentContainer>
                 <ContentLayout>
                     <LeftDashboardContainer>
-                        <DashboardHeader>{content.dashboardHeader}</DashboardHeader>
+                        <DashboardHeader variant='subtitle2'>{content.dashboardHeader}</DashboardHeader>
                         <DashboardCardsLayout>
                             {cards.map((card) => (
                                 <DashbordCard key={card.id} data={card} />
                             ))}
                         </DashboardCardsLayout>
-                        <DashboardBottomNote>{content.dashboardNote}</DashboardBottomNote>
+                        <DashboardBottomNote variant='body2'>{content.dashboardNote}</DashboardBottomNote>
                     </LeftDashboardContainer>
                     <RightInfoContainer>
-                        <SectionTitle>{content.title}</SectionTitle>
-                        <SectionSubTitle>{content.subtitle}</SectionSubTitle>
+                        <SectionTitle variant='h3'>{content.title}</SectionTitle>
+                        <SectionSubTitle variant='body1'>{content.subtitle}</SectionSubTitle>
                         <ChainList>
                             {chains.map((chain) => (
                                 <ChainItem key={chain.id}>
@@ -319,7 +307,4 @@ export const ShowcaseSection: React.FC = () => {
             </ContentContainer>
         </PageSection>
     )
-
-
-
-}
+};

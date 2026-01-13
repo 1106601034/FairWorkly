@@ -106,7 +106,7 @@ export const theme = createTheme({
       navDark: '#1e1b4b',
     },
     layout: {
-      containerMaxWidth: 0
+      containerMaxWidth: 1280
     }
   },
 

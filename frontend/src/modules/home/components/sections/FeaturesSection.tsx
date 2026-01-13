@@ -6,7 +6,7 @@ import type { Theme } from "@mui/material/styles";
 type PaletteKey = keyof Theme['palette'];
 type Tone = Extract<
     PaletteKey,
-    'primary' | 'warning' | 'info'     //取出palette定义好的样式
+    'primary' | 'warning' | 'info'     
 >;
 
 const PageSection = styled('section')(({ theme }) => ({
@@ -17,7 +17,7 @@ const PageSection = styled('section')(({ theme }) => ({
 }));
 
 const ContentContainer = styled(Box)(({ theme }) => ({
-    maxWidth: 1280,          //hardcode: theme里没有匹配参数
+    maxWidth: theme.fairworkly.layout.containerMaxWidth, 
     margin: '0 auto',
     padding: theme.spacing(0, 4),
 }));
@@ -27,7 +27,7 @@ const HeaderContainer = styled('header')(({ theme }) => ({
     marginBottom: theme.spacing(8),
 }));
 
-const SectionEyebrow = styled(Box)(({ theme }) => ({
+const SectionEyebrow = styled(Typography)(({ theme }) => ({
     display: 'inline-flex',
     alignItems: 'center',
     gap: theme.spacing(1),
@@ -35,8 +35,6 @@ const SectionEyebrow = styled(Box)(({ theme }) => ({
     backgroundColor: alpha(theme.palette.primary.main, 0.12),
     color: theme.palette.primary.main,
     borderRadius: theme.shape.borderRadius,
-    fontSize: '0.8125rem',      //hardcode: theme里没有找到匹配样式
-    fontWeight: 600,
     textTransform: 'uppercase',
     marginBottom: theme.spacing(2),
 }));
@@ -80,12 +78,12 @@ const CardContainer = styled(Card)(({ theme }) => ({
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: theme.shape.borderRadius,
     transition: 'all 0.3s ease',
-    minHeight: '450px',  //hardcode
+    minHeight: '450px',     //hardcode: 卡片特定高度
 
     '&:hover': {
         boxShadow: theme.shadows[3],
         borderColor: theme.palette.primary.main,
-        transform: 'translateY(-4px)',     //hardcode
+        transform: 'translateY(-4px)',     //hardcode: hover动画
     },
 }));
 
@@ -111,25 +109,20 @@ const CardIconContainer = styled(Box)<{ tone: Tone }>(({ theme, tone }) => ({
     color: theme.palette[tone].main,
 
     '& svg': {
-        fontSize: '1.875rem',    //hardcode: icon大小theme里没有找到匹配
+        fontSize: '1.875rem',    //hardcode: icon大小
     },
 }));
 
 const CardTitle = styled(Typography)({
-    fontSize: '1.25rem',
-    fontWeight: '700',
-    lineHeight: '1.3',     //hardcode: 没有theme匹配样式
     whiteSpace: 'npwrap'
-})
+});
 
 const CardDescription = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.secondary,
-    flexGrow: '1',  //hardcode
+    flexGrow: 1, 
     textAlign: 'center',
     marginBottom: theme.spacing(3),
-    fontSize: '0.9375rem',
-    lineHeight: '1.65',   //hardcode: 没有theme匹配样式
-}))
+}));
 
 const CardFeaturesLayout = styled('ul')(({ theme }) => ({
     display: 'flex',
@@ -149,7 +142,7 @@ const CardFeatureItem = styled(Typography)<TypographyProps>(({ theme }) => ({
 
 const CardCheckIcon = styled(CheckCircleOutline)(({ theme }) => ({
     color: theme.palette.success.main,
-    fontSize: '1.125rem',         //hardcode: theme里没有找到匹配样式
+    fontSize: '1.125rem',         //hardcode: Icon大小
     flexShrink: 0,
     marginTop: theme.spacing(0.25),
 }));
@@ -163,7 +156,7 @@ interface FeatureCardData {
     title: string;
     description: string;
     features: string[];
-}
+};
 
 const FeatureCard = ({ data }: { data: FeatureCardData }) => {
     const { tone, icon: IconComponent, title, description, features } = data;
@@ -174,7 +167,7 @@ const FeatureCard = ({ data }: { data: FeatureCardData }) => {
                 <CardIconContainer tone={tone} aria-hidden='true'>
                     <IconComponent />
                 </CardIconContainer>
-                <CardTitle>{title}</CardTitle>
+                <CardTitle variant='h4'>{title}</CardTitle>
             </CardHeader>
 
             <CardDescription variant='body2'>{description}</CardDescription>
@@ -189,7 +182,7 @@ const FeatureCard = ({ data }: { data: FeatureCardData }) => {
             </CardFeaturesLayout>
         </CardContainer>
     )
-}
+};
 
 export const FeaturesSection: React.FC = () => {
     const content = {
@@ -228,7 +221,7 @@ export const FeaturesSection: React.FC = () => {
         <PageSection>
             <ContentContainer>
                 <HeaderContainer>
-                    <SectionEyebrow>
+                    <SectionEyebrow variant='caption'>
                         <LabelIcon aria-hidden='true'>
                             <AutoAwesomeOutlined fontSize='inherit' />
                         </LabelIcon>
@@ -247,4 +240,4 @@ export const FeaturesSection: React.FC = () => {
             </ContentContainer>
         </PageSection>
     )
-}
+};
