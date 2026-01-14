@@ -8,6 +8,9 @@
 !.vscode/settings.json
 !.vscode/extensions.json
 
+# Claude Code CLI local configuration
+.claude/
+
 # Visual Studio (Backend)
 .vs/
 *.user
