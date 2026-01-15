@@ -95,6 +95,9 @@ export function PermissionProvider({ children }: PermissionProviderProps) {
   // Check if user has a specific permission
   const hasPermission = useCallback(
     (permission: Permission): boolean => {
+      if (!permissions || !Array.isArray(permissions)) {
+        return false
+      }
       return permissions.includes(permission)
     },
     [permissions],
@@ -103,6 +106,9 @@ export function PermissionProvider({ children }: PermissionProviderProps) {
   // Check if user can access a module
   const canAccessModule = useCallback(
     (moduleId: ModuleId): boolean => {
+      if (!modules || !Array.isArray(modules)) {
+        return false
+      }
       return modules.some((m) => m.module === moduleId && m.canAccess)
     },
     [modules],
