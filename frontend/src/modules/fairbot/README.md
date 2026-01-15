@@ -29,7 +29,7 @@ src/modules/fairbot/
     useFairBot.ts
     useFileUpload.ts
     useMessageStream.ts
-    usePermissions.ts
+    usePermissions.ts      # Deprecated - use @/shared/hooks/usePermissions
     useResultsPanel.ts
   pages/
     FairBotChat.tsx
@@ -89,8 +89,10 @@ If `MainLayout` is wired in later, avoid double sidebars.
   - Returns `{ inputRef, controls }` where `controls` is ref-free render state and handlers.
 - `useResultsPanel`
   - Reads/writes current results to `sessionStorage`.
-- `usePermissions`
-  - Placeholder hook; currently allows all actions.
+- `usePermissions` (from `@/shared/hooks/usePermissions`)
+  - Shared permission hook providing `hasPermission()` and `canAccessModule()`.
+  - FairBot quick actions use this to filter visible actions based on user permissions.
+  - See `src/shared/types/permissions.types.ts` for available `Permission` values.
 
 Note: `FileUploadZone` receives `inputRef` separately to avoid ref-like props in render.
 
@@ -100,7 +102,9 @@ Note: `FileUploadZone` receives `inputRef` separately to avoid ref-like props in
 - Each action can:
   - Pre-fill an initial message.
   - Require a file upload.
-  - Gate visibility via permissions.
+  - Gate visibility via `requiredPermission` using the shared `Permission` enum.
+- Permission values are defined in `FAIRBOT_QUICK_ACTIONS.PERMISSIONS` (uses shared `Permission`).
+- Actions with `requiredPermission: null` are visible to all authenticated users.
 
 ## Results Panel
 
@@ -140,5 +144,25 @@ Note: `FileUploadZone` receives `inputRef` separately to avoid ref-like props in
 ## Current Limitations
 
 - Responses and summaries use mock data.
-- Permission checks always pass.
+- Permission checks use default role-based mappings (backend API not yet integrated).
 - Files are not persisted to session storage.
+
+## Permission System
+
+FairBot uses the shared permission system from `@/shared/hooks/usePermissions`:
+
+```typescript
+import { usePermissions } from '@/shared/hooks/usePermissions'
+import { Permission } from '@/shared/types/permissions.types'
+
+const { hasPermission } = usePermissions()
+if (hasPermission(Permission.CheckPayrollCompliance)) {
+  // User can access payroll compliance features
+}
+```
+
+Quick action permissions:
+- `CheckPayrollCompliance` - Required for payroll check action (admin only)
+- `CheckRosterCompliance` - Required for roster check action (admin + manager)
+- `ManageDocuments` - Required for contract generation action (admin only)
+- `null` - "Ask a Question" action is available to all users
