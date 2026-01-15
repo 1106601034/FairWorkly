@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReduxProvider } from '@/app/providers/ReduxProvider'
 import { ThemeProvider } from '@/app/providers/ThemeProvider'
+import { PermissionProvider } from '@/app/providers/PermissionProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,7 +18,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ReduxProvider>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <PermissionProvider>{children}</PermissionProvider>
+        </ThemeProvider>
       </ReduxProvider>
     </QueryClientProvider>
   )
