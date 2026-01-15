@@ -136,8 +136,10 @@ export interface FairBotAgentResponse {
   quickSummary?: FairBotResult
 }
 
-// Permission token string used to gate quick actions.
-export type FairBotPermission = string
+// Re-export Permission type from shared for backward compatibility.
+// New code should import directly from '@/shared/types/permissions.types'.
+export type { Permission as FairBotPermission } from '@/shared/types/permissions.types'
+import type { Permission } from '@/shared/types/permissions.types'
 
 // Configuration for a single quick action card.
 export interface FairBotQuickAction {
@@ -151,7 +153,7 @@ export interface FairBotQuickAction {
   acceptedFileTypes?: string[]
   initialMessage: string
   // Permission required to display the action (null = always visible).
-  requiredPermission: FairBotPermission | null
+  requiredPermission: Permission | null
 }
 
 // State for the results panel summary card.

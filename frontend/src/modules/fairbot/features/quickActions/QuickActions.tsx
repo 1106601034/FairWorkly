@@ -15,9 +15,10 @@ import {
   FAIRBOT_QUICK_ACTIONS_UI,
   FAIRBOT_TEXT,
 } from '../../constants/fairbot.constants'
-import type { FairBotPermission, FairBotQuickAction } from '../../types/fairbot.types'
+import type { FairBotQuickAction } from '../../types/fairbot.types'
 import type { FileUploadControls } from '../../hooks/useFileUpload'
-import { usePermissions } from '../../hooks/usePermissions'
+import { usePermissions } from '@/shared/hooks/usePermissions'
+import type { Permission } from '@/shared/types/permissions.types'
 import { quickActionLabels, quickActions } from './actions.config'
 
 type PaletteKey = 'info' | 'success' | 'secondary' | 'warning'
@@ -127,7 +128,7 @@ const resolvePaletteKeys = (color: string): ActionPaletteKeys => {
 }
 
 const hasPermissionForAction = (
-  hasPermission: (permission: FairBotPermission | null) => boolean,
+  hasPermission: (permission: Permission) => boolean,
   action: FairBotQuickAction,
 ) => {
   return !action.requiredPermission || hasPermission(action.requiredPermission)

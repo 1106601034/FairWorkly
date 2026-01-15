@@ -23,7 +23,7 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
 
         <FairBotCard />
 
-        <SidebarNav userRole={user?.role} />
+        <SidebarNav />
 
         <SidebarUserComponent
           name={user?.name}

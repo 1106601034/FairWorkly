@@ -1,23 +1,14 @@
 import { List } from '@mui/material'
 import { NavContainer, SectionLabel, SectionTitle } from '../Sidebar.styles'
-import { mainNavItems, settingsNavItems, type NavItemConfig } from '../config/navigation.config.tsx'
+import { mainNavItems, settingsNavItems } from '../config/navigation.config.tsx'
 import { NavItem } from './NavItem'
+import { usePermissions } from '@/shared/hooks/usePermissions'
 
-export interface SidebarNavProps {
-  userRole?: string
-}
+export function SidebarNav() {
+  const { canAccessModule } = usePermissions()
 
-function canAccess(allowedRoles: readonly string[], userRole?: string): boolean {
-  return userRole ? allowedRoles.includes(userRole) : false
-}
-
-function filterByRole(items: NavItemConfig[], userRole?: string): NavItemConfig[] {
-  return items.filter(item => canAccess(item.allowedRoles, userRole))
-}
-
-export function SidebarNav({ userRole }: SidebarNavProps) {
-  const visibleMainItems = filterByRole(mainNavItems, userRole)
-  const visibleSettingsItems = filterByRole(settingsNavItems, userRole)
+  const visibleMainItems = mainNavItems.filter((item) => canAccessModule(item.requiredModule))
+  const visibleSettingsItems = settingsNavItems.filter((item) => canAccessModule(item.requiredModule))
 
   return (
     <NavContainer>

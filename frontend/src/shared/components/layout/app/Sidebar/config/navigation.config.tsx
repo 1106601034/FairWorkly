@@ -4,14 +4,14 @@ import {
   Settings as SettingsOutlinedIcon,
   Shield as ShieldOutlinedIcon,
 } from '@mui/icons-material'
-
-export type UserRole = 'admin' | 'manager'
+import type { ModuleId } from '@/shared/types/permissions.types'
 
 export interface NavItemConfig {
   to: string
   icon: React.ReactElement
   label: string
-  allowedRoles: readonly UserRole[]
+  /** Module required to access this nav item. Uses canAccessModule() for filtering. */
+  requiredModule: ModuleId
 }
 
 export const mainNavItems: NavItemConfig[] = [
@@ -19,19 +19,19 @@ export const mainNavItems: NavItemConfig[] = [
     to: '/roster',
     icon: <ShieldOutlinedIcon />,
     label: 'Check Roster',
-    allowedRoles: ['admin', 'manager'],
+    requiredModule: 'roster',
   },
   {
     to: '/payroll',
     icon: <PaymentsOutlinedIcon />,
     label: 'Verify Payroll',
-    allowedRoles: ['admin'],
+    requiredModule: 'payroll',
   },
   {
     to: '/documents',
     icon: <DescriptionOutlinedIcon />,
     label: 'Documents Compliance',
-    allowedRoles: ['admin'],
+    requiredModule: 'documents',
   },
 ]
 
@@ -40,6 +40,6 @@ export const settingsNavItems: NavItemConfig[] = [
     to: '/settings',
     icon: <SettingsOutlinedIcon />,
     label: 'Settings',
-    allowedRoles: ['admin'],
+    requiredModule: 'settings',
   },
 ]

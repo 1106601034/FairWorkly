@@ -1,3 +1,5 @@
+import { Permission } from '@/shared/types/permissions.types'
+
 export const FAIRBOT_LABELS = {
   // Page title shown in the chat header.
   TITLE: 'FairBot AI Assistant',
@@ -553,14 +555,14 @@ export const FAIRBOT_QUICK_ACTIONS = {
     // Icon for document action.
     DOCUMENT: 'document',
   },
-  // Permission tokens required for actions.
+  // Permission tokens required for actions (using shared Permission enum).
   PERMISSIONS: {
     // Permission for payroll compliance action.
-    CHECK_PAYROLL: 'CheckPayrollCompliance',
+    CHECK_PAYROLL: Permission.CheckPayrollCompliance,
     // Permission for roster compliance action.
-    CHECK_ROSTER: 'CheckRosterCompliance',
+    CHECK_ROSTER: Permission.CheckRosterCompliance,
     // Permission for contract/document actions.
-    MANAGE_DOCUMENTS: 'ManageDocuments',
+    MANAGE_DOCUMENTS: Permission.ManageDocuments,
   },
   // Stable identifiers for quick action config.
   IDS: {
