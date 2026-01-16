@@ -23,6 +23,9 @@
 .raw_materials/
 .claude/
 
+# Backend Scripts
+backend/scripts/
+
 # Serilog log files
 logs/
 
