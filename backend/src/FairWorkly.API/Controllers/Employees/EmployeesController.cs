@@ -8,10 +8,20 @@ namespace FairWorkly.API.Controllers.Employees
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
-
+        
         public EmployeesController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
+        }
+        
+        [HttpGet("health")]
+        public IActionResult HealthCheck()
+        {
+            return Ok(new { 
+                status = "healthy", 
+                timestamp = DateTime.UtcNow,
+                message = "Backend is running!"
+            });
         }
     }
 }
