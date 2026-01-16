@@ -22,8 +22,9 @@ import { ResultsPanel } from '../features/resultsPanel/ResultsPanel'
 const PageContainer = styled('div')({
   display: 'grid',
   gridTemplateColumns: FAIRBOT_LAYOUT.GRID_TEMPLATE_COLUMNS,
-  alignItems: 'start',
-  minHeight: FAIRBOT_LAYOUT.PAGE_MIN_HEIGHT,
+  alignItems: 'stretch',
+  flex: 1,
+  minHeight: 0,
   width: FAIRBOT_LAYOUT.COLUMN_FULL_WIDTH,
   [`@media (max-width: ${FAIRBOT_LAYOUT.MOBILE_BREAKPOINT}px)`]: {
     gridTemplateColumns: FAIRBOT_TEXT.SINGLE_COLUMN,
@@ -34,9 +35,8 @@ const PageContainer = styled('div')({
 const ChatColumn = styled('section')({
   display: FAIRBOT_LAYOUT.DISPLAY_FLEX,
   flexDirection: FAIRBOT_LAYOUT.FLEX_DIRECTION_COLUMN,
-  alignSelf: FAIRBOT_LAYOUT.ALIGN_STRETCH,
-  height: FAIRBOT_LAYOUT.PAGE_MIN_HEIGHT,
-  minHeight: FAIRBOT_NUMBERS.ZERO,
+  minHeight: 0,
+  overflow: 'hidden',
 })
 
 // Page header for title/subtitle within the chat column.
@@ -62,8 +62,8 @@ const ScrollArea = styled('div')({
 // Right column that hosts the summary panel (stacks below on mobile).
 const ResultsColumn = styled('aside')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  alignSelf: FAIRBOT_LAYOUT.ALIGN_STRETCH,
-  height: FAIRBOT_LAYOUT.COLUMN_FULL_HEIGHT,
+  minHeight: 0,
+  overflow: 'auto',
   [`@media (max-width: ${FAIRBOT_LAYOUT.MOBILE_BREAKPOINT}px)`]: {
     order: FAIRBOT_NUMBERS.TWO,
   },

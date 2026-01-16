@@ -192,8 +192,8 @@ export const FAIRBOT_LAYOUT = {
   MESSAGE_LIST_PADDING: 8,
   // Grid template columns for the FairBot page container (2-column: chat + results).
   GRID_TEMPLATE_COLUMNS: FAIRBOT_GRID_TEMPLATE_COLUMNS,
-  // Minimum height for the page-level grid container.
-  PAGE_MIN_HEIGHT: '100vh',
+  // Height for the page-level grid container (fills remaining space in AppContent).
+  PAGE_MIN_HEIGHT: '100%',
   // Flex display value for layout containers.
   DISPLAY_FLEX: 'flex',
   // Column direction for flex layouts.
