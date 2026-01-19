@@ -41,7 +41,7 @@ const authSlice = createSlice({
     },
     setAccessToken(state, action: PayloadAction<string>) {
       state.accessToken = action.payload;
-      if (state.user) {
+      if (action.payload) {
         state.status = "authenticated";
       }
     },

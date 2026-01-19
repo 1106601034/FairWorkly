@@ -54,6 +54,11 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
         var res = await mediator.Send(cmd);
         if (res == null || res.Response == null)
         {
+            if (res?.FailureReason == RefreshFailureReason.AccountDisabled)
+            {
+                return StatusCode(403, new { message = "Account is disabled." });
+            }
+
             if (res?.FailureReason == RefreshFailureReason.ExpiredToken)
             {
                 return Unauthorized(new { message = "Refresh token expired." });

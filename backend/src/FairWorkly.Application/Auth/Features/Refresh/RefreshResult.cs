@@ -9,5 +9,6 @@ public class RefreshResult
 public enum RefreshFailureReason
 {
     InvalidToken,
-    ExpiredToken
+    ExpiredToken,
+    AccountDisabled
 }

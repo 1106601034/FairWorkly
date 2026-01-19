@@ -27,6 +27,14 @@ public class RefreshCommandHandler(
             };
         }
 
+        if (!user.IsActive)
+        {
+            return new RefreshResult
+            {
+                FailureReason = RefreshFailureReason.AccountDisabled
+            };
+        }
+
         // Check expiry
         if (!user.RefreshTokenExpiresAt.HasValue || user.RefreshTokenExpiresAt.Value < DateTime.UtcNow)
         {

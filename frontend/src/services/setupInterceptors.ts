@@ -90,7 +90,7 @@ export function setupInterceptors(store: StoreLike) {
       isRefreshing = true;
 
       try {
-        const refreshResponse = await refreshClient.post("/refresh");
+        const refreshResponse = await refreshClient.post("/auth/refresh");
         const accessToken =
           refreshResponse.data?.accessToken ?? refreshResponse.data?.token;
         const user = refreshResponse.data?.user ?? null;

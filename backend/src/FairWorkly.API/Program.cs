@@ -112,10 +112,16 @@ try
     // Configure JWT authentication
     var jwtSection = builder.Configuration.GetSection("JwtSettings");
     var jwtSecret = jwtSection["Secret"] ?? builder.Configuration["JwtSettings:Secret"];
+    if (string.IsNullOrWhiteSpace(jwtSecret) || jwtSecret == "REPLACE_IN_ENVIRONMENT")
+    {
+        throw new InvalidOperationException(
+            "JwtSettings:Secret is missing. Set it via environment config (user-secrets/appsettings.Development.json)."
+        );
+    }
     var jwtIssuer = jwtSection["Issuer"] ?? builder.Configuration["JwtSettings:Issuer"];
     var jwtAudience = jwtSection["Audience"] ?? builder.Configuration["JwtSettings:Audience"];
 
-    var key = !string.IsNullOrEmpty(jwtSecret) ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)) : null;
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret));
 
     builder.Services.AddAuthentication(options =>
     {
@@ -128,7 +134,7 @@ try
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuerSigningKey = key != null,
+            ValidateIssuerSigningKey = true,
             IssuerSigningKey = key,
             ValidateIssuer = !string.IsNullOrEmpty(jwtIssuer),
             ValidIssuer = jwtIssuer,
