@@ -174,51 +174,19 @@ const FAIRBOT_GRID_TEMPLATE_COLUMNS =
   `${FAIRBOT_GRID_COLUMNS.CHAT} ${FAIRBOT_GRID_COLUMNS.RESULTS}` as const
 
 export const FAIRBOT_LAYOUT = {
-  // Uniform margin for chat sections (header, scroll area, composer).
-  CHAT_SECTION_MARGIN_PX: 25,
   // Fixed height for the chat header.
   CHAT_HEADER_HEIGHT_PX: 50,
   // Fixed width for the results panel.
   RESULTS_PANEL_WIDTH: 360,
   // Breakpoint for mobile layout adjustments.
   MOBILE_BREAKPOINT: 900,
-  // Padding inside the results panel.
-  RESULTS_PANEL_PADDING: 24,
-  // Gap between elements inside results panel.
-  RESULTS_PANEL_GAP: 16,
-  // Gap between message list items.
-  MESSAGE_LIST_GAP: 16,
-  // Gap between stacked message elements.
-  MESSAGE_STACK_GAP: 8,
-  // Gap between message section blocks.
-  MESSAGE_SECTION_GAP: 1.5,
-  // Padding inside the message list container.
-  MESSAGE_LIST_PADDING: 8,
   // Grid template columns for the FairBot page container (2-column: chat + results).
   GRID_TEMPLATE_COLUMNS: FAIRBOT_GRID_TEMPLATE_COLUMNS,
-  // Flex display value for layout containers.
-  DISPLAY_FLEX: 'flex',
-  // Column direction for flex layouts.
-  FLEX_DIRECTION_COLUMN: 'column',
-  // Center alignment value for flex layouts.
-  ALIGN_CENTER: 'center',
-  // Center justification value for flex layouts.
-  JUSTIFY_CENTER: 'center',
-  // Border-box sizing for panel width calculations.
-  BOX_SIZING_BORDER_BOX: 'border-box',
-  // Full-width value for grid children.
-  COLUMN_FULL_WIDTH: '100%',
-  // Full-height value for stretching columns/panels.
-  COLUMN_FULL_HEIGHT: '100%',
 } as const
 
 export const FAIRBOT_UPLOAD = {
-  // Border radius for upload drop zone.
-  BORDER_RADIUS: 16,
   // Border override for upload drop zone.
   BORDER_NONE: 'none',
-  // Gap between upload zone elements.
-  GAP: 8,
   // Horizontal offset for helper text alignment.
   HELPER_TEXT_OFFSET_PX: 10,
   // Transition duration for upload hover states.
@@ -282,47 +250,22 @@ export const FAIRBOT_QUICK_ACTIONS_UI = {
 } as const
 
 export const FAIRBOT_RESULTS_UI = {
-  // Border radius for results cards.
-  CARD_RADIUS: 16,
-  // Border override for results panel.
-  PANEL_BORDER: 'none',
-  // Padding inside results cards.
-  CARD_PADDING: 16,
   // Radius for empty state icon container.
   EMPTY_ICON_RADIUS: 48,
-  // Gap between stats in results cards.
-  STAT_GAP: 12,
   // Minimum height for results panel.
   MIN_HEIGHT: 320,
+  // Number of columns in stats grid.
   STATS_GRID_COLUMNS: 2,
-  STACK_GAP: 16,
-  LIST_GAP: 8,
 } as const
 
 export const FAIRBOT_MESSAGE_UI = {
-  // Border radius for chat bubbles.
-  BUBBLE_RADIUS: 16,
-  // Padding inside chat bubbles.
-  BUBBLE_PADDING: 12,
   // Max width for chat bubbles.
   BUBBLE_MAX_WIDTH: 520,
-  // Border radius for file badge.
-  FILE_BADGE_RADIUS: 12,
-  // Horizontal padding for file badge.
-  FILE_BADGE_PADDING_X: 8,
-  // Vertical padding for file badge.
-  FILE_BADGE_PADDING_Y: 4,
 } as const
 
 export const FAIRBOT_INPUT_UI = {
-  // Border radius for input controls.
-  BORDER_RADIUS: 16,
-  // Gap between input controls.
-  GAP: 12,
   // Size for icon buttons.
   BUTTON_SIZE: 44,
-  // Border radius for the text field.
-  FIELD_RADIUS: 12,
 } as const
 
 export const FAIRBOT_TYPING_UI = {
