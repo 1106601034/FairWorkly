@@ -23,16 +23,21 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
     {
         var result = await mediator.Send(command);
 
-        if (result == null)
+        if (result == null || result.Response == null)
         {
+            if (result?.FailureReason == LoginFailureReason.AccountDisabled)
+            {
+                return StatusCode(403, new { message = "Account is disabled." });
+            }
+
             return Unauthorized(new { message = "Invalid email or password." });
         }
 
         // Put the RefreshToken into an HttpOnly cookie
-        SetRefreshTokenCookie(result.RefreshToken, result.RefreshTokenExpiration);
+        SetRefreshTokenCookie(result.Response.RefreshToken, result.Response.RefreshTokenExpiration);
 
         // Return the AccessToken and user info (excluding the RefreshToken)
-        return Ok(result);
+        return Ok(result.Response);
     }
 
     [HttpPost("refresh")]
@@ -47,16 +52,21 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
 
         var cmd = new RefreshCommand { RefreshTokenPlain = refreshTokenPlain };
         var res = await mediator.Send(cmd);
-        if (res == null)
+        if (res == null || res.Response == null)
         {
-            return Unauthorized();
+            if (res?.FailureReason == RefreshFailureReason.ExpiredToken)
+            {
+                return Unauthorized(new { message = "Refresh token expired." });
+            }
+
+            return Unauthorized(new { message = "Invalid refresh token." });
         }
 
         // Update cookie with new refresh token
-        SetRefreshTokenCookie(res.RefreshToken, res.RefreshTokenExpiration);
+        SetRefreshTokenCookie(res.Response.RefreshToken, res.Response.RefreshTokenExpiration);
 
         // Return new access token
-        return Ok(new { accessToken = res.AccessToken });
+        return Ok(new { accessToken = res.Response.AccessToken });
     }
 
     [HttpGet("me")]
@@ -65,7 +75,7 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
     {
         // Extract user id from claims (sub)
         var sub = User.FindFirstValue(JwtRegisteredClaimNames.Sub) ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!Guid.TryParse(sub, out var userId)) return Unauthorized();
+        if (!Guid.TryParse(sub, out var userId) || userId == Guid.Empty) return Unauthorized();
 
         var query = new GetCurrentUserQuery { UserId = userId };
         var user = await mediator.Send(query);
@@ -75,6 +85,7 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
     }
 
     [HttpPost("logout")]
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         // Read refresh token from cookie (if any) before deleting
@@ -93,17 +104,26 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
 
         var result = await mediator.Send(cmd);
 
-        // Remove cookie from client regardless of DB result
-        Response.Cookies.Delete("refreshToken");
+        // Remove cookie from client regardless of DB result (options must match original cookie)
+        Response.Cookies.Delete("refreshToken", GetRefreshTokenCookieOptions(DateTime.UtcNow));
 
-        if (result) return NoContent();
+        if (!result)
+        {
+            return BadRequest(new { message = "Logout failed." });
+        }
+
         return NoContent();
     }
 
     // --- Private helper: centralize cookie policy ---
     private void SetRefreshTokenCookie(string refreshToken, DateTime expires)
     {
-        var cookieOptions = new CookieOptions
+        Response.Cookies.Append("refreshToken", refreshToken, GetRefreshTokenCookieOptions(expires));
+    }
+
+    private CookieOptions GetRefreshTokenCookieOptions(DateTime expires)
+    {
+        return new CookieOptions
         {
             HttpOnly = true, // prevent JS access (XSS protection)
             Expires = expires,
@@ -115,8 +135,6 @@ public class AuthController(IMediator mediator, IWebHostEnvironment env) : Contr
             // Set cross-domain to None in production environment, and Lax in development environment
             SameSite = env.IsProduction() ? SameSiteMode.None : SameSiteMode.Lax,
         };
-
-        Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
     }
 
 }

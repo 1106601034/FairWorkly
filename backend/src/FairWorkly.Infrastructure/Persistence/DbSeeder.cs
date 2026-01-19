@@ -19,7 +19,10 @@ public static class DbSeeder
         var context = scope.ServiceProvider.GetRequiredService<FairWorklyDbContext>();
         var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
 
-        if (await context.Users.AnyAsync())
+        var users = context.Set<User>();
+        var organizations = context.Set<Organization>();
+
+        if (await users.AnyAsync())
         {
             return;
         }
@@ -62,8 +65,8 @@ public static class DbSeeder
             IsDeleted = false
         };
 
-        context.Organizations.Add(demoOrg);
-        context.Users.Add(adminUser);
+        organizations.Add(demoOrg);
+        users.Add(adminUser);
 
         await context.SaveChangesAsync();
     }

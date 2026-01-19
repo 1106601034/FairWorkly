@@ -12,21 +12,28 @@ public class RefreshCommandHandler(
     ITokenService tokenService,
     IUnitOfWork unitOfWork,
     IConfiguration configuration
-) : IRequestHandler<RefreshCommand, RefreshResponse?>
+) : IRequestHandler<RefreshCommand, RefreshResult>
 {
-    public async Task<RefreshResponse?> Handle(RefreshCommand request, CancellationToken cancellationToken)
+    public async Task<RefreshResult> Handle(RefreshCommand request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(request.RefreshTokenPlain)) return null;
-
         // Hash incoming plain token and lookup user
         var incomingHash = secretHasher.Hash(request.RefreshTokenPlain);
         var user = await userRepository.GetByRefreshTokenHashAsync(incomingHash, cancellationToken);
-        if (user == null) return null;
+        if (user == null)
+        {
+            return new RefreshResult
+            {
+                FailureReason = RefreshFailureReason.InvalidToken
+            };
+        }
 
         // Check expiry
         if (!user.RefreshTokenExpiresAt.HasValue || user.RefreshTokenExpiresAt.Value < DateTime.UtcNow)
         {
-            return null;
+            return new RefreshResult
+            {
+                FailureReason = RefreshFailureReason.ExpiredToken
+            };
         }
 
         // Passed validation - rotate tokens
@@ -43,11 +50,14 @@ public class RefreshCommandHandler(
         userRepository.Update(user);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return new RefreshResponse
+        return new RefreshResult
         {
-            AccessToken = newAccessToken,
-            RefreshToken = newRefreshPlain,
-            RefreshTokenExpiration = newExpires
+            Response = new RefreshResponse
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshPlain,
+                RefreshTokenExpiration = newExpires
+            }
         };
     }
 }

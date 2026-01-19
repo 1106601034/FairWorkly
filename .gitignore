@@ -8,6 +8,10 @@
 !.vscode/settings.json
 !.vscode/extensions.json
 
+# Claude Code CLI local configuration
+.claude/
+AGENTS.md
+
 # Visual Studio (Backend)
 .vs/
 *.user
@@ -18,6 +22,16 @@
 # Build Output (Backend)
 [Bb]in/
 [Oo]bj/
+
+# Backend AI Files
+.raw_materials/
+.claude/
+
+# Backend Scripts
+backend/scripts/
+
+# Serilog log files
+logs/
 
 # Database and Logs
 *.db

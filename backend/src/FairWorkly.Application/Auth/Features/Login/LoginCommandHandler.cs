@@ -14,9 +14,9 @@ public class LoginCommandHandler(
     ISecretHasher secretHasher,
     IUnitOfWork unitOfWork,
     IConfiguration configuration
-) : IRequestHandler<LoginCommand, LoginResponse?>
+) : IRequestHandler<LoginCommand, LoginResult>
 {
-    public async Task<LoginResponse?> Handle(
+    public async Task<LoginResult> Handle(
         LoginCommand request,
         CancellationToken cancellationToken
     )
@@ -25,13 +25,19 @@ public class LoginCommandHandler(
 
         if (user == null || !passwordHasher.Verify(request.Password, user.PasswordHash))
         {
-            return null; // Controller -> 401 Unauthorized
+            return new LoginResult
+            {
+                FailureReason = LoginFailureReason.InvalidCredentials
+            };
         }
 
         // Check account status (if account is disabled)
         if (!user.IsActive)
         {
-            return null;
+            return new LoginResult
+            {
+                FailureReason = LoginFailureReason.AccountDisabled
+            };
         }
 
         var accessToken = tokenService.GenerateAccessToken(user);
@@ -53,20 +59,23 @@ public class LoginCommandHandler(
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         // return
-        return new LoginResponse
+        return new LoginResult
         {
-            AccessToken = accessToken,
-            RefreshToken = refreshToken, // to Controller
-            RefreshTokenExpiration = expiresAt,
-            User = new UserDto
+            Response = new LoginResponse
             {
-                Id = user.Id,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Role = user.Role.ToString(),
-                OrganizationId = user.OrganizationId,
-            },
+                AccessToken = accessToken,
+                RefreshToken = refreshToken, // to Controller
+                RefreshTokenExpiration = expiresAt,
+                User = new UserDto
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Role = user.Role.ToString(),
+                    OrganizationId = user.OrganizationId,
+                },
+            }
         };
     }
 }
