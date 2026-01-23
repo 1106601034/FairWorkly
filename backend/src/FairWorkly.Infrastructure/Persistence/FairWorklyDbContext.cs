@@ -2,7 +2,6 @@ using System.Reflection;
 using FairWorkly.Domain.Auth.Entities;
 using FairWorkly.Domain.Common;
 using FairWorkly.Domain.Compliance.Entities;
-using FairWorkly.Domain.Compliance.Entities;
 using FairWorkly.Domain.Employees.Entities;
 using FairWorkly.Domain.Payroll.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -37,8 +36,6 @@ namespace FairWorkly.Infrastructure.Persistence
             // Align with singular table names in migrations
             modelBuilder.Entity<User>().ToTable("user");
             modelBuilder.Entity<Organization>().ToTable("organization");
-
-            modelBuilder.Entity<User>().HasIndex(user => user.Email).IsUnique();
 
             modelBuilder
                 .Entity<Organization>()
@@ -90,13 +87,6 @@ namespace FairWorkly.Infrastructure.Persistence
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
-                .Entity<RosterValidation>()
-                .HasOne(rosterValidation => rosterValidation.Roster)
-                .WithOne(roster => roster.RosterValidation)
-                .HasForeignKey<RosterValidation>(rosterValidation => rosterValidation.RosterId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder
                 .Entity<Roster>()
                 .HasOne(roster => roster.CreatedByUser)
                 .WithMany()
@@ -122,12 +112,12 @@ namespace FairWorkly.Infrastructure.Persistence
                 .HasOne(shift => shift.Roster)
                 .WithMany(roster => roster.Shifts)
                 .HasForeignKey(shift => shift.RosterId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
                 .Entity<Shift>()
                 .HasOne(shift => shift.Employee)
-                .WithMany()
+                .WithMany(e => e.Shifts)
                 .HasForeignKey(shift => shift.EmployeeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
@@ -146,6 +136,13 @@ namespace FairWorkly.Infrastructure.Persistence
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
+                .Entity<RosterValidation>()
+                .HasOne(rosterValidation => rosterValidation.Roster)
+                .WithOne(roster => roster.RosterValidation)
+                .HasForeignKey<RosterValidation>(rosterValidation => rosterValidation.RosterId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
                 .Entity<RosterIssue>()
                 .HasOne(ri => ri.Organization)
                 .WithMany()
@@ -157,14 +154,14 @@ namespace FairWorkly.Infrastructure.Persistence
                 .HasOne(ri => ri.RosterValidation)
                 .WithMany(rv => rv.Issues)
                 .HasForeignKey(ri => ri.RosterValidationId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
                 .Entity<RosterIssue>()
                 .HasOne(ri => ri.Roster)
                 .WithMany(r => r.Issues)
                 .HasForeignKey(ri => ri.RosterId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
                 .Entity<RosterIssue>()
