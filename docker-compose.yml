@@ -84,6 +84,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      agent-service:
+        condition: service_healthy
 
   # --------------------------------------------
   # Frontend (React/Vite)
