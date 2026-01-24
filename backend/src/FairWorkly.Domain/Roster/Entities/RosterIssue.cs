@@ -38,17 +38,6 @@ public class RosterIssue : BaseEntity
     public virtual RosterValidation RosterValidation { get; set; } = null!;
 
     /// <summary>
-    /// Which roster this issue belongs to
-    /// </summary>
-    [Required]
-    public Guid RosterId { get; set; }
-
-    /// <summary>
-    /// Navigation property to roster
-    /// </summary>
-    public virtual Roster Roster { get; set; } = null!;
-
-    /// <summary>
     /// Which shift has the issue (if issue is shift-specific)
     /// Null for employee-level issues (e.g. consecutive days)
     /// </summary>

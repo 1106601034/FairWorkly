@@ -101,9 +101,4 @@ public class Roster : AuditableEntity
     /// One roster has many shifts
     /// </summary>
     public virtual ICollection<Shift> Shifts { get; set; } = new List<Shift>();
-
-    /// <summary>
-    /// All compliance issues found in this roster
-    /// </summary>
-    public virtual ICollection<RosterIssue> Issues { get; set; } = [];
 }

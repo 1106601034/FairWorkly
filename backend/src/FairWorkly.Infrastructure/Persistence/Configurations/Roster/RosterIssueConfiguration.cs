@@ -28,13 +28,6 @@ public class RosterIssueConfiguration : IEntityTypeConfiguration<RosterIssue>
             .HasForeignKey(ri => ri.RosterValidationId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // RosterIssue -> Roster (configured in RosterConfiguration)
-        builder
-            .HasOne(ri => ri.Roster)
-            .WithMany(r => r.Issues)
-            .HasForeignKey(ri => ri.RosterId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         // RosterIssue -> Shift (optional, configured in ShiftConfiguration)
         builder
             .HasOne(ri => ri.Shift)
@@ -65,7 +58,7 @@ public class RosterIssueConfiguration : IEntityTypeConfiguration<RosterIssue>
 
         // Indexes
         builder.HasIndex(ri => new { ri.RosterValidationId, ri.Severity });
-        builder.HasIndex(ri => new { ri.RosterId, ri.EmployeeId });
+        builder.HasIndex(ri => new { ri.RosterValidationId, ri.EmployeeId });
         builder.HasIndex(ri => ri.CheckType);
 
         // Ignore computed properties

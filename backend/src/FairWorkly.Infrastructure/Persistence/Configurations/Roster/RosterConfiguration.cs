@@ -52,13 +52,6 @@ public class RosterConfiguration : IEntityTypeConfiguration<RosterEntity>
             .HasForeignKey(s => s.RosterId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Roster -> RosterIssues (One-to-Many)
-        builder
-            .HasMany(r => r.Issues)
-            .WithOne(i => i.Roster)
-            .HasForeignKey(i => i.RosterId)
-            .OnDelete(DeleteBehavior.NoAction);
-
         // Indexes
         builder.HasIndex(r => new { r.OrganizationId, r.WeekStartDate });
         builder.HasIndex(r => new

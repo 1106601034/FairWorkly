@@ -5,6 +5,7 @@ namespace FairWorkly.Infrastructure.Persistence;
 
 /// <summary>
 /// Factory for creating DbContext at design time (for EF Core migrations)
+/// Must match runtime configuration in DependencyInjection.cs
 /// </summary>
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<FairWorklyDbContext>
 {
@@ -19,7 +20,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<FairWorkly
                 "Set FAIRWORKLY_CONNECTION_STRING for design-time migrations."
             );
         }
-        optionsBuilder.UseNpgsql(connectionString);
+        optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
 
         return new FairWorklyDbContext(optionsBuilder.Options);
     }
