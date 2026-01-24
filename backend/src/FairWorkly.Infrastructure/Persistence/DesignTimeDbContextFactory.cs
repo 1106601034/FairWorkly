@@ -12,10 +12,14 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<FairWorkly
     {
         var optionsBuilder = new DbContextOptionsBuilder<FairWorklyDbContext>();
 
-        // Use a dummy connection string for design-time operations
-        optionsBuilder.UseNpgsql(
-            "Host=localhost;Database=FairWorklyDb;Username=postgres;Password=postgres"
-        );
+        var connectionString = Environment.GetEnvironmentVariable("FAIRWORKLY_CONNECTION_STRING");
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException(
+                "Set FAIRWORKLY_CONNECTION_STRING for design-time migrations."
+            );
+        }
+        optionsBuilder.UseNpgsql(connectionString);
 
         return new FairWorklyDbContext(optionsBuilder.Options);
     }
