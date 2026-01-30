@@ -4,7 +4,7 @@ A modular Python package for parsing roster/employee Excel files (.xlsx) with co
 
 ## Module Structure
 
-```
+```text
 roster_import/
 ├── __init__.py       # Public exports
 ├── parser.py         # RosterExcelParser orchestrator
@@ -136,13 +136,13 @@ If the `Is Overnight` column is present, its value is respected and suppresses t
 ### 1. Time Ranges in One Cell
 
 **Wrong:**
-```
+```text
 | Start Time    |
 | 9:00-17:00    |   <-- This will fail!
 ```
 
 **Correct:**
-```
+```text
 | Start Time | End Time |
 | 9:00       | 17:00    |
 ```
@@ -153,7 +153,7 @@ Only `.xlsx` files are supported. Save your file as "Excel Workbook (.xlsx)".
 
 ### 3. Invalid Email Format
 
-```
+```text
 | Employee Email    |
 | john              |   <-- This will fail!
 | john@example.com  |   <-- This works!

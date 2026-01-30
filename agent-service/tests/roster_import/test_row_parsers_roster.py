@@ -18,7 +18,7 @@ class TestOvernightShifts:
 
         response = handler.parse_roster_excel(str(temp_excel_path))
 
-        result, issues = response.result, response.issues
+        result = response.result
 
         assert len(result.entries) == 2
         assert result.entries[0].is_overnight is True  # 22:00-06:00
@@ -34,7 +34,7 @@ class TestOvernightShifts:
 
         response = handler.parse_roster_excel(str(temp_excel_path))
 
-        result, issues = response.result, response.issues
+        result = response.result
 
         assert len(result.entries) == 1
         assert result.entries[0].is_overnight is True  # 00:00 < 16:00
@@ -97,54 +97,54 @@ class TestBreakWarnings:
 class TestTimeRangeDetection:
     """Tests for time range detection in _parse_time()."""
 
-    def test_hyphen_range_detected(self, handler):
+    def test_hyphen_range_detected(self):
         """Test that 9:00-17:00 pattern is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00-17:00")
 
-    def test_tilde_range_detected(self, handler):
+    def test_tilde_range_detected(self):
         """Test that 9:00~17:00 pattern is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00~17:00")
 
-    def test_fullwidth_tilde_range_detected(self, handler):
+    def test_fullwidth_tilde_range_detected(self):
         """Test that 9:00～17:00 (full-width tilde) pattern is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00～17:00")
 
-    def test_en_dash_range_detected(self, handler):
+    def test_en_dash_range_detected(self):
         """Test that 9:00–17:00 (en-dash) pattern is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00–17:00")
 
-    def test_em_dash_range_detected(self, handler):
+    def test_em_dash_range_detected(self):
         """Test that 9:00—17:00 (em-dash) pattern is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00—17:00")
 
-    def test_to_range_detected(self, handler):
+    def test_to_range_detected(self):
         """Test that '9:00 to 17:00' pattern is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00 to 17:00")
 
-    def test_range_with_spaces_detected(self, handler):
+    def test_range_with_spaces_detected(self):
         """Test that '9:00 - 17:00' (with spaces) is detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9:00 - 17:00")
 
-    def test_simple_hour_range_detected(self, handler):
+    def test_simple_hour_range_detected(self):
         """Test that simple hour ranges like '9-17' are detected."""
-        with pytest.raises(ValueError, match="Time range detected"):
+        with pytest.raises(ValueError, match=r"Time range detected"):
             parse_time("9-17")
 
-    def test_error_message_includes_original_value(self, handler):
+    def test_error_message_includes_original_value(self):
         """Test that error message includes the original value."""
         with pytest.raises(ValueError, match="9:00-17:00"):
             parse_time("9:00-17:00")
 
-    def test_error_message_suggests_separate_columns(self, handler):
+    def test_error_message_suggests_separate_columns(self):
         """Test that error message suggests using separate columns."""
-        with pytest.raises(ValueError, match="separate.*Start Time.*End Time"):
+        with pytest.raises(ValueError, match=r"separate.*Start Time.*End Time"):
             parse_time("9:00-17:00")
 
     def test_roster_with_time_range_returns_error(self, handler, temp_excel_path):

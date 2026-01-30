@@ -1,3 +1,4 @@
+import asyncio
 import pytest
 from datetime import date, time
 from decimal import Decimal
@@ -138,3 +139,40 @@ class TestParseRosterExcel:
         assert len(errors) == 1  # invalid email row
         assert "Invalid email format" in errors[0].message
 
+
+class TestParseExcel:
+    """Tests for parse_excel() temp file handling."""
+
+    def test_parse_excel_cleans_temp_on_read_error(self, handler, tmp_path, monkeypatch):
+        """Ensure temp file is removed if file.read() raises."""
+        temp_file = tmp_path / "upload.xlsx"
+
+        class DummyTmpFile:
+            def __init__(self, path):
+                self.name = str(path)
+                path.write_bytes(b"")
+
+            def write(self, _data):
+                return None
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, _exc_type, _exc, _tb):
+                return None
+
+        def fake_named_tempfile(*_args, **_kwargs):
+            return DummyTmpFile(temp_file)
+
+        monkeypatch.setattr("tempfile.NamedTemporaryFile", fake_named_tempfile)
+
+        class DummyUploadFile:
+            filename = "upload.xlsx"
+
+            async def read(self):
+                raise RuntimeError("read failed")
+
+        with pytest.raises(RuntimeError, match=r"read failed"):
+            asyncio.run(handler.parse_excel(DummyUploadFile()))
+
+        assert not temp_file.exists()

@@ -1,5 +1,5 @@
 import pytest
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 
 class TestReadExcel:
     """Tests for read_excel() function."""
@@ -49,7 +49,7 @@ class TestReadExcel:
         txt_file = tmp_path / "test.txt"
         txt_file.write_text("not an excel file")
 
-        with pytest.raises(ValueError, match="Invalid file format"):
+        with pytest.raises(ValueError, match=r"Invalid file format"):
             handler.read_excel(str(txt_file))
 
     def test_read_specific_sheet(self, handler, temp_excel_path):
@@ -74,8 +74,20 @@ class TestReadExcel:
 
     def test_read_invalid_sheet_name(self, handler, roster_excel):
         """Test reading a non-existent sheet."""
-        with pytest.raises(ValueError, match="Sheet.*not found"):
+        with pytest.raises(ValueError, match=r"Sheet.*not found"):
             handler.read_excel(str(roster_excel), sheet_name="NonExistent")
+
+    def test_read_invalid_sheet_name_closes_workbook(self, handler, temp_excel_path):
+        """Invalid sheet name should not leave the workbook open."""
+        wb = Workbook()
+        wb.active.title = "Roster"
+        wb.save(temp_excel_path)
+
+        with pytest.raises(ValueError, match=r"Sheet.*not found"):
+            handler.read_excel(str(temp_excel_path), sheet_name="Missing")
+
+        reopened = load_workbook(temp_excel_path, read_only=True, data_only=True)
+        reopened.close()
 
     def test_empty_file(self, handler, temp_excel_path):
         """Test reading an empty Excel file."""
@@ -95,4 +107,3 @@ class TestReadExcel:
 
         data = handler.read_excel(str(temp_excel_path))
         assert data[0]["Optional"] is None
-

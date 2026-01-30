@@ -16,7 +16,7 @@ class TestHeaderAliases:
 
         response = handler.parse_roster_excel(str(temp_excel_path))
 
-        result, issues = response.result, response.issues
+        result = response.result
         assert len(result.entries) == 1
         assert result.entries[0].employee_email == "john@example.com"
 
@@ -59,7 +59,7 @@ class TestDuplicateCanonicalDetection:
 
         response = handler.parse_roster_excel(str(temp_excel_path))
 
-        result, issues = response.result, response.issues
+        result = response.result
         assert len(result.entries) == 1
         assert result.entries[0].employee_email == "john@example.com"
 
@@ -73,6 +73,6 @@ class TestDuplicateCanonicalDetection:
 
         response = handler.parse_roster_excel(str(temp_excel_path))
 
-        result, issues = response.result, response.issues
+        result = response.result
         assert len(result.entries) == 1
         assert result.entries[0].employee_email == "john@example.com"

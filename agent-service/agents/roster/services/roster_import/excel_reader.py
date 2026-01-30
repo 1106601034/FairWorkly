@@ -43,6 +43,7 @@ def read_excel(
 
     if sheet_name:
         if sheet_name not in workbook.sheetnames:
+            workbook.close()
             raise ValueError(f"Sheet '{sheet_name}' not found. Available sheets: {workbook.sheetnames}")
         sheet = workbook[sheet_name]
     else:

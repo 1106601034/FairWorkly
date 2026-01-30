@@ -380,13 +380,28 @@ def parse_employee_row(
             )
         )
 
+    raw_start_date = normalized.get("start_date")
+    try:
+        start_date = parse_date(raw_start_date)
+    except ValueError as exc:
+        raise ParseIssueError(
+            ParseIssue(
+                row=row_num,
+                severity=ParseIssueSeverity.ERROR,
+                code="INVALID_DATE",
+                message=str(exc),
+                column="start_date",
+                value=get_string(raw_start_date),
+            )
+        ) from exc
+
     entry = EmployeeEntry(
         excel_row=row_num,
         name=name,
         email=email,
         role=role,
         department=get_string(normalized.get("department")),
-        start_date=parse_date(normalized.get("start_date")),
+        start_date=start_date,
     )
 
     return entry, warnings

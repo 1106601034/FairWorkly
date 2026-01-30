@@ -150,15 +150,19 @@ class RosterExcelParser:
         import tempfile
 
         suffix = Path(file.filename).suffix if file.filename else ".xlsx"
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-            content = await file.read()
-            tmp.write(content)
-            tmp_path = tmp.name
-
+        tmp_path: Optional[str] = None
         try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+                tmp_path = tmp.name
+                content = await file.read()
+                tmp.write(content)
             return self.read_excel(tmp_path, header_row=header_row)
         finally:
-            os.unlink(tmp_path)
+            if tmp_path:
+                try:
+                    os.unlink(tmp_path)
+                except FileNotFoundError:
+                    pass
 
     def _coerce_mode(self, mode: ParseMode | str) -> ParseMode:
         if isinstance(mode, ParseMode):

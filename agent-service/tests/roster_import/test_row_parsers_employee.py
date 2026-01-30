@@ -20,3 +20,18 @@ class TestParseEmployeeExcel:
         assert entries[0].department == "Sales"
         assert entries[0].excel_row == 2
 
+    def test_invalid_start_date_reports_issue(self, handler, temp_excel_path):
+        """Invalid start_date should return INVALID_DATE issue."""
+        wb = Workbook()
+        ws = wb.active
+        ws.append(["Name", "Email", "Role", "Department", "Start Date"])
+        ws.append(["John Smith", "john@example.com", "Manager", "Sales", "2023-13-40"])
+        wb.save(temp_excel_path)
+
+        response = handler.parse_employee_excel(str(temp_excel_path))
+
+        assert len(response.result.entries) == 0
+        assert len(response.issues) == 1
+        issue = response.issues[0]
+        assert issue.code == "INVALID_DATE"
+        assert issue.column == "start_date"
