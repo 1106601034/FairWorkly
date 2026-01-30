@@ -44,13 +44,12 @@ for entry in result.entries:
 
 Your Excel file **must** have these 4 columns:
 
-| Column | Example | Description |
-|--------|---------|-------------|
+| Column         | Example            | Description         |
+| -------------- | ------------------ | ------------------- |
 | Employee Email | `john@example.com` | Valid email address |
-| Date | `2024-01-15` | Shift date |
-| Start Time | `09:00` | When the shift starts |
-| End Time | `17:00` | When the shift ends |
-
+| Date           | `2024-01-15`       | Shift date          |
+| Start Time     | `09:00`            | When the shift starts |
+| End Time       | `17:00`            | When the shift ends |
 ### Optional Columns
 
 | Column | Example | Description |
