@@ -6,7 +6,7 @@ from master_agent.intent_router import IntentRouter
 from master_agent.feature_registry import FeatureRegistry
 
 
-# ⭐ ComplianceFeature（placeholder）
+# ⭐ ComplianceFeature (placeholder)
 from master_agent.features.compliance_feature import ComplianceFeature
 from master_agent.features.demo_feature import DemoPayrollFeature
 
