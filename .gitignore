@@ -85,3 +85,9 @@ backend/schema.sql
 
 # FAISS indexes
 document_faiss/
+
+# Windows reserved names
+nul
+con
+prn
+aux
