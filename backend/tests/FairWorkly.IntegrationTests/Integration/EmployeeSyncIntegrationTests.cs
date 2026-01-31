@@ -1,5 +1,4 @@
 using FairWorkly.Application.Common.Interfaces;
-using FairWorkly.Application.Payroll.Interfaces;
 using FairWorkly.Application.Payroll.Services;
 using FairWorkly.Domain.Auth.Entities;
 using FairWorkly.Domain.Auth.Enums;
@@ -10,10 +9,9 @@ using FairWorkly.Infrastructure.Persistence.Repositories.Employees;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Moq;
 using Xunit;
 
-namespace FairWorkly.UnitTests.Integration;
+namespace FairWorkly.IntegrationTests.Integration;
 
 /// <summary>
 /// Integration tests for ISSUE_01: CSV Parser + Employee Sync
@@ -40,7 +38,8 @@ public class EmployeeSyncIntegrationTests : IAsyncLifetime
             .Build();
 
         return configuration.GetConnectionString("DefaultConnection")
-            ?? "Host=localhost;Port=5432;Database=FairWorklyDb;Username=postgres;Password=fairworkly123";
+            ?? throw new InvalidOperationException(
+                "No database connection string configured. Set FAIRWORKLY_TEST_DB_CONNECTION or configure appsettings.json");
     }
 
     private FairWorklyDbContext _dbContext = null!;
@@ -49,8 +48,9 @@ public class EmployeeSyncIntegrationTests : IAsyncLifetime
     private CsvParserService _csvParserService = null!;
     private Guid _testOrganizationId;
 
-    private readonly Mock<IDateTimeProvider> _mockDateTimeProvider = new();
-    private readonly DateTimeOffset _testDateTime = new(2025, 12, 28, 0, 0, 0, TimeSpan.Zero);
+    private readonly IDateTimeProvider _dateTimeProvider = new FixedDateTimeProvider(
+        new DateTimeOffset(2025, 12, 28, 0, 0, 0, TimeSpan.Zero)
+    );
 
     public async Task InitializeAsync()
     {
@@ -61,12 +61,10 @@ public class EmployeeSyncIntegrationTests : IAsyncLifetime
 
         _dbContext = new FairWorklyDbContext(options);
 
-        _mockDateTimeProvider.Setup(x => x.UtcNow).Returns(_testDateTime);
-
         _employeeRepository = new EmployeeRepository(_dbContext);
         _employeeSyncService = new EmployeeSyncService(
             _employeeRepository,
-            _mockDateTimeProvider.Object
+            _dateTimeProvider
         );
         _csvParserService = new CsvParserService();
 
@@ -79,6 +77,18 @@ public class EmployeeSyncIntegrationTests : IAsyncLifetime
         // Clean up test data
         await CleanupTestDataAsync();
         await _dbContext.DisposeAsync();
+    }
+
+    private sealed class FixedDateTimeProvider : IDateTimeProvider
+    {
+        public FixedDateTimeProvider(DateTimeOffset utcNow)
+        {
+            UtcNow = utcNow;
+            Now = utcNow;
+        }
+
+        public DateTimeOffset Now { get; }
+        public DateTimeOffset UtcNow { get; }
     }
 
     private async Task CreateTestOrganizationAsync()

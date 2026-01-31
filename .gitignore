@@ -81,6 +81,8 @@ agent-service/.env
 backend/src/FairWorkly.API/appsettings.json
 backend/src/FairWorkly.API/appsettings.Development.json
 backend/tests/FairWorkly.UnitTests/appsettings.json
+backend/tests/FairWorkly.IntegrationTests/appsettings.json
+backend/tests/FairWorkly.IntegrationTests/appsettings.Development.json
 
 # Generated SQL schema (can be regenerated with: dotnet ef migrations script --idempotent)
 backend/schema.sql

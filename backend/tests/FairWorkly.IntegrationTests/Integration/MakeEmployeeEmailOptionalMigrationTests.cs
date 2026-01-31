@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
-namespace FairWorkly.UnitTests.Integration;
+namespace FairWorkly.IntegrationTests.Integration;
 
 /// <summary>
 /// Tests for MakeEmployeeEmailOptional migration (20260131000438)
