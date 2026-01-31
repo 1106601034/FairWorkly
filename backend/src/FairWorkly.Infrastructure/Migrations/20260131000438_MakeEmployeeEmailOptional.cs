@@ -39,6 +39,14 @@ namespace FairWorkly.Infrastructure.Migrations
                 name: "ix_employees_organization_id_email",
                 table: "employees");
 
+            migrationBuilder.Sql(
+                """
+                UPDATE employees
+                SET email = CONCAT('unknown+', id::text, '@placeholder.local')
+                WHERE email IS NULL;
+                """
+            );
+
             migrationBuilder.AlterColumn<string>(
                 name: "email",
                 table: "employees",
