@@ -141,7 +141,7 @@ public class RosterIssue : BaseEntity
     /// For multi-shift issues (e.g. consecutive days, rest period).
     /// Stored as a comma-separated list of ISO dates (yyyy-MM-dd).
     /// </summary>
-    public AffectedDateSet AffectedDates { get; set; }
+    public AffectedDateSet AffectedDates { get; set; } = AffectedDateSet.Empty;
 
     /// <summary>
     /// Number of shifts affected by this issue
