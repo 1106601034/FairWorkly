@@ -71,7 +71,7 @@ public class RosterValidation : AuditableEntity
     public int TotalIssuesCount { get; set; }
 
     /// <summary>
-    /// Number of critical issues
+    /// Number of failing issues (Severity >= Error) that cause validation to fail
     /// </summary>
     public int CriticalIssuesCount { get; set; }
 

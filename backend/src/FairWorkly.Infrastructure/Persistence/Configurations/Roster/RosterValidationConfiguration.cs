@@ -1,4 +1,5 @@
 using FairWorkly.Domain.Roster.Entities;
+using FairWorkly.Domain.Roster.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -54,5 +55,9 @@ public class RosterValidationConfiguration : IEntityTypeConfiguration<RosterVali
 
         // Property configurations
         builder.Property(rv => rv.Notes).HasMaxLength(1000);
+        builder
+            .Property(rv => rv.ExecutedCheckTypes)
+            .HasConversion(v => v.ToStorageString(), v => ExecutedCheckTypeSet.Parse(v))
+            .HasMaxLength(500);
     }
 }
