@@ -22,4 +22,6 @@ jobs:
       - name: Install actionlint
         run: go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.8
       - name: Run actionlint
-        run: "$(go env GOPATH)/bin/actionlint"
+        run: |
+          actionlint_bin="$(go env GOPATH)/bin/actionlint"
+          "$actionlint_bin"
